@@ -1,4 +1,5 @@
-package test.yannholo.core;
+package test.yannholo.core.actions;
+
 
 public class Nothing implements Action {
 

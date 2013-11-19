@@ -1,4 +1,4 @@
-package test.yannholo.core;
+package test.yannholo.core.maps.tiles;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -6,12 +6,14 @@ import java.awt.Paint;
 import java.awt.Point;
 import java.util.Map;
 
-public class Case {
+import test.yannholo.core.entities.Entity;
+
+public class Tile {
     private Point point;
-    private Map<Point, Case>cases;
-    private Bestiole bestiole;
+    private Map<Point, Tile>cases;
+    private Entity bestiole;
     
-    public Case(Point point, Map<Point, Case> cases) {
+    public Tile(Point point, Map<Point, Tile> cases) {
         this.point = point;
         this.cases = cases;
     }
@@ -21,7 +23,7 @@ public class Case {
         if(arg0.getClass() != this.getClass()) {
             return false;
         }
-        Case autre = (Case) arg0;
+        Tile autre = (Tile) arg0;
         return point.x == autre.getPoint().x && point.y == autre.getPoint().y;
     }
 
@@ -29,11 +31,11 @@ public class Case {
         return point;
     }
 
-    public Bestiole getBestiole() {
+    public Entity getBestiole() {
         return bestiole;
     }
 
-    public void setBestiole(Bestiole bestiole) {
+    public void setBestiole(Entity bestiole) {
         this.bestiole = bestiole;
     }
 

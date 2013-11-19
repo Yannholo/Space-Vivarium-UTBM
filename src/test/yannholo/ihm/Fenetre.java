@@ -1,4 +1,4 @@
-package test.yannholo;
+package test.yannholo.ihm;
 
 import java.awt.Color;
 

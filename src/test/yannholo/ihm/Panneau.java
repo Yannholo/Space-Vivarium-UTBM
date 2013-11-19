@@ -1,4 +1,4 @@
-package test.yannholo;
+package test.yannholo.ihm;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -11,9 +11,9 @@ import java.util.Map;
 
 import javax.swing.JPanel;
 
-import test.yannholo.core.Action;
-import test.yannholo.core.Bestiole;
-import test.yannholo.core.Case;
+import test.yannholo.core.actions.Action;
+import test.yannholo.core.entities.Entity;
+import test.yannholo.core.maps.tiles.Tile;
 
 public class Panneau extends JPanel { 
 
@@ -22,27 +22,27 @@ public class Panneau extends JPanel {
     static final int sizey = 50;
     static final int nbBestioles = 10; 
 
-    Map<Point, Case> cases;
-    List<Bestiole> bestioles;
+    Map<Point, Tile> cases;
+    List<Entity> bestioles;
 
 
     public Panneau() {
         super();
-        cases = new HashMap<Point, Case>(sizex*sizey);
+        cases = new HashMap<Point, Tile>(sizex*sizey);
         // on crée toutes les cases
         Point tmp;
         for(int x = 0; x < sizex; x++){
             for(int y = 0; y < sizey; y++){
                 tmp = new Point(x, y);
-                cases.put(tmp, new Case(tmp, cases));
+                cases.put(tmp, new Tile(tmp, cases));
             }
         }
         bestioles = new ArrayList<>(nbBestioles);
         for(int i = 0 ; i < nbBestioles; i++){
             int x = (int) (Math.random()*sizex);
             int y = (int) (Math.random()*sizey);
-            Case unecase  = cases.get(new Point(x, y));
-            Bestiole bestiole = new Bestiole(unecase);
+            Tile unecase  = cases.get(new Point(x, y));
+            Entity bestiole = new Entity(unecase);
             bestioles.add(bestiole);
             unecase.setBestiole(bestiole);
         }
@@ -54,13 +54,13 @@ public class Panneau extends JPanel {
         //très très sale
         System.out.println("update " + counter++);
         // on choppe ce que veulent faire les bestioles
-        List<Case> changed = new LinkedList<>();
+        List<Tile> changed = new LinkedList<>();
         List<Action> askedActions = new ArrayList<>(bestioles.size());
-        for (Bestiole bestiole : bestioles) {
-            Case depart = bestiole.getLaCase();
+        for (Entity bestiole : bestioles) {
+            Tile depart = bestiole.getLaCase();
             // on choppe toutes les cases vues par la bestiolle
             int nbCasesVues = bestiole.getVision()*4 + (int)Math.pow(4, bestiole.getVision());
-            List<Case> vues = new ArrayList<>(nbCasesVues);
+            List<Tile> vues = new ArrayList<>(nbCasesVues);
             for(int x = depart.getPoint().x - bestiole.getVision() ;
                     x <= depart.getPoint().x + bestiole.getVision() ;
                     x++) {
@@ -82,7 +82,7 @@ public class Panneau extends JPanel {
 
         // on affiche les Cases et tout
         Graphics2D g2d = (Graphics2D)g; 
-        for (Case unecase : cases.values()) {
+        for (Tile unecase : cases.values()) {
             unecase.print(g2d);
         }
 

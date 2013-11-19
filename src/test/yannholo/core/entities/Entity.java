@@ -1,20 +1,25 @@
-package test.yannholo.core;
+package test.yannholo.core.entities;
 
 import java.util.List;
 
-public class Bestiole {
+import test.yannholo.core.actions.Action;
+import test.yannholo.core.actions.Move;
+import test.yannholo.core.actions.Nothing;
+import test.yannholo.core.maps.tiles.Tile;
+
+public class Entity {
     
-    private Case laCase;
+    private Tile laCase;
     
-    public Bestiole(Case depart) {
+    public Entity(Tile depart) {
         laCase = depart;
     }
 
-    public Case getLaCase() {
+    public Tile getLaCase() {
         return laCase;
     }
 
-    public void setLaCase(Case laCase) {
+    public void setLaCase(Tile laCase) {
         this.laCase = laCase;
     }
     
@@ -22,7 +27,7 @@ public class Bestiole {
         return 1;
     }
 
-    public Action update(List<Case> vues) {
+    public Action update(List<Tile> vues) {
         Action todo;
         if(vues.size() <= 0) {
             todo = new Nothing();

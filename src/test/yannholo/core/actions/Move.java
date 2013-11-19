@@ -1,11 +1,14 @@
-package test.yannholo.core;
+package test.yannholo.core.actions;
+
+import test.yannholo.core.entities.Entity;
+import test.yannholo.core.maps.tiles.Tile;
 
 public class Move implements Action {
     
-    private Bestiole bestiole;
-    private Case destination;
+    private Entity bestiole;
+    private Tile destination;
 
-    public Move(Bestiole bestiole, Case destination) {
+    public Move(Entity bestiole, Tile destination) {
         this.bestiole = bestiole;
         this.destination = destination;
     }
