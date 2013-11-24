@@ -1,4 +1,4 @@
-package test.yannholo.ihm;
+package spaceVivarium.ihm;
 
 import javax.swing.JFrame;
 

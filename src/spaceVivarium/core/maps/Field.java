@@ -1,4 +1,4 @@
-package test.yannholo.core.maps;
+package spaceVivarium.core.maps;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -10,8 +10,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 
-import test.yannholo.core.entities.AEntity;
-import test.yannholo.core.maps.tiles.ATile;
+import spaceVivarium.core.entities.AEntity;
+import spaceVivarium.core.maps.tiles.ATile;
 
 public class Field {
 
@@ -72,9 +72,10 @@ public class Field {
      *            le type d'entitée voulues
      */
     private void placeEntities(int nb, Class<? extends AEntity> type) {
+
+        Constructor<? extends AEntity> constructor;
         try {
-            Constructor<? extends AEntity> constructor = type
-                    .getConstructor(ATile.class);
+            constructor = type.getConstructor(ATile.class);
             for (int i = 0; i < nb; i++) {
                 ATile tile = getTile(type);
                 AEntity entity = constructor.newInstance(tile);
@@ -87,6 +88,7 @@ public class Field {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
     }
 
     /**

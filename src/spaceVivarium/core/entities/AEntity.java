@@ -1,9 +1,9 @@
-package test.yannholo.core.entities;
+package spaceVivarium.core.entities;
 
 import java.util.List;
 
-import test.yannholo.core.actions.IAction;
-import test.yannholo.core.maps.tiles.ATile;
+import spaceVivarium.core.actions.IAction;
+import spaceVivarium.core.maps.tiles.ATile;
 
 public abstract class AEntity {
 
@@ -26,6 +26,13 @@ public abstract class AEntity {
         return vision;
     }
 
+    /**
+     * demande de l'action suivante de l'entité
+     * 
+     * @param list
+     *            Liste des tile vues par l'entité
+     * @return l'action demandée par l'entité
+     */
     public abstract IAction update(List<ATile> list);
 
 }

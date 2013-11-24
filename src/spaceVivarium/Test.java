@@ -1,4 +1,4 @@
-package test.yannholo;
+package spaceVivarium;
 
 import java.util.Hashtable;
 import java.util.List;
@@ -7,15 +7,15 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import test.yannholo.core.actions.IAction;
-import test.yannholo.core.entities.AEntity;
-import test.yannholo.core.entities.TestEntity;
-import test.yannholo.core.maps.Map;
-import test.yannholo.core.maps.tiles.Tile;
-import test.yannholo.core.simulation.Simulation;
-import test.yannholo.ihm.Fenetre;
-import test.yannholo.ihm.Panneau;
-import test.yannholo.utils.PrepareSimUpdate;
+import spaceVivarium.core.actions.IAction;
+import spaceVivarium.core.entities.AEntity;
+import spaceVivarium.core.entities.TestEntity;
+import spaceVivarium.core.maps.Map;
+import spaceVivarium.core.maps.tiles.Tile;
+import spaceVivarium.core.simulation.Simulation;
+import spaceVivarium.ihm.Fenetre;
+import spaceVivarium.ihm.Panneau;
+import spaceVivarium.utils.thread.PrepareSimUpdate;
 
 public class Test {
 
@@ -38,13 +38,14 @@ public class Test {
             Future<List<IAction>> futureActionList = executor
                     .submit(new PrepareSimUpdate(simulation));
             // On dessine le field (on attend la fin du dessin)
+            // pan.repaint();
             pan.paintImmediately(pan.getBounds());
             // On attend la fin de l'ia
             List<IAction> actions = futureActionList.get();
             // On applique la simulation (non thread)
             simulation.applyUpdate(actions);
 
-            Thread.sleep(100); // TODO utiliser un delta
+            // Thread.sleep(100); // TODO utiliser un delta
 
         }
 

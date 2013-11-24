@@ -1,10 +1,10 @@
-package test.yannholo.utils;
+package spaceVivarium.utils.thread;
 
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import test.yannholo.core.actions.IAction;
-import test.yannholo.core.simulation.Simulation;
+import spaceVivarium.core.actions.IAction;
+import spaceVivarium.core.simulation.Simulation;
 
 public class PrepareSimUpdate implements Callable<List<IAction>> {
 

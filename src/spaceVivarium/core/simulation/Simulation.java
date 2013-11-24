@@ -1,14 +1,14 @@
-package test.yannholo.core.simulation;
+package spaceVivarium.core.simulation;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import test.yannholo.core.actions.IAction;
-import test.yannholo.core.entities.AEntity;
-import test.yannholo.core.maps.Field;
-import test.yannholo.core.maps.Map;
+import spaceVivarium.core.actions.IAction;
+import spaceVivarium.core.entities.AEntity;
+import spaceVivarium.core.maps.Field;
+import spaceVivarium.core.maps.Map;
 
 /**
  * Cet object sera synchronisé avec l'IHM, C'est l'interface entre L'IHM et le
@@ -57,12 +57,6 @@ public class Simulation {
         List<IAction> actions = new ArrayList<>(entities.size());
         for (AEntity entity : entities) {
             actions.add(entity.update(field.getView(entity)));
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
         }
         return actions;
     }
@@ -75,13 +69,7 @@ public class Simulation {
         j++;
         System.out.println("applyUpdate " + j);
         for (IAction iAction : actions) {
-            iAction.doit();
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            iAction.doIt();
         }
         System.out.println("applyUpdend " + j);
     }

@@ -1,9 +1,9 @@
-package test.yannholo.core.maps.tiles;
+package spaceVivarium.core.maps.tiles;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
 
-import test.yannholo.core.entities.AEntity;
+import spaceVivarium.core.entities.AEntity;
 
 public abstract class ATile {
     Point coord;
@@ -21,7 +21,7 @@ public abstract class ATile {
         return coord.y;
     }
 
-    public AEntity getBestiole() {
+    public AEntity getEntity() {
         return bestiole;
     }
 

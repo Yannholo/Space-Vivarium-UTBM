@@ -1,10 +1,10 @@
-package test.yannholo.ihm;
+package spaceVivarium.ihm;
 
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import test.yannholo.core.simulation.Simulation;
+import spaceVivarium.core.simulation.Simulation;
 
 public class Panneau extends JPanel {
 

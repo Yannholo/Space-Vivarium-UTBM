@@ -1,10 +1,10 @@
-package test.yannholo.core.maps;
+package spaceVivarium.core.maps;
 
 import java.awt.Point;
 import java.util.HashMap;
 
-import test.yannholo.core.maps.tiles.ATile;
-import test.yannholo.core.maps.tiles.Tile;
+import spaceVivarium.core.maps.tiles.ATile;
+import spaceVivarium.core.maps.tiles.Tile;
 
 public class Map {
 

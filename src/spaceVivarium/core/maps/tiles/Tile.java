@@ -1,4 +1,4 @@
-package test.yannholo.core.maps.tiles;
+package spaceVivarium.core.maps.tiles;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

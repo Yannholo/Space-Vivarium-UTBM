@@ -1,9 +1,9 @@
-package test.yannholo.core.actions;
+package spaceVivarium.core.actions;
 
 public class Nothing implements IAction {
 
     @Override
-    public void doit() {
+    public void doIt() {
         // nothing
 
     }
