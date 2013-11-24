@@ -18,7 +18,7 @@ import test.yannholo.core.maps.Map;
  * 
  */
 public class Simulation {
-    /* Configurations */
+    /* Configurations i */
     private Map map;
     private java.util.Map<Class<? extends AEntity>, Integer> entityConf;
 
