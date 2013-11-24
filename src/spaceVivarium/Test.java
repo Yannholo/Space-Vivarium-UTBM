@@ -10,7 +10,7 @@ import java.util.concurrent.Future;
 import spaceVivarium.core.actions.IAction;
 import spaceVivarium.core.entities.AEntity;
 import spaceVivarium.core.entities.TestEntity;
-import spaceVivarium.core.maps.Map;
+import spaceVivarium.core.maps.Board;
 import spaceVivarium.core.maps.tiles.Tile;
 import spaceVivarium.core.simulation.Simulation;
 import spaceVivarium.ihm.Fenetre;
@@ -53,7 +53,7 @@ public class Test {
 
     private static Simulation getSimulation() {
 
-        Map map = new Map(50, 50, Tile.class);
+        Board map = new Board(50, 50, Tile.class);
 
         java.util.Map<Class<? extends AEntity>, Integer> entityConf = new Hashtable<>();
 

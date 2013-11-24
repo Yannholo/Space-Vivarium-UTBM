@@ -8,7 +8,7 @@ import java.util.List;
 import spaceVivarium.core.actions.IAction;
 import spaceVivarium.core.entities.AEntity;
 import spaceVivarium.core.maps.Field;
-import spaceVivarium.core.maps.Map;
+import spaceVivarium.core.maps.Board;
 
 /**
  * Cet object sera synchronisé avec l'IHM, C'est l'interface entre L'IHM et le
@@ -19,7 +19,7 @@ import spaceVivarium.core.maps.Map;
  */
 public class Simulation {
     /* Configurations */
-    private Map map;
+    private Board map;
     private java.util.Map<Class<? extends AEntity>, Integer> entityConf;
 
     int i = 0;
@@ -29,7 +29,7 @@ public class Simulation {
     private List<? extends AEntity> entities;
     private int j = 0;
 
-    public Simulation(Map map,
+    public Simulation(Board map,
             java.util.Map<Class<? extends AEntity>, Integer> entityConf) {
         this.map = map;
         this.entityConf = entityConf;

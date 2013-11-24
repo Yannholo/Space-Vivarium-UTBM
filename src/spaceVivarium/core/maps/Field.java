@@ -15,11 +15,11 @@ import spaceVivarium.core.maps.tiles.ATile;
 
 public class Field {
 
-    private Map map;
+    private Board map;
     private java.util.Map<Point, ATile> field;
     private List<AEntity> entities;
 
-    public Field(Map map,
+    public Field(Board map,
             java.util.Map<Class<? extends AEntity>, Integer> entityConf) {
         this.map = map;
         entities = new LinkedList<>();

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import spaceVivarium.core.maps.tiles.ATile;
 import spaceVivarium.core.maps.tiles.Tile;
 
-public class Map {
+public class Board {
 
     public static final Class<? extends ATile> DEFAULT_TILE_CLASS = Tile.class;
 
@@ -16,11 +16,11 @@ public class Map {
     private int sizeY;
     private Class<? extends ATile> baseType;
 
-    public Map(int sizeX, int sizeY) {
+    public Board(int sizeX, int sizeY) {
         this(sizeX, sizeY, DEFAULT_TILE_CLASS);
     }
 
-    public Map(int sizeX, int sizeY, Class<? extends ATile> baseType) {
+    public Board(int sizeX, int sizeY, Class<? extends ATile> baseType) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.baseType = baseType;
