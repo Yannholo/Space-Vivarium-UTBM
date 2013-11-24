@@ -1,5 +1,5 @@
 package test.yannholo.core.actions;
 
-public interface Action {
+public interface IAction {
     public void doit();
 }

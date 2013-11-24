@@ -1,16 +1,17 @@
 package test.yannholo.core.actions;
 
-import test.yannholo.core.entities.Entity;
-import test.yannholo.core.maps.tiles.Tile;
+import test.yannholo.core.entities.AEntity;
+import test.yannholo.core.entities.TestEntity;
+import test.yannholo.core.maps.tiles.ATile;
 
-public class Move implements Action {
-    
-    private Entity bestiole;
-    private Tile destination;
+public class Move implements IAction {
 
-    public Move(Entity bestiole, Tile destination) {
+    private AEntity bestiole;
+    private ATile destination;
+
+    public Move(TestEntity bestiole, ATile aTile) {
         this.bestiole = bestiole;
-        this.destination = destination;
+        this.destination = aTile;
     }
 
     @Override
