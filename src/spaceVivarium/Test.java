@@ -43,7 +43,9 @@ public class Test {
             // On attend la fin de l'ia
             List<IAction> actions = futureActionList.get();
             // On applique la simulation (non thread)
-            simulation.applyUpdate(actions);
+            synchronized (simulation) {
+                simulation.applyUpdate(actions);
+            }
 
             Thread.sleep(100); // TODO utiliser un delta
 
