@@ -16,10 +16,7 @@ public class Tile extends ATile {
         } else {
             g2d.setColor(Color.LIGHT_GRAY);
         }
-        g2d.fillRect(coord.x * 10, coord.y * 10, 10, 10);
-        g2d.setColor(Color.GRAY);
-        g2d.drawRect(coord.x * 10, coord.y * 10, 10, 10);
-
+        g2d.fill3DRect(coord.x * 10, coord.y * 10, 10, 10, true);
     }
 
 }
