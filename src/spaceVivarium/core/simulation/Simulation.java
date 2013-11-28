@@ -7,8 +7,8 @@ import java.util.List;
 
 import spaceVivarium.core.actions.IAction;
 import spaceVivarium.core.entities.AEntity;
-import spaceVivarium.core.maps.Field;
 import spaceVivarium.core.maps.Board;
+import spaceVivarium.core.maps.Field;
 
 /**
  * Cet object sera synchronisé avec l'IHM, C'est l'interface entre L'IHM et le
@@ -68,10 +68,16 @@ public class Simulation {
     public void applyUpdate(List<IAction> actions) {
         j++;
         System.out.println("applyUpdate " + j);
+        field.updatedTiles.clear();
         for (IAction iAction : actions) {
-            iAction.doIt();
+            iAction.doIt(field.updatedTiles);
         }
         System.out.println("applyUpdend " + j);
+    }
+
+    public void printAll(Graphics g) {
+        field.printAll((Graphics2D) g);
+
     }
 
 }

@@ -7,7 +7,7 @@ import spaceVivarium.core.entities.AEntity;
 
 public abstract class ATile {
     Point coord;
-    protected AEntity bestiole;
+    protected AEntity entity;
 
     public ATile(Point coord) {
         this.coord = coord;
@@ -22,11 +22,11 @@ public abstract class ATile {
     }
 
     public AEntity getEntity() {
-        return bestiole;
+        return entity;
     }
 
     public void setBestiole(AEntity bestiole) {
-        this.bestiole = bestiole;
+        this.entity = bestiole;
     }
 
     @Override

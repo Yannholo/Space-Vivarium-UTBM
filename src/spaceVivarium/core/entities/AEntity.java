@@ -1,5 +1,6 @@
 package spaceVivarium.core.entities;
 
+import java.awt.Graphics2D;
 import java.util.List;
 
 import spaceVivarium.core.actions.IAction;
@@ -7,19 +8,19 @@ import spaceVivarium.core.maps.tiles.ATile;
 
 public abstract class AEntity {
 
-    private ATile laCase;
+    private ATile currentTile;
     protected int vision;
 
     public AEntity(ATile depart) {
-        laCase = depart;
+        currentTile = depart;
     }
 
-    public ATile getLaCase() {
-        return laCase;
+    public ATile getCurrentTile() {
+        return currentTile;
     }
 
-    public void setLaCase(ATile destination) {
-        this.laCase = destination;
+    public void setCurrentTile(ATile destination) {
+        this.currentTile = destination;
     }
 
     public int getVision() {
@@ -34,5 +35,7 @@ public abstract class AEntity {
      * @return l'action demandée par l'entité
      */
     public abstract IAction update(List<ATile> list);
+
+    public abstract void print(Graphics2D g2d);
 
 }

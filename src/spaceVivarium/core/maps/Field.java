@@ -19,6 +19,8 @@ public class Field {
     private java.util.Map<Point, ATile> field;
     private List<AEntity> entities;
 
+    public List<ATile> updatedTiles = new LinkedList<>();
+
     public Field(Board map,
             java.util.Map<Class<? extends AEntity>, Integer> entityConf) {
         this.map = map;
@@ -110,7 +112,7 @@ public class Field {
     }
 
     public List<ATile> getView(AEntity entity) {
-        ATile depart = entity.getLaCase();
+        ATile depart = entity.getCurrentTile();
         // on choppe toutes les cases vues par la bestiole
         int nbCasesVues = entity.getVision() * 4
                 + (int) Math.pow(4, entity.getVision());
@@ -132,8 +134,14 @@ public class Field {
         return vues;
     }
 
-    public void print(Graphics2D g) {
+    public void printAll(Graphics2D g) {
         for (ATile tile : field.values()) {
+            tile.print(g);
+        }
+    }
+
+    public void print(Graphics2D g) {
+        for (ATile tile : updatedTiles) {
             tile.print(g);
         }
     }

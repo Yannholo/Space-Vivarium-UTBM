@@ -1,5 +1,6 @@
 package spaceVivarium;
 
+import java.awt.Dimension;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -28,24 +29,33 @@ public class Test {
         Fenetre fenetre = new Fenetre();
 
         Panneau pan = new Panneau(simulation);
+        pan.setPreferredSize(new Dimension(2000, 2000));
+        // JScrollPane scrollPane = new JScrollPane(pan);
+        // scrollPane.setPreferredSize(new Dimension(1280, 800));
+        // scrollPane.setAutoscrolls(true);
         fenetre.setContentPane(pan);
 
         ExecutorService executor = Executors.newFixedThreadPool(2);
+
+        List<IAction> actions;
 
         while (fenetre.isShowing()) {
 
             // On lance l'ia pour futures actions (thread)
             Future<List<IAction>> futureActionList = executor
                     .submit(new PrepareSimUpdate(simulation));
-            // On dessine le field (on attend la fin du dessin)
-            // pan.repaint();
-            pan.paintImmediately(pan.getBounds());
-            // On attend la fin de l'ia
-            List<IAction> actions = futureActionList.get();
-            // On applique la simulation (non thread)
-            simulation.applyUpdate(actions);
+            // On dessine le field
+            pan.repaint();
 
-            // Thread.sleep(100); // TODO utiliser un delta
+            // actions = simulation.prepareUpdate();
+            // On attend la fin de l'ia
+            actions = futureActionList.get();
+            // On applique la simulation (non thread)
+            synchronized (simulation) {
+                simulation.applyUpdate(actions);
+            }
+
+            Thread.sleep(100); // TODO utiliser un delta
 
         }
 

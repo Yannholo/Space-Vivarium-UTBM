@@ -22,7 +22,7 @@ public class Panneau extends JPanel {
         synchronized (sim) {
             i++;
             System.out.println("paintComponent " + i);
-            sim.print(g);
+            sim.printAll(g); // TODO utiliser sim.print(g) pour optimiser
             System.out.println("paintComponend " + i);
         }
     }

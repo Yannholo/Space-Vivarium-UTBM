@@ -1,5 +1,7 @@
 package spaceVivarium.core.actions;
 
+import java.util.List;
+
 import spaceVivarium.core.entities.AEntity;
 import spaceVivarium.core.entities.TestEntity;
 import spaceVivarium.core.maps.tiles.ATile;
@@ -15,9 +17,11 @@ public class Move implements IAction {
     }
 
     @Override
-    public void doIt() {
-        entity.getLaCase().setBestiole(null);
-        entity.setLaCase(destination);
+    public void doIt(List<ATile> updatedTile) {
+        updatedTile.add(entity.getCurrentTile());
+        updatedTile.add(destination);
+        entity.getCurrentTile().setBestiole(null);
+        entity.setCurrentTile(destination);
         destination.setBestiole(entity);
     }
 
