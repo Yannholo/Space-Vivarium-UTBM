@@ -16,8 +16,9 @@ public class TestEntity extends AEntity {
     /**
      * Crée l'entitée de test avec sa tile de depart
      * 
-     * @param depart
-     *            la tile de depart
+     * @param depart la tile de depart
+     *            
+     * 
      */
     public TestEntity(ATile depart) {
         super(depart);

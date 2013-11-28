@@ -45,7 +45,7 @@ public class Test {
             // On applique la simulation (non thread)
             simulation.applyUpdate(actions);
 
-            // Thread.sleep(100); // TODO utiliser un delta
+            Thread.sleep(100); // TODO utiliser un delta
 
         }
 
