@@ -10,9 +10,8 @@ import java.util.concurrent.Future;
 import spaceVivarium.core.actions.IAction;
 import spaceVivarium.core.entities.AEntity;
 import spaceVivarium.core.entities.TestEntity;
-import spaceVivarium.core.entities.TestSmartEntity;
 import spaceVivarium.core.maps.Board;
-import spaceVivarium.core.maps.tiles.Tile;
+import spaceVivarium.core.maps.xml.XmlReader;
 import spaceVivarium.core.simulation.Simulation;
 import spaceVivarium.ihm.Fenetre;
 import spaceVivarium.ihm.Panneau;
@@ -56,14 +55,21 @@ public class Test {
 
     private static Simulation getSimulation() {
 
-        Board map = new Board(50, 50, Tile.class);
+        /* test xml reader */
+
+        XmlReader reader = new XmlReader();
+
+        Board testmap = reader
+                .xmlToBoard("src\\spaceVivarium\\core\\maps\\xml\\board.xml");
+
+        // Board map = new Board(50, 50, Tile.class);
 
         java.util.Map<Class<? extends AEntity>, Integer> entityConf = new Hashtable<>();
 
         entityConf.put(TestEntity.class, 10);
-        //entityConf.put(TestSmartEntity.class, 10);
+        // entityConf.put(TestSmartEntity.class, 10);
 
-        return new Simulation(map, entityConf);
+        return new Simulation(testmap, entityConf);
 
     }
 
