@@ -46,12 +46,13 @@ public class Escape extends ABehavior {
     }
 
     @Override
-    public IAction behave(List<ATile> list) {
+    public List<IAction> behave(List<ATile> list) {
+        List<IAction> listAct = null;
         AEntity enemy = getNearestEnemy(list);
         if (enemy != null)
-            return new Move(entity, getSafestTile(enemy));
+            listAct.add(new Move(entity, getSafestTile(enemy), 3));
         else
-            return new Nothing();
+            listAct.add(new Nothing());
+        return listAct;
     }
-
 }

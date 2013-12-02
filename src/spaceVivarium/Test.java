@@ -60,6 +60,7 @@ public class Test {
         java.util.Map<Class<? extends AEntity>, Integer> entityConf = new Hashtable<>();
 
         entityConf.put(TestEntity.class, 10);
+        // entityConf.put(TestSmartEntity.class, 10);
 
         return new Simulation(map, entityConf);
 

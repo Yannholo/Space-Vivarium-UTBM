@@ -1,5 +1,6 @@
 package spaceVivarium.core.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import spaceVivarium.core.actions.ABehavior;
@@ -16,10 +17,10 @@ public abstract class AEntity {
         laCase = depart;
     }
 
-    public AEntity(ATile depart, List<ABehavior> comps) {
-        laCase = depart;
-        comportements = comps;
-    }
+    /*
+     * public AEntity(ATile depart, List<ABehavior> comps) { laCase = depart;
+     * comportements = comps; }
+     */
 
     public ATile getLaCase() {
         return laCase;
@@ -39,6 +40,20 @@ public abstract class AEntity {
         int x2 = entity.getLaCase().getX();
         int y2 = entity.getLaCase().getY();
         return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+    }
+
+    public IAction chooseAction(List<ATile> vues) {
+        int priority = 0;
+        List<IAction> actions = new ArrayList<IAction>();
+        IAction res = null;
+        for (ABehavior comp : comportements) {
+            actions = comp.behave(vues);
+            for (IAction act : actions) {
+                if (act.getPriority() >= priority)
+                    res = act;
+            }
+        }
+        return res;
     }
 
     /**

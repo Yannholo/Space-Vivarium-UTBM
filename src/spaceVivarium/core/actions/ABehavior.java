@@ -10,5 +10,5 @@ import spaceVivarium.core.maps.tiles.ATile;
  */
 public abstract class ABehavior {
 
-    public abstract IAction behave(List<ATile> list);
+    public abstract List<IAction> behave(List<ATile> list);
 }
