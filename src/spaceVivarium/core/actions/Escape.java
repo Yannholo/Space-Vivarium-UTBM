@@ -1,5 +1,6 @@
 package spaceVivarium.core.actions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import spaceVivarium.core.entities.AEntity;
@@ -39,19 +40,19 @@ public class Escape extends ABehavior {
         return res;
     }
 
-    private ATile getSafestTile(AEntity enemy) {
-        // TODO : determiner la case sur laquelle se déplacer pour échapper à
-        // l'ennemi le plus proche
+    private ATile getSafestTile(AEntity enemy, List<ATile> list) {
         return null;
     }
 
     @Override
     public List<IAction> behave(List<ATile> list) {
-        List<IAction> listAct = null;
+        List<IAction> listAct = new ArrayList<IAction>();
         AEntity enemy = getNearestEnemy(list);
-        if (enemy != null)
-            listAct.add(new Move(entity, getSafestTile(enemy), 3));
-        else
+        if (enemy != null) {
+            // listAct.add(new Move(entity, getSafestTile(enemy), 3));
+            listAct.add(new Move(entity, list.get((int) (Math.random() * list
+                    .size()))));
+        } else
             listAct.add(new Nothing());
         return listAct;
     }
