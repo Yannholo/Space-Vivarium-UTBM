@@ -1,0 +1,13 @@
+<!DOCTYPE board SYSTEM "URI" [
+<!ELEMENT board(area*)>
+<!ELEMENT board(x, y, height, width, type)>
+<!ELEMENT x(#PCDATA)>
+<!ELEMENT y(#PCDATA)>
+<!ELEMENT height(#PCDATA)>
+<!ELEMENT width(#PCDATA)>
+<!ELEMENT type(#PCDATA)>
+<!--board Attribute --> 
+<!ATTLIST board sizex cdata #required>
+<!ATTLIST board sizey cdata #required>
+<!ATTLIST board basetype cdata #required>
+]>
