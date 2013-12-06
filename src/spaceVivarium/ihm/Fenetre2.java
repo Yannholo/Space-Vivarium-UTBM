@@ -2,6 +2,7 @@ package spaceVivarium.ihm;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+//import java.awt.event.*;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -33,6 +34,7 @@ public class Fenetre2 extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Instanciation d'un objet JPanel
         // Et enfin, la rendre visible
+
         setVisible(true);
 
         setLayout(new FlowLayout());
@@ -60,7 +62,16 @@ public class Fenetre2 extends JFrame {
         btn3 = new JButton("Simuler");
         this.add(btn3);
 
+        /*
+         * public void TableDemo() { //String Super("small world"); String[]
+         * columnNames = { "Animal", "quantité" }; Object[][] data = { { "", ""
+         * }, { "", "" }, { "", "" }, { "", "" } }; JTable table = new
+         * JTable(data, columnNames); table.setPreferredSize(new Dimension(50,
+         * 50));
+         * 
+         * }
+         */
+
         this.pack();
     }
-
 }
