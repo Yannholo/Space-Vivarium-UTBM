@@ -2,6 +2,7 @@ package spaceVivarium.core.maps.tiles;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.util.ArrayList;
 
 import spaceVivarium.core.entities.AEntity;
 
@@ -21,12 +22,27 @@ public abstract class ATile {
         return coord.y;
     }
 
+    public Point getCoord() {
+        return coord;
+    }
+
     public AEntity getEntity() {
         return bestiole;
     }
 
     public void setBestiole(AEntity bestiole) {
         this.bestiole = bestiole;
+    }
+
+    public ArrayList<Point> getAdjacentCoords() {
+        ArrayList<Point> adjTiles = new ArrayList<Point>();
+        for (int i = coord.x - 1; i < coord.x + 1; i++) {
+            for (int j = coord.y - 1; i < coord.y + 1; j++) {
+                if (i >= 0 && j >= 0)
+                    adjTiles.add(new Point(i, j));
+            }
+        }
+        return adjTiles;
     }
 
     @Override

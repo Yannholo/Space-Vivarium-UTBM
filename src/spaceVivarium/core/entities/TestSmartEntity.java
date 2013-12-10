@@ -20,7 +20,7 @@ public class TestSmartEntity extends AEntity {
         super(depart);
         comportements = new ArrayList<ABehavior>();
         this.comportements.add(new Escape(this, TestEntity.class));
-        vision = 3;
+        vision = 4;
     }
 
     public IAction update(List<ATile> vues) {

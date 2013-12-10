@@ -10,6 +10,7 @@ import java.util.concurrent.Future;
 import spaceVivarium.core.actions.IAction;
 import spaceVivarium.core.entities.AEntity;
 import spaceVivarium.core.entities.TestEntity;
+import spaceVivarium.core.entities.TestSmartEntity;
 import spaceVivarium.core.maps.Board;
 import spaceVivarium.core.maps.xml.XmlReader;
 import spaceVivarium.core.simulation.Simulation;
@@ -66,8 +67,8 @@ public class Test {
 
         java.util.Map<Class<? extends AEntity>, Integer> entityConf = new Hashtable<>();
 
-        entityConf.put(TestEntity.class, 10);
-        // entityConf.put(TestSmartEntity.class, 10);
+        entityConf.put(TestEntity.class, 20);
+        entityConf.put(TestSmartEntity.class, 20);
 
         return new Simulation(testmap, entityConf);
 

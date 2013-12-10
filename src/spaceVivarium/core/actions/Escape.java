@@ -1,15 +1,22 @@
 package spaceVivarium.core.actions;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
 import spaceVivarium.core.entities.AEntity;
 import spaceVivarium.core.maps.tiles.ATile;
+import spaceVivarium.utils.Vector2D;
 
+/**
+ * Escape behavior, indique à l'entité entity de fuire toutes les entités de
+ * type typeEnemy .
+ * 
+ */
 public class Escape extends ABehavior {
     // l'entité qui s'échappe
     private AEntity entity;
-    // le type de l'entité à éviter
+    // le type des entités à éviter
     private Class<? extends AEntity> typeEnemy;
 
     public Escape(AEntity self, Class<? extends AEntity> typeE) {
@@ -17,6 +24,11 @@ public class Escape extends ABehavior {
         typeEnemy = typeE;
     }
 
+    /**
+     * @param list
+     *            la liste des cases vues par l'entité entity
+     * @return l'ennemi AEntity le plus proche de l'entité entity
+     */
     private AEntity getNearestEnemy(List<ATile> list) {
         AEntity res = null;
         AEntity tileEntity = null;
@@ -40,8 +52,39 @@ public class Escape extends ABehavior {
         return res;
     }
 
+    /**
+     * @param enemy
+     *            l'ennemi à fuir par l'entité entity
+     * @param list
+     *            la liste des cases vues par l'entité entity
+     * @return la case la plus sûre pour éviter enemy
+     */
     private ATile getSafestTile(AEntity enemy, List<ATile> list) {
-        return null;
+        ATile res = null;
+        Vector2D pEnemy = new Vector2D(enemy.getLaCase().getX(), enemy
+                .getLaCase().getY());
+        Vector2D pSelf = new Vector2D(entity.getLaCase().getX(), entity
+                .getLaCase().getY());
+        Vector2D normalizedDir = new Vector2D(pSelf.getX() - pEnemy.getX(),
+                pSelf.getY() - pEnemy.getY()).normalize();
+        Point arrive = pSelf.translate(normalizedDir).getIntPoint();
+        for (ATile tile : list) {
+            if (tile.getX() == arrive.getX() && tile.getY() == arrive.getY())
+                res = tile;
+        }
+
+        return res;
+    }
+
+    private ATile getRandomTile(List<ATile> list) throws Exception {
+        ATile res = null;
+        ArrayList<Point> coords = entity.getLaCase().getAdjacentCoords();
+        Point dest = coords.get((int) (Math.random() * coords.size()));
+        for (ATile tile : list) {
+            if (tile.getCoord().equals(dest))
+                res = tile;
+        }
+        return res;
     }
 
     @Override
@@ -49,9 +92,20 @@ public class Escape extends ABehavior {
         List<IAction> listAct = new ArrayList<IAction>();
         AEntity enemy = getNearestEnemy(list);
         if (enemy != null) {
-            // listAct.add(new Move(entity, getSafestTile(enemy), 3));
-            listAct.add(new Move(entity, list.get((int) (Math.random() * list
-                    .size()))));
+            ATile safeTile = getSafestTile(enemy, list);
+            if (safeTile != null)
+                listAct.add(new Move(entity, safeTile, 3));
+            else {
+                /*
+                 * try { listAct.add(new Move(entity, getRandomTile(list), 3));
+                 * } catch (Exception e) { listAct.add(new Nothing()); }
+                 */
+                listAct.add(new Nothing());
+
+            }
+
+            // listAct.add(new Move(entity, list.get((int) (Math.random() * list
+            // .size()))));
         } else
             listAct.add(new Nothing());
         return listAct;
