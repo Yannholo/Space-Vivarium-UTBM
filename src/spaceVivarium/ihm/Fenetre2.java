@@ -1,14 +1,17 @@
 package spaceVivarium.ihm;
 
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-//import java.awt.event.*;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JList;
+//import java.awt.event.*;
 
 public class Fenetre2 extends JFrame {
 
@@ -17,6 +20,9 @@ public class Fenetre2 extends JFrame {
     JList list;
     int quantité;
 
+    final static boolean shouldFill = true;
+    final static boolean shouldWeightX = true;
+    final static boolean RIGHT_TO_LEFT = false;
     /**
      * 
      */
@@ -37,30 +43,81 @@ public class Fenetre2 extends JFrame {
 
         setVisible(true);
 
-        setLayout(new FlowLayout());
+        if (RIGHT_TO_LEFT) {
+            setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        }
+
+        setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        if (shouldFill) {
+            // natural height, maximum width
+            c.fill = GridBagConstraints.HORIZONTAL;
+        }
+
         btn1 = new JButton("Charge");
-        this.add(btn1);
+        if (shouldWeightX) {
+            c.weightx = 0.5;
+        }
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 2;
+        c.gridy = 0;
+        add(btn1, c);
 
         String[] animalStrings = { "Cthuli", "Petite araignée vénéneuse",
                 "Fourmi géantes", "Humains" };
-        // Create the combo box, select item at index 4.
         JComboBox animalList = new JComboBox(animalStrings);
-        this.add(animalList);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        // c.ipady = 20; //make this component tall
+        c.weightx = 0.0;
+        c.gridwidth = 1;
+        c.gridx = 0;
+        c.gridy = 1;
+        this.add(animalList, c);
         animalList.setSelectedIndex(3);
-        // animalList.addActionListener(this);
 
-        // entrer la quantité
         text1 = new JFormattedTextField();
-        this.add(text1);
+        c.weightx = 0.5;
+        c.gridx = 1;
+        c.gridy = 1;
+        this.add(text1, c);
         text1.setValue(quantité);
         text1.setColumns(6);
-        // text1.setPreferredSize(new Dimension(10, 10));
 
         btn2 = new JButton("OK");
-        this.add(btn2);
+        c.weightx = 0.5;
+        c.gridx = 2;
+        c.gridy = 1;
+        this.add(btn2, c);
 
         btn3 = new JButton("Simuler");
-        this.add(btn3);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipady = 0; // reset to default
+        c.weighty = 1.0; // request any extra vertical space
+        c.anchor = GridBagConstraints.PAGE_END; // bottom of space
+        c.insets = new Insets(10, 0, 0, 0); // top padding
+        c.gridx = 1; // aligned with button 2
+        c.gridwidth = 2; // 2 columns wide
+        c.gridy = 2; // third row
+        this.add(btn3, c);
+
+        /*
+         * setLayout(new FlowLayout()); btn1 = new JButton("Charge");
+         * this.add(btn1);
+         * 
+         * String[] animalStrings = { "Cthuli", "Petite araignée vénéneuse",
+         * "Fourmi géantes", "Humains" }; // Create the combo box, select item
+         * at index 4. JComboBox animalList = new JComboBox(animalStrings);
+         * this.add(animalList); animalList.setSelectedIndex(3); //
+         * animalList.addActionListener(this);
+         * 
+         * // entrer la quantité text1 = new JFormattedTextField();
+         * this.add(text1); text1.setValue(quantité); text1.setColumns(6); //
+         * text1.setPreferredSize(new Dimension(10, 10));
+         * 
+         * btn2 = new JButton("OK"); this.add(btn2);
+         * 
+         * btn3 = new JButton("Simuler"); this.add(btn3);
+         */
 
         /*
          * public void TableDemo() { //String Super("small world"); String[]
