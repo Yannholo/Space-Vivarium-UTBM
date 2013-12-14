@@ -3,9 +3,9 @@ package spaceVivarium.core.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import spaceVivarium.core.actions.Behavior;
-import spaceVivarium.core.actions.Escape;
 import spaceVivarium.core.actions.Action;
+import spaceVivarium.core.actions.Behavior;
+import spaceVivarium.core.actions.Follow;
 import spaceVivarium.core.maps.tiles.ATile;
 
 public class TestSmartEntity extends Entity {
@@ -18,8 +18,8 @@ public class TestSmartEntity extends Entity {
      */
     public TestSmartEntity(ATile depart) {
         super(depart);
-        comportements = new ArrayList<Behavior>();
-        this.comportements.add(new Escape(this, TestEntity.class));
+        this.comportements = new ArrayList<Behavior>();
+        this.comportements.add(new Follow(this, TestEntity.class));
         vision = 4;
     }
 

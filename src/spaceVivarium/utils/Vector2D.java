@@ -23,8 +23,8 @@ public class Vector2D {
     }
 
     public Vector2D() {
-        x = 0;
-        y = 0;
+        this.x = 0;
+        this.y = 0;
     }
 
     public Vector2D(double x, double y) {
@@ -49,6 +49,11 @@ public class Vector2D {
             res.y = this.y / length;
         }
         return res;
+    }
+
+    public double getDistance(Vector2D vect) {
+        return Math.sqrt((vect.x - this.x) * (vect.x - this.x)
+                + (vect.y - this.y) * (vect.y - this.y));
     }
 
     public Point getIntPoint() {
