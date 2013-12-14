@@ -1,134 +1,149 @@
 package spaceVivarium.ihm;
 
-import java.awt.ComponentOrientation;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
-import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.TableModel;
+
 //import java.awt.event.*;
 
 public class Fenetre2 extends JFrame {
 
-    JButton btn1, btn2, btn3;
-    JFormattedTextField text1, text2;
-    JList list;
-    int quantité;
+    private JButton charge, ok, simulater;
+    private JComboBox species;
+    private JTextField number;
 
-    final static boolean shouldFill = true;
-    final static boolean shouldWeightX = true;
-    final static boolean RIGHT_TO_LEFT = false;
+    private JPanel map;
+    private JTable animalTable;
+    private List<AnimalQuantite> animalsList = new ArrayList<AnimalQuantite>();
+    private TableModel model;
+    JScrollPane scrollPane;
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
 
+    /*
+     * public Fenetre2() { // D閒init un titre pour notre fen阾re
+     * setTitle("créer small world"); // D閒init sa taille : 500 pixels de large
+     * et 500 pixels de haut setPreferredSize(new Dimension(520, 520));
+     * 
+     * // Nous demandons maintenant �notre objet de se positionner au centre
+     * setLocationRelativeTo(null); // Termine le processus lorsqu'on clique sur
+     * la croix rouge setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //
+     * Instanciation d'un objet JPanel // Et enfin, la rendre visible
+     * 
+     * setVisible(true); this.pack(); }
+     */
     public Fenetre2() {
-        // D閒init un titre pour notre fen阾re
-        setTitle("créer small world");
-        // D閒init sa taille : 500 pixels de large et 500 pixels de haut
-        setPreferredSize(new Dimension(520, 520));
+        init();
+        configParams();
+        setLayout();
+        addJComboBoxItem();
+        addListener();
 
-        // Nous demandons maintenant �notre objet de se positionner au centre
-        setLocationRelativeTo(null);
-        // Termine le processus lorsqu'on clique sur la croix rouge
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // Instanciation d'un objet JPanel
-        // Et enfin, la rendre visible
+    }
 
+    private void addListener() {
+        ok.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                addAnimalInfo(species.getSelectedItem().toString(),
+                        number.getText());
+                System.out.println(species.getSelectedItem().toString());
+
+            }
+        });
+
+    }
+
+    private void configParams() {
+        locateToScreen();
+        // setAlwaysOnTop(true);
+        // setResizable(false);
         setVisible(true);
 
-        if (RIGHT_TO_LEFT) {
-            setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-        }
+    }
 
-        setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        if (shouldFill) {
-            // natural height, maximum width
-            c.fill = GridBagConstraints.HORIZONTAL;
-        }
+    private void locateToScreen() {
+        Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation((int) (screenDim.getWidth() / 2 - 200),
+                (int) (screenDim.getHeight() / 2 - 200));
+        setElementSize();
 
-        btn1 = new JButton("Charge");
-        if (shouldWeightX) {
-            c.weightx = 0.5;
-        }
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 2;
-        c.gridy = 0;
-        add(btn1, c);
+    }
 
-        String[] animalStrings = { "Cthuli", "Petite araignée vénéneuse",
-                "Fourmi géantes", "Humains" };
-        JComboBox animalList = new JComboBox(animalStrings);
-        c.fill = GridBagConstraints.HORIZONTAL;
-        // c.ipady = 20; //make this component tall
-        c.weightx = 0.0;
-        c.gridwidth = 1;
-        c.gridx = 0;
-        c.gridy = 1;
-        this.add(animalList, c);
-        animalList.setSelectedIndex(3);
+    private void setElementSize() {
+        this.setSize(500, 400);
+    }
 
-        text1 = new JFormattedTextField();
-        c.weightx = 0.5;
-        c.gridx = 1;
-        c.gridy = 1;
-        this.add(text1, c);
-        text1.setValue(quantité);
-        text1.setColumns(6);
+    private void init() {
+        setTitle("créer small world");
+        charge = new JButton("charge");
+        ok = new JButton("OK");
+        simulater = new JButton("simulater");
 
-        btn2 = new JButton("OK");
-        c.weightx = 0.5;
-        c.gridx = 2;
-        c.gridy = 1;
-        this.add(btn2, c);
+        // TODO
+        map = new JPanel();
+        species = new JComboBox();
+        number = new JTextField("");
+        model = new AnimalTableModel(animalsList);
+        animalTable = new JTable(model);
+        scrollPane = new JScrollPane(animalTable);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        btn3 = new JButton("Simuler");
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipady = 0; // reset to default
-        c.weighty = 1.0; // request any extra vertical space
-        c.anchor = GridBagConstraints.PAGE_END; // bottom of space
-        c.insets = new Insets(10, 0, 0, 0); // top padding
-        c.gridx = 1; // aligned with button 2
-        c.gridwidth = 2; // 2 columns wide
-        c.gridy = 2; // third row
-        this.add(btn3, c);
+    }
 
-        /*
-         * setLayout(new FlowLayout()); btn1 = new JButton("Charge");
-         * this.add(btn1);
-         * 
-         * String[] animalStrings = { "Cthuli", "Petite araignée vénéneuse",
-         * "Fourmi géantes", "Humains" }; // Create the combo box, select item
-         * at index 4. JComboBox animalList = new JComboBox(animalStrings);
-         * this.add(animalList); animalList.setSelectedIndex(3); //
-         * animalList.addActionListener(this);
-         * 
-         * // entrer la quantité text1 = new JFormattedTextField();
-         * this.add(text1); text1.setValue(quantité); text1.setColumns(6); //
-         * text1.setPreferredSize(new Dimension(10, 10));
-         * 
-         * btn2 = new JButton("OK"); this.add(btn2);
-         * 
-         * btn3 = new JButton("Simuler"); this.add(btn3);
-         */
+    private void setLayout() {
+        JPanel northPanel = new JPanel();
+        JPanel southPanel = new JPanel();
+        JPanel panelNorthNorth = new JPanel();
+        JPanel panelNorthSouth = new JPanel();
+        this.add(northPanel, BorderLayout.NORTH);
+        // this.add(animalTable, BorderLayout.CENTER);
+        this.add(southPanel, BorderLayout.SOUTH);
+        northPanel.setLayout(new BorderLayout());
+        northPanel.add(panelNorthNorth, BorderLayout.CENTER);
+        northPanel.add(panelNorthSouth, BorderLayout.SOUTH);
+        panelNorthNorth.setLayout(new BorderLayout());
+        panelNorthNorth.add(map, BorderLayout.CENTER);
+        panelNorthNorth.add(charge, BorderLayout.EAST);
+        panelNorthSouth.setLayout(new GridLayout(1, 3));
+        panelNorthSouth.add(species, BorderLayout.SOUTH);
+        panelNorthSouth.add(number, BorderLayout.SOUTH);
+        panelNorthSouth.add(ok, BorderLayout.SOUTH);
+        animalTable.setFillsViewportHeight(true);
+        this.add(scrollPane, BorderLayout.CENTER);
+        // this.add(animalTable,BorderLayout.CENTER);
+        southPanel.setLayout(new BorderLayout());
+        southPanel.add(simulater, BorderLayout.EAST);
+    }
 
-        /*
-         * public void TableDemo() { //String Super("small world"); String[]
-         * columnNames = { "Animal", "quantité" }; Object[][] data = { { "", ""
-         * }, { "", "" }, { "", "" }, { "", "" } }; JTable table = new
-         * JTable(data, columnNames); table.setPreferredSize(new Dimension(50,
-         * 50));
-         * 
-         * }
-         */
+    private void addAnimalInfo(String name, String string) {
 
-        this.pack();
+        AnimalQuantite animal = new AnimalQuantite(name, string);
+        animalsList.add(animal);
+        scrollPane.updateUI();
+    }
+
+    private void addJComboBoxItem() {
+        species.addItem("Cthuli");
+        species.addItem("Petite araignée vénéneuse");
+        species.addItem("Fourmi géantes");
+        species.addItem("Humains");
     }
 }
