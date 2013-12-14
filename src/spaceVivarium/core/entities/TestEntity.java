@@ -2,7 +2,7 @@ package spaceVivarium.core.entities;
 
 import java.util.List;
 
-import spaceVivarium.core.actions.IAction;
+import spaceVivarium.core.actions.Action;
 import spaceVivarium.core.actions.Move;
 import spaceVivarium.core.actions.Nothing;
 import spaceVivarium.core.maps.tiles.ATile;
@@ -11,7 +11,7 @@ import spaceVivarium.core.maps.tiles.ATile;
  * 
  * @author Yannholo
  */
-public class TestEntity extends AEntity {
+public class TestEntity extends Entity {
 
     /**
      * Crée l'entitée de test avec sa tile de depart
@@ -25,8 +25,8 @@ public class TestEntity extends AEntity {
         vision = 1;
     }
 
-    public IAction update(List<ATile> vues) {
-        IAction todo;
+    public Action update(List<ATile> vues) {
+        Action todo;
         if (vues.size() <= 0) {
             // si l'entité ne vois rien, elle ne fait rien
             todo = new Nothing();

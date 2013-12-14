@@ -7,8 +7,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import spaceVivarium.core.actions.IAction;
-import spaceVivarium.core.entities.AEntity;
+import spaceVivarium.core.actions.Action;
+import spaceVivarium.core.entities.Entity;
 import spaceVivarium.core.entities.TestEntity;
 import spaceVivarium.core.entities.TestSmartEntity;
 import spaceVivarium.core.maps.Board;
@@ -36,13 +36,13 @@ public class Test {
         while (fenetre.isShowing()) {
 
             // On lance l'ia pour futures actions (thread)
-            Future<List<IAction>> futureActionList = executor
+            Future<List<Action>> futureActionList = executor
                     .submit(new PrepareSimUpdate(simulation));
             // On dessine le field (on attend la fin du dessin)
             // pan.repaint();
             pan.paintImmediately(pan.getBounds());
             // On attend la fin de l'ia
-            List<IAction> actions = futureActionList.get();
+            List<Action> actions = futureActionList.get();
             // On applique la simulation (non thread)
             synchronized (simulation) {
                 simulation.applyUpdate(actions);
@@ -65,7 +65,7 @@ public class Test {
 
         // Board map = new Board(50, 50, Tile.class);
 
-        java.util.Map<Class<? extends AEntity>, Integer> entityConf = new Hashtable<>();
+        java.util.Map<Class<? extends Entity>, Integer> entityConf = new Hashtable<>();
 
         entityConf.put(TestEntity.class, 20);
         entityConf.put(TestSmartEntity.class, 20);

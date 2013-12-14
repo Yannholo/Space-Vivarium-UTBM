@@ -1,6 +1,6 @@
 package spaceVivarium.core.actions;
 
-public interface IAction {
+public interface Action {
     public void doIt();
 
     public int getPriority();

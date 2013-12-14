@@ -10,17 +10,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 
-import spaceVivarium.core.entities.AEntity;
+import spaceVivarium.core.entities.Entity;
 import spaceVivarium.core.maps.tiles.ATile;
 
 public class Field {
 
     private Board map;
     private java.util.Map<Point, ATile> field;
-    private List<AEntity> entities;
+    private List<Entity> entities;
 
     public Field(Board map,
-            java.util.Map<Class<? extends AEntity>, Integer> entityConf) {
+            java.util.Map<Class<? extends Entity>, Integer> entityConf) {
         this.map = map;
         entities = new LinkedList<>();
         clearField();
@@ -56,8 +56,8 @@ public class Field {
     }
 
     private void placeEntities(
-            java.util.Map<Class<? extends AEntity>, Integer> entityConf) {
-        for (Entry<Class<? extends AEntity>, Integer> entry : entityConf
+            java.util.Map<Class<? extends Entity>, Integer> entityConf) {
+        for (Entry<Class<? extends Entity>, Integer> entry : entityConf
                 .entrySet()) {
             placeEntities(entry.getValue(), entry.getKey());
         }
@@ -71,14 +71,14 @@ public class Field {
      * @param type
      *            le type d'entitée voulues
      */
-    private void placeEntities(int nb, Class<? extends AEntity> type) {
+    private void placeEntities(int nb, Class<? extends Entity> type) {
 
-        Constructor<? extends AEntity> constructor;
+        Constructor<? extends Entity> constructor;
         try {
             constructor = type.getConstructor(ATile.class);
             for (int i = 0; i < nb; i++) {
                 ATile tile = getTile(type);
-                AEntity entity = constructor.newInstance(tile);
+                Entity entity = constructor.newInstance(tile);
                 entities.add(entity);
                 tile.setBestiole(entity);
             }
@@ -97,7 +97,7 @@ public class Field {
      * @param type
      *            le type de l'entitée voulue
      */
-    private ATile getTile(Class<? extends AEntity> type) {
+    private ATile getTile(Class<? extends Entity> type) {
         // Pour l'instant simple random sur la map
         // TODO gerer au moins les conflits
         int x = (int) (Math.random() * map.getSizeX());
@@ -105,11 +105,11 @@ public class Field {
         return field.get(new Point(x, y));
     }
 
-    public List<? extends AEntity> getEntities() {
+    public List<? extends Entity> getEntities() {
         return entities;
     }
 
-    public List<ATile> getView(AEntity entity) {
+    public List<ATile> getView(Entity entity) {
         ATile depart = entity.getLaCase();
         // on choppe toutes les cases vues par la bestiole
         int nbCasesVues = entity.getVision() * 4

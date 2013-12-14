@@ -3,12 +3,12 @@ package spaceVivarium.core.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import spaceVivarium.core.actions.ABehavior;
+import spaceVivarium.core.actions.Behavior;
 import spaceVivarium.core.actions.Escape;
-import spaceVivarium.core.actions.IAction;
+import spaceVivarium.core.actions.Action;
 import spaceVivarium.core.maps.tiles.ATile;
 
-public class TestSmartEntity extends AEntity {
+public class TestSmartEntity extends Entity {
 
     /**
      * Crée l'entitée de test avec sa tile de depart
@@ -18,13 +18,13 @@ public class TestSmartEntity extends AEntity {
      */
     public TestSmartEntity(ATile depart) {
         super(depart);
-        comportements = new ArrayList<ABehavior>();
+        comportements = new ArrayList<Behavior>();
         this.comportements.add(new Escape(this, TestEntity.class));
         vision = 4;
     }
 
-    public IAction update(List<ATile> vues) {
-        IAction todo = chooseAction(vues);
+    public Action update(List<ATile> vues) {
+        Action todo = chooseAction(vues);
         return todo;
     }
 }

@@ -1,20 +1,20 @@
 package spaceVivarium.core.actions;
 
-import spaceVivarium.core.entities.AEntity;
+import spaceVivarium.core.entities.Entity;
 import spaceVivarium.core.maps.tiles.ATile;
 
-public class Move implements IAction {
+public class Move implements Action {
 
-    private AEntity entity;
+    private Entity entity;
     private ATile destination;
     private int priority;
 
-    public Move(AEntity bestiole, ATile aTile) {
+    public Move(Entity bestiole, ATile aTile) {
         this.entity = bestiole;
         this.destination = aTile;
     }
 
-    public Move(AEntity bestiole, ATile aTile, int prio) {
+    public Move(Entity bestiole, ATile aTile, int prio) {
         this.entity = bestiole;
         this.destination = aTile;
         this.priority = prio;

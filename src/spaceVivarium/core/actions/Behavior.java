@@ -8,7 +8,7 @@ import spaceVivarium.core.maps.tiles.ATile;
  * Détermine un comportement applicable à une entité.
  * 
  */
-public abstract class ABehavior {
+public abstract class Behavior {
 
-    public abstract List<IAction> behave(List<ATile> list);
+    public abstract List<Action> behave(List<ATile> list);
 }

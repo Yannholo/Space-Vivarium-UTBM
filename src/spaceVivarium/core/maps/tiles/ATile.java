@@ -4,11 +4,11 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import spaceVivarium.core.entities.AEntity;
+import spaceVivarium.core.entities.Entity;
 
 public abstract class ATile {
     Point coord;
-    protected AEntity bestiole;
+    protected Entity bestiole;
 
     public ATile(Point coord) {
         this.coord = coord;
@@ -26,11 +26,11 @@ public abstract class ATile {
         return coord;
     }
 
-    public AEntity getEntity() {
+    public Entity getEntity() {
         return bestiole;
     }
 
-    public void setBestiole(AEntity bestiole) {
+    public void setBestiole(Entity bestiole) {
         this.bestiole = bestiole;
     }
 

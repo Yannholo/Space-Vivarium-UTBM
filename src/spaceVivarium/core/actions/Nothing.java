@@ -1,6 +1,6 @@
 package spaceVivarium.core.actions;
 
-public class Nothing implements IAction {
+public class Nothing implements Action {
 
     private int priority = 0;
 

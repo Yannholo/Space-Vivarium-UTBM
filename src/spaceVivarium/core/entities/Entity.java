@@ -3,17 +3,17 @@ package spaceVivarium.core.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import spaceVivarium.core.actions.ABehavior;
-import spaceVivarium.core.actions.IAction;
+import spaceVivarium.core.actions.Behavior;
+import spaceVivarium.core.actions.Action;
 import spaceVivarium.core.maps.tiles.ATile;
 
-public abstract class AEntity {
+public abstract class Entity {
 
     private ATile laCase;
     protected int vision;
-    protected List<ABehavior> comportements;
+    protected List<Behavior> comportements;
 
-    public AEntity(ATile depart) {
+    public Entity(ATile depart) {
         laCase = depart;
     }
 
@@ -34,7 +34,7 @@ public abstract class AEntity {
         return vision;
     }
 
-    public double getDistance(AEntity entity) {
+    public double getDistance(Entity entity) {
         int x1 = laCase.getX();
         int y1 = laCase.getY();
         int x2 = entity.getLaCase().getX();
@@ -42,13 +42,13 @@ public abstract class AEntity {
         return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
     }
 
-    public IAction chooseAction(List<ATile> vues) {
+    public Action chooseAction(List<ATile> vues) {
         int priority = 0;
-        List<IAction> actions = new ArrayList<IAction>();
-        IAction res = null;
-        for (ABehavior comp : comportements) {
+        List<Action> actions = new ArrayList<Action>();
+        Action res = null;
+        for (Behavior comp : comportements) {
             actions = comp.behave(vues);
-            for (IAction act : actions) {
+            for (Action act : actions) {
                 if (act.getPriority() >= priority)
                     res = act;
             }
@@ -64,6 +64,6 @@ public abstract class AEntity {
      * 
      * @return l'action demandée par l'entité
      */
-    public abstract IAction update(List<ATile> list);
+    public abstract Action update(List<ATile> list);
 
 }

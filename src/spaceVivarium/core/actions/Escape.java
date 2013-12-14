@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import spaceVivarium.core.entities.AEntity;
+import spaceVivarium.core.entities.Entity;
 import spaceVivarium.core.maps.tiles.ATile;
 import spaceVivarium.utils.Vector2D;
 
@@ -13,13 +13,13 @@ import spaceVivarium.utils.Vector2D;
  * type typeEnemy .
  * 
  */
-public class Escape extends ABehavior {
+public class Escape extends Behavior {
     // l'entité qui s'échappe
-    private AEntity entity;
+    private Entity entity;
     // le type des entités à éviter
-    private Class<? extends AEntity> typeEnemy;
+    private Class<? extends Entity> typeEnemy;
 
-    public Escape(AEntity self, Class<? extends AEntity> typeE) {
+    public Escape(Entity self, Class<? extends Entity> typeE) {
         entity = self;
         typeEnemy = typeE;
     }
@@ -29,9 +29,9 @@ public class Escape extends ABehavior {
      *            la liste des cases vues par l'entité entity
      * @return l'ennemi AEntity le plus proche de l'entité entity
      */
-    private AEntity getNearestEnemy(List<ATile> list) {
-        AEntity res = null;
-        AEntity tileEntity = null;
+    private Entity getNearestEnemy(List<ATile> list) {
+        Entity res = null;
+        Entity tileEntity = null;
         double distance = 10000;
         double newDistance = 0;
         for (ATile tile : list) {
@@ -59,7 +59,7 @@ public class Escape extends ABehavior {
      *            la liste des cases vues par l'entité entity
      * @return la case la plus sûre pour éviter enemy
      */
-    private ATile getSafestTile(AEntity enemy, List<ATile> list) {
+    private ATile getSafestTile(Entity enemy, List<ATile> list) {
         ATile res = null;
         Vector2D pEnemy = new Vector2D(enemy.getLaCase().getX(), enemy
                 .getLaCase().getY());
@@ -88,9 +88,9 @@ public class Escape extends ABehavior {
     }
 
     @Override
-    public List<IAction> behave(List<ATile> list) {
-        List<IAction> listAct = new ArrayList<IAction>();
-        AEntity enemy = getNearestEnemy(list);
+    public List<Action> behave(List<ATile> list) {
+        List<Action> listAct = new ArrayList<Action>();
+        Entity enemy = getNearestEnemy(list);
         if (enemy != null) {
             ATile safeTile = getSafestTile(enemy, list);
             if (safeTile != null)
