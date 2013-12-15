@@ -22,11 +22,11 @@ import javax.swing.table.TableModel;
 
 public class Fenetre2 extends JFrame {
 
-    private JButton charge, ok, simulater;
+    private JButton charge, ok, simuler;
     private JComboBox species;
-    private JTextField number;
+    private JTextField typemap, number;
 
-    private JPanel map;
+    // private JPanel map;
     private JTable animalTable;
     private List<AnimalQuantite> animalsList = new ArrayList<AnimalQuantite>();
     private TableModel model;
@@ -92,13 +92,14 @@ public class Fenetre2 extends JFrame {
     }
 
     private void init() {
-        setTitle("créer small world");
+        setTitle("creer small world");
         charge = new JButton("charge");
         ok = new JButton("OK");
-        simulater = new JButton("simulater");
+        simuler = new JButton("simuler");
 
         // TODO
-        map = new JPanel();
+        // map = new JPanel();
+        typemap = new JTextField("");
         species = new JComboBox();
         number = new JTextField("");
         model = new AnimalTableModel(animalsList);
@@ -120,7 +121,7 @@ public class Fenetre2 extends JFrame {
         northPanel.add(panelNorthNorth, BorderLayout.CENTER);
         northPanel.add(panelNorthSouth, BorderLayout.SOUTH);
         panelNorthNorth.setLayout(new BorderLayout());
-        panelNorthNorth.add(map, BorderLayout.CENTER);
+        panelNorthNorth.add(typemap, BorderLayout.CENTER);
         panelNorthNorth.add(charge, BorderLayout.EAST);
         panelNorthSouth.setLayout(new GridLayout(1, 3));
         panelNorthSouth.add(species, BorderLayout.SOUTH);
@@ -130,7 +131,7 @@ public class Fenetre2 extends JFrame {
         this.add(scrollPane, BorderLayout.CENTER);
         // this.add(animalTable,BorderLayout.CENTER);
         southPanel.setLayout(new BorderLayout());
-        southPanel.add(simulater, BorderLayout.EAST);
+        southPanel.add(simuler, BorderLayout.EAST);
     }
 
     private void addAnimalInfo(String name, String string) {
@@ -142,8 +143,8 @@ public class Fenetre2 extends JFrame {
 
     private void addJComboBoxItem() {
         species.addItem("Cthuli");
-        species.addItem("Petite araignée vénéneuse");
-        species.addItem("Fourmi géantes");
+        species.addItem("Petite araignee veneneuse");
+        species.addItem("Fourmi geantes");
         species.addItem("Humains");
     }
 }
