@@ -11,7 +11,7 @@ import spaceVivarium.core.entities.TestSmartEntity;
 import spaceVivarium.core.maps.Board;
 import spaceVivarium.core.maps.xml.XmlReader;
 import spaceVivarium.core.simulation.Simulation;
-
+import spaceVivarium.exception.XmlFailureException;
 import spaceVivarium.utils.thread.IHMThread;
 import spaceVivarium.utils.thread.SimulationThread;
 import spaceVivarium.utils.thread.ThreadUtil;
@@ -26,23 +26,17 @@ public class Test {
 
         IHMThread ihmThread = new IHMThread(simulation);
 
-
         SwingUtilities.invokeLater(ihmThread);
 
-   
         ThreadUtil.execute(new SimulationThread(simulation, ihmThread
                 .getSimulationPanel()));
 
-        
     }
 
     private static Simulation getSimulation() {
 
         /* test xml reader */
 
-       
-
-       
         Board testmap = null;
         try {
             testmap = XmlReader
@@ -54,7 +48,6 @@ public class Test {
 
         // Board map = new Board(50, 50, Tile.class);
 
-      
         java.util.Map<Class<? extends Entity>, Integer> entityConf = new Hashtable<>();
 
         entityConf.put(TestEntity.class, 20);

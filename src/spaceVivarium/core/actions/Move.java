@@ -33,8 +33,18 @@ public class Move extends Action {
         if (this != action) {
             if (action.getClass() == Move.class) {
                 Move move = (Move) action;
+                // Les deux move ont la meme destination
                 if (move.destination.equals(destination)) {
                     toRemove = move;
+                    // une destination = le current de l'autre -> dependance
+                } else if (move.destination.equals(entity.getLaCase())) {
+                    // si l'entity change de case -> dependance
+                    if (entity.getLaCase() != destination) {
+                        move.setDependOn(this);
+                        // si l'entity ne change pas de case -> conflit
+                    } else {
+                        toRemove = move;
+                    }
                 }
 
             } else if (action.getClass() == Nothing.class) {
@@ -44,6 +54,9 @@ public class Move extends Action {
                 }
 
             }
+        }
+        if (toRemove != null) {
+            toRemove.setIsMade(false);
         }
         return toRemove;
     }
