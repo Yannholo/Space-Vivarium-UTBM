@@ -13,6 +13,7 @@ import spaceVivarium.core.entities.TestEntity;
 import spaceVivarium.core.maps.Board;
 import spaceVivarium.core.maps.xml.XmlReader;
 import spaceVivarium.core.simulation.Simulation;
+import spaceVivarium.exception.XmlFailureException;
 import spaceVivarium.ihm.Fenetre;
 import spaceVivarium.ihm.Panneau;
 import spaceVivarium.utils.thread.PrepareSimUpdate;
@@ -57,10 +58,16 @@ public class Test {
 
         /* test xml reader */
 
-        XmlReader reader = new XmlReader();
+        // XmlReader reader = new XmlReader();
 
-        Board testmap = reader
-                .xmlToBoard("src\\spaceVivarium\\core\\maps\\xml\\board.xml");
+        Board testmap = null;
+        try {
+            testmap = XmlReader
+                    .xmlToBoard("src\\spaceVivarium\\core\\maps\\xml\\board.xml");
+        } catch (XmlFailureException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         // Board map = new Board(50, 50, Tile.class);
 

@@ -14,6 +14,7 @@ import javax.xml.stream.events.XMLEvent;
 import spaceVivarium.core.maps.Board;
 import spaceVivarium.core.maps.tiles.ATile;
 import spaceVivarium.core.maps.tiles.TileClass;
+import spaceVivarium.exception.XmlFailureException;
 
 public class XmlReader {
 
@@ -28,7 +29,7 @@ public class XmlReader {
     private static final String WIDTH = "width";
     private static final String TYPE = "type";
 
-    public Board xmlToBoard(String adresse) {
+    public static Board xmlToBoard(String adresse) throws XmlFailureException {
         Board board = null;
         Integer x = null, y = null, height = null, width = null;
         Class<? extends ATile> type = null;
@@ -108,7 +109,7 @@ public class XmlReader {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new XmlFailureException(e.getMessage());
         }
 
         return board;

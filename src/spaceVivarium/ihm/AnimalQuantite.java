@@ -2,14 +2,15 @@ package spaceVivarium.ihm;
 
 public class AnimalQuantite {
     private String name;
-    private String num;
+    private int num;
 
-    public AnimalQuantite(String name, String num) {
+    public AnimalQuantite(String name, int num) {
         this.name = name;
         this.num = num;
     }
 
     public String getName() {
+
         return name;
     }
 
@@ -17,11 +18,11 @@ public class AnimalQuantite {
         this.name = name;
     }
 
-    public String getNum() {
+    public int getNum() {
         return num;
     }
 
-    public void setNum(String num) {
+    public void setNum(int num) {
         this.num = num;
     }
 
