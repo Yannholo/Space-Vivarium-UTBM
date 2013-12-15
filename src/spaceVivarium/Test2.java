@@ -1,0 +1,95 @@
+package spaceVivarium;
+
+import java.util.Hashtable;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+import javax.swing.SwingUtilities;
+
+import spaceVivarium.core.actions.Action;
+import spaceVivarium.core.entities.Entity;
+import spaceVivarium.core.entities.TestEntity;
+import spaceVivarium.core.entities.TestSmartEntity;
+import spaceVivarium.core.maps.Board;
+import spaceVivarium.core.maps.xml.XmlReader;
+import spaceVivarium.core.simulation.Simulation;
+import spaceVivarium.ihm.Fenetre;
+import spaceVivarium.ihm.Panneau;
+import spaceVivarium.utils.thread.PrepareSimUpdate;
+
+public class Test2 {
+
+    public static void main(String[] args) throws InterruptedException,
+            ExecutionException {
+
+        final Simulation simulation = getSimulation();
+        simulation.init();
+
+        final Fenetre fenetre = new Fenetre();
+
+        final Panneau pan = new Panneau(simulation);
+        fenetre.add(pan);
+
+        final ExecutorService executor = Executors.newFixedThreadPool(2);
+        SwingUtilities.invokeLater(new Runnable() {
+
+            public void run() {
+
+                while (fenetre.isShowing()) {
+
+                    // On lance l'ia pour futures actions (thread)
+                    Future<List<Action>> futureActionList = executor
+                            .submit(new PrepareSimUpdate(simulation));
+                    // On dessine le field (on attend la fin du dessin)
+                    // pan.repaint();
+                    pan.paintImmediately(pan.getBounds());
+                    // On attend la fin de l'ia
+                    List<Action> actions = null;
+                    try {
+                        actions = futureActionList.get();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                    // On applique la simulation (non thread)
+                    synchronized (simulation) {
+                        simulation.applyUpdate(actions);
+                    }
+
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        });
+
+    }
+
+    private static Simulation getSimulation() {
+
+        /* test xml reader */
+
+        XmlReader reader = new XmlReader();
+
+        Board testmap = reader
+                .xmlToBoard("src\\spaceVivarium\\core\\maps\\xml\\board.xml");
+
+        // Board map = new Board(50, 50, Tile.class);
+
+        java.util.Map<Class<? extends Entity>, Integer> entityConf = new Hashtable<>();
+
+        entityConf.put(TestEntity.class, 20);
+        entityConf.put(TestSmartEntity.class, 20);
+
+        return new Simulation(testmap, entityConf);
+
+    }
+
+}
