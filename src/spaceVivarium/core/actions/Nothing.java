@@ -2,27 +2,18 @@ package spaceVivarium.core.actions;
 
 import spaceVivarium.core.entities.Entity;
 
-public class Nothing implements Action {
-
-    private int priority = 0;
+public class Nothing extends Action {
 
     private Entity entity;
 
     public Nothing(Entity entity) {
+        super(0);
         this.entity = entity;
     }
 
     @Override
-    public void doIt() {
+    public void doItImpl() {
         // nothing
-    }
-
-    public int getPriority() {
-        return priority;
-    }
-
-    public void setPriority(int prio) {
-        this.priority = prio;
     }
 
     @Override
