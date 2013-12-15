@@ -45,7 +45,7 @@ public class Simulation {
         i++;
         System.out.println("prepareUpdate " + i);
         List<Action> actions = askActions();
-        handleConflict(actions);
+        actions.removeAll(handleConflict(actions));
         System.out.println("prepareUpdend " + i);
         return actions;
     }
@@ -62,27 +62,28 @@ public class Simulation {
         return actions;
     }
 
-    private void handleConflict(List<Action> actions) {
+    private List<Action> handleConflict(List<Action> actions) {
         List<Action> toRemove = new ArrayList<>();
         Action tmp = null;
         for (Action action1 : actions) {
-            if (!toRemove.contains(action1)) {
-                for (Action action2 : actions) {
-                    if (!toRemove.contains(action2)) {
-                        if ((tmp = action1.inConflict(action2)) != null) {
-                            toRemove.add(tmp);
-                        }
+            for (Action action2 : actions) {
+                if (!toRemove.contains(action2)) {
+                    if ((tmp = action1.inConflict(action2)) != null) {
+                        toRemove.add(tmp);
+                        System.out.println("remove " + tmp);
+                        break;
                     }
                 }
             }
         }
-        actions.removeAll(toRemove);
+        return toRemove;
     }
 
     public void applyUpdate(List<Action> actions) {
         j++;
         System.out.println("applyUpdate " + j);
         for (Action iAction : actions) {
+            System.out.println("Apply : " + iAction);
             iAction.doIt();
         }
         System.out.println("applyUpdend " + j);

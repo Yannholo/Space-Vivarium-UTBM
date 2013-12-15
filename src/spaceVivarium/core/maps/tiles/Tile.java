@@ -14,10 +14,10 @@ public class Tile extends ATile {
     }
 
     public void print(Graphics2D g2d) {
-        if (bestiole != null && bestiole.getClass().equals(TestEntity.class)) {
+        if (entity != null && entity.getClass().equals(TestEntity.class)) {
             g2d.setColor(Color.RED);
-        } else if (bestiole != null
-                && bestiole.getClass().equals(TestSmartEntity.class)) {
+        } else if (entity != null
+                && entity.getClass().equals(TestSmartEntity.class)) {
             g2d.setColor(Color.GREEN);
         } else {
             g2d.setColor(Color.LIGHT_GRAY);

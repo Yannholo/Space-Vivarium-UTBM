@@ -32,27 +32,38 @@ public class Move implements Action {
 
     @Override
     public void doIt() {
-        entity.getLaCase().setBestiole(null);
+        if (entity.getLaCase().getEntity() == entity) {
+            entity.getLaCase().setEntity(null);
+        }
         entity.setLaCase(destination);
-        destination.setBestiole(entity);
+        destination.setEntity(entity);
     }
 
     @Override
     public Action inConflict(Action action) {
         Action toRemove = null;
-        if (action.getClass() == Move.class) {
-            Move move = (Move) action;
-            if (move.destination.equals(destination)) {
-                toRemove = move;
-            }
+        if (this != action) {
+            if (action.getClass() == Move.class) {
+                Move move = (Move) action;
+                if (move.destination.equals(destination)) {
+                    toRemove = move;
+                }
 
-        } else if (action.getClass() == Nothing.class) {
-            Nothing nothing = (Nothing) action;
-            if (nothing.getEntity().getLaCase().equals(destination)) {
-                toRemove = this;
-            }
+            } else if (action.getClass() == Nothing.class) {
+                Nothing nothing = (Nothing) action;
+                if (nothing.getEntity().getLaCase().equals(destination)) {
+                    toRemove = this;
+                }
 
+            }
         }
         return toRemove;
+    }
+
+    @Override
+    public String toString() {
+        return "Move : " + entity + " " + entity.getLaCase().getX() + ","
+                + entity.getLaCase().getY() + " -> " + destination.getX() + ","
+                + destination.getY();
     }
 }
