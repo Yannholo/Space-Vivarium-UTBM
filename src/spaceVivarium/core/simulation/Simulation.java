@@ -4,11 +4,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-import spaceVivarium.core.actions.IAction;
-import spaceVivarium.core.entities.AEntity;
-import spaceVivarium.core.maps.Field;
+import spaceVivarium.core.actions.Action;
+import spaceVivarium.core.entities.Entity;
 import spaceVivarium.core.maps.Board;
+import spaceVivarium.core.maps.Field;
 
 /**
  * Cet object sera synchronisé avec l'IHM, C'est l'interface entre L'IHM et le
@@ -20,17 +21,17 @@ import spaceVivarium.core.maps.Board;
 public class Simulation {
     /* Configurations */
     private Board map;
-    private java.util.Map<Class<? extends AEntity>, Integer> entityConf;
+    private java.util.Map<Class<? extends Entity>, Integer> entityConf;
 
     int i = 0;
 
     /* sim objects */
     private Field field;
-    private List<? extends AEntity> entities;
+    private List<? extends Entity> entities;
     private int j = 0;
 
     public Simulation(Board map,
-            java.util.Map<Class<? extends AEntity>, Integer> entityConf) {
+            Map<Class<? extends Entity>, Integer> entityConf) {
         this.map = map;
         this.entityConf = entityConf;
     }
@@ -40,11 +41,11 @@ public class Simulation {
         entities = field.getEntities();
     }
 
-    public List<IAction> prepareUpdate() {
+    public List<Action> prepareUpdate() {
         i++;
         System.out.println("prepareUpdate " + i);
-        List<IAction> actions = askActions();
-        handleConflict(actions);
+        List<Action> actions = askActions();
+        actions.removeAll(handleConflict(actions));
         System.out.println("prepareUpdend " + i);
         return actions;
     }
@@ -53,22 +54,36 @@ public class Simulation {
         field.print((Graphics2D) g);
     }
 
-    private List<IAction> askActions() {
-        List<IAction> actions = new ArrayList<>(entities.size());
-        for (AEntity entity : entities) {
+    private List<Action> askActions() {
+        List<Action> actions = new ArrayList<>(entities.size());
+        for (Entity entity : entities) {
             actions.add(entity.update(field.getView(entity)));
         }
         return actions;
     }
 
-    private void handleConflict(List<IAction> actions) {
-        // TODO Handle Conflicts
+    private List<Action> handleConflict(List<Action> actions) {
+        List<Action> toRemove = new ArrayList<>();
+        Action tmp = null;
+        for (Action action1 : actions) {
+            for (Action action2 : actions) {
+                if (!toRemove.contains(action2)) {
+                    if ((tmp = action1.inConflict(action2)) != null) {
+                        toRemove.add(tmp);
+                        System.out.println("remove " + tmp);
+                        break;
+                    }
+                }
+            }
+        }
+        return toRemove;
     }
 
-    public void applyUpdate(List<IAction> actions) {
+    public void applyUpdate(List<Action> actions) {
         j++;
         System.out.println("applyUpdate " + j);
-        for (IAction iAction : actions) {
+        for (Action iAction : actions) {
+            System.out.println("Apply : " + iAction);
             iAction.doIt();
         }
         System.out.println("applyUpdend " + j);

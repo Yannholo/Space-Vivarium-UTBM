@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
+import spaceVivarium.core.entities.TestEntity;
+import spaceVivarium.core.entities.TestSmartEntity;
+
 public class Tile extends ATile {
 
     public Tile(Point coord) {
@@ -11,8 +14,11 @@ public class Tile extends ATile {
     }
 
     public void print(Graphics2D g2d) {
-        if (bestiole != null) {
+        if (entity != null && entity.getClass().equals(TestEntity.class)) {
             g2d.setColor(Color.RED);
+        } else if (entity != null
+                && entity.getClass().equals(TestSmartEntity.class)) {
+            g2d.setColor(Color.GREEN);
         } else {
             g2d.setColor(Color.LIGHT_GRAY);
         }

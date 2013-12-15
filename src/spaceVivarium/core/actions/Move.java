@@ -1,40 +1,57 @@
 package spaceVivarium.core.actions;
 
-import spaceVivarium.core.entities.AEntity;
+import spaceVivarium.core.entities.Entity;
 import spaceVivarium.core.maps.tiles.ATile;
 
-public class Move implements IAction {
+public class Move extends Action {
 
-    private AEntity entity;
+    private Entity entity;
     private ATile destination;
-    private int priority;
 
-    public Move(AEntity bestiole, ATile aTile) {
-        this.entity = bestiole;
+    public Move(Entity entity, ATile aTile) {
+        this(entity, aTile, 0);
+    }
+
+    public Move(Entity entity, ATile aTile, int prio) {
+        super(prio);
+        this.entity = entity;
         this.destination = aTile;
     }
 
-    public Move(AEntity bestiole, ATile aTile, int prio) {
-        this.entity = bestiole;
-        this.destination = aTile;
-        this.priority = prio;
-    }
-
     @Override
-    public int getPriority() {
-        return priority;
-    }
-
-    @Override
-    public void setPriority(int prio) {
-        this.priority = prio;
-    }
-
-    @Override
-    public void doIt() {
-        entity.getLaCase().setBestiole(null);
+    public void doItImpl() {
+        if (entity.getLaCase().getEntity() == entity) {
+            entity.getLaCase().setEntity(null);
+        }
         entity.setLaCase(destination);
-        destination.setBestiole(entity);
+        destination.setEntity(entity);
     }
 
+    @Override
+    public Action inConflict(Action action) {
+        Action toRemove = null;
+        if (this != action) {
+            if (action.getClass() == Move.class) {
+                Move move = (Move) action;
+                if (move.destination.equals(destination)) {
+                    toRemove = move;
+                }
+
+            } else if (action.getClass() == Nothing.class) {
+                Nothing nothing = (Nothing) action;
+                if (nothing.getEntity().getLaCase().equals(destination)) {
+                    toRemove = this;
+                }
+
+            }
+        }
+        return toRemove;
+    }
+
+    @Override
+    public String toString() {
+        return "Move : " + entity + " " + entity.getLaCase().getX() + ","
+                + entity.getLaCase().getY() + " -> " + destination.getX() + ","
+                + destination.getY();
+    }
 }
