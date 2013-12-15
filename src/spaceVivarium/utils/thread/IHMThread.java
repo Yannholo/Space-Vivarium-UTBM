@@ -19,10 +19,10 @@ public class IHMThread implements Runnable {
     @Override
     public void run() {
         JFrame frame = new JFrame("Simulation");
-        // Définit sa taille : 500 pixels de large et 500 pixels de haut
-        frame.setSize(520, 540);
         // Nous demandons maintenant à notre objet de se positionner au centre
         frame.setLocationRelativeTo(null);
+        // Définit sa taille
+        frame.setSize(550, 580);
         // Termine le processus lorsqu'on clique sur la croix rouge
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Instanciation d'un objet JPanel

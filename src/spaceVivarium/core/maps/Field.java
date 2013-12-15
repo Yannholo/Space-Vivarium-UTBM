@@ -80,7 +80,7 @@ public class Field {
                 ATile tile = getTile(type);
                 Entity entity = constructor.newInstance(tile);
                 entities.add(entity);
-                tile.setBestiole(entity);
+                tile.setEntity(entity);
             }
         } catch (NoSuchMethodException | SecurityException
                 | InstantiationException | IllegalAccessException

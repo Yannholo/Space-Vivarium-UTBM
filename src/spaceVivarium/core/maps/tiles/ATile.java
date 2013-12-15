@@ -8,7 +8,7 @@ import spaceVivarium.core.entities.Entity;
 
 public abstract class ATile {
     Point coord;
-    protected Entity bestiole;
+    protected Entity entity;
 
     public ATile(Point coord) {
         this.coord = coord;
@@ -27,11 +27,11 @@ public abstract class ATile {
     }
 
     public Entity getEntity() {
-        return bestiole;
+        return entity;
     }
 
-    public void setBestiole(Entity bestiole) {
-        this.bestiole = bestiole;
+    public void setEntity(Entity entity) {
+        this.entity = entity;
     }
 
     public ArrayList<Point> getAdjacentCoords() {
@@ -46,12 +46,15 @@ public abstract class ATile {
     }
 
     @Override
-    public boolean equals(Object arg0) {
-        if (arg0.getClass().equals(this.getClass())) {
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
             return false;
-        }
-        Tile autre = (Tile) arg0;
-        return coord == autre.coord;
+        if (getClass() != obj.getClass())
+            return false;
+        Tile tile = (Tile) obj;
+        return coord.equals(tile.coord);
     }
 
     public abstract void print(Graphics2D g2d);
