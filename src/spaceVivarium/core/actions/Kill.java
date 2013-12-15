@@ -52,7 +52,7 @@ public class Kill implements Action {
 
     @Override
     public void doIt() {
-        killedEntity.getLaCase().setBestiole(null);
+        killedEntity.getLaCase().setEntity(null);
         killedEntity.setAlive(false);
     }
 
