@@ -24,4 +24,5 @@ public class Tile extends ATile {
         }
         g2d.fill3DRect(coord.x * 10, coord.y * 10, 10, 10, true);
     }
+
 }

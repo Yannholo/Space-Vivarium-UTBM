@@ -10,7 +10,7 @@ import spaceVivarium.utils.Vector2D;
 
 /**
  * Follow behavior, indique à l'entité entity de suivre toutes les entités de
- * type typeEnemy .
+ * type typePrey .
  * 
  */
 public class Follow extends Behavior {
