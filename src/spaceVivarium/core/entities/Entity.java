@@ -11,6 +11,7 @@ public abstract class Entity {
 
     private ATile laCase;
     protected int vision;
+    protected boolean alive;
     protected List<Behaviour> comportements;
 
     public Entity(ATile depart) {
@@ -32,6 +33,14 @@ public abstract class Entity {
 
     public int getVision() {
         return vision;
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean b) {
+        alive = b;
     }
 
     public double getDistance(Entity entity) {
