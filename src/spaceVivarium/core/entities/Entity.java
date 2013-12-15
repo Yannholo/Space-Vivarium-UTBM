@@ -3,8 +3,8 @@ package spaceVivarium.core.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import spaceVivarium.core.actions.Behavior;
 import spaceVivarium.core.actions.Action;
+import spaceVivarium.core.behaviour.Behavior;
 import spaceVivarium.core.maps.tiles.ATile;
 
 public abstract class Entity {

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import spaceVivarium.core.actions.Action;
-import spaceVivarium.core.actions.Behavior;
-import spaceVivarium.core.actions.Follow;
+import spaceVivarium.core.behaviour.Behavior;
+import spaceVivarium.core.behaviour.Follow;
 import spaceVivarium.core.maps.tiles.ATile;
 
 public class TestSmartEntity extends Entity {
