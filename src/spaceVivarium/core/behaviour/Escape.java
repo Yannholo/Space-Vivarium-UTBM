@@ -16,7 +16,7 @@ import spaceVivarium.utils.Vector2D;
  * type typeEnemy .
  * 
  */
-public class Escape extends Behavior {
+public class Escape extends Behaviour {
     // l'entité qui s'échappe
     private Entity entity;
     // le type des entités à éviter

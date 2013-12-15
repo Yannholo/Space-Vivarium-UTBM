@@ -16,7 +16,7 @@ import spaceVivarium.utils.Vector2D;
  * type typePrey .
  * 
  */
-public class Follow extends Behavior {
+public class Follow extends Behaviour {
     // l'entité qui suit
     private Entity entity;
     // le type des entités à suivre

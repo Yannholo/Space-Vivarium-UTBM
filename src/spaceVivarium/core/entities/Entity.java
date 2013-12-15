@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import spaceVivarium.core.actions.Action;
-import spaceVivarium.core.behaviour.Behavior;
+import spaceVivarium.core.behaviour.Behaviour;
 import spaceVivarium.core.maps.tiles.ATile;
 
 public abstract class Entity {
 
     private ATile laCase;
     protected int vision;
-    protected List<Behavior> comportements;
+    protected List<Behaviour> comportements;
 
     public Entity(ATile depart) {
         laCase = depart;
@@ -46,7 +46,7 @@ public abstract class Entity {
         int priority = 0;
         List<Action> actions = new ArrayList<Action>();
         Action res = null;
-        for (Behavior comp : comportements) {
+        for (Behaviour comp : comportements) {
             actions = comp.behave(vues);
             for (Action act : actions) {
                 if (act.getPriority() >= priority)
