@@ -37,4 +37,22 @@ public class Move implements Action {
         destination.setBestiole(entity);
     }
 
+    @Override
+    public Action inConflict(Action action) {
+        Action toRemove = null;
+        if (action.getClass() == Move.class) {
+            Move move = (Move) action;
+            if (move.destination.equals(destination)) {
+                toRemove = move;
+            }
+
+        } else if (action.getClass() == Nothing.class) {
+            Nothing nothing = (Nothing) action;
+            if (nothing.getEntity().getLaCase().equals(destination)) {
+                toRemove = this;
+            }
+
+        }
+        return toRemove;
+    }
 }

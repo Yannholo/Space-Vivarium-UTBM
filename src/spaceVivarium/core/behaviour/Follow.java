@@ -106,7 +106,7 @@ public class Follow extends Behaviour {
             if (safeTile != null)
                 listAct.add(new Move(entity, safeTile, 3));
             else
-                listAct.add(new Nothing());
+                listAct.add(new Nothing(entity));
 
         } else
             listAct.add(new Move(entity, getRandomTile(list), 3));

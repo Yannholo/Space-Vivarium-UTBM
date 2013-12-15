@@ -4,11 +4,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import spaceVivarium.core.actions.Action;
 import spaceVivarium.core.entities.Entity;
-import spaceVivarium.core.maps.Field;
 import spaceVivarium.core.maps.Board;
+import spaceVivarium.core.maps.Field;
 
 /**
  * Cet object sera synchronisé avec l'IHM, C'est l'interface entre L'IHM et le
@@ -30,7 +31,7 @@ public class Simulation {
     private int j = 0;
 
     public Simulation(Board map,
-            java.util.Map<Class<? extends Entity>, Integer> entityConf) {
+            Map<Class<? extends Entity>, Integer> entityConf) {
         this.map = map;
         this.entityConf = entityConf;
     }
@@ -62,7 +63,20 @@ public class Simulation {
     }
 
     private void handleConflict(List<Action> actions) {
-        // TODO Handle Conflicts
+        List<Action> toRemove = new ArrayList<>();
+        Action tmp = null;
+        for (Action action1 : actions) {
+            if (!toRemove.contains(action1)) {
+                for (Action action2 : actions) {
+                    if (!toRemove.contains(action2)) {
+                        if ((tmp = action1.inConflict(action2)) != null) {
+                            toRemove.add(tmp);
+                        }
+                    }
+                }
+            }
+        }
+        actions.removeAll(toRemove);
     }
 
     public void applyUpdate(List<Action> actions) {
