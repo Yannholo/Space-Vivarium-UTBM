@@ -59,4 +59,9 @@ public class Vector2D {
     public Point getIntPoint() {
         return new Point((int) Math.round(this.x), (int) Math.round(this.y));
     }
+
+    @Override
+    public String toString() {
+        return "[" + x + ", " + y + "]";
+    }
 }

@@ -2,7 +2,9 @@ package spaceVivarium.core.behaviour;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import spaceVivarium.core.actions.Action;
 import spaceVivarium.core.actions.Move;
@@ -17,13 +19,10 @@ import spaceVivarium.utils.Vector2D;
  * 
  */
 public class Follow extends Behaviour {
-    // l'entité qui suit
-    private Entity entity;
     // le type des entités à suivre
     private Class<? extends Entity> typePrey;
 
-    public Follow(Entity self, Class<? extends Entity> typeP) {
-        entity = self;
+    public Follow(Class<? extends Entity> typeP) {
         typePrey = typeP;
     }
 
@@ -32,44 +31,43 @@ public class Follow extends Behaviour {
      *            la liste des cases vues par l'entité entity
      * @return la proie AEntity la plus proche de l'entité entity
      */
-    private Entity getNearestPrey(List<ATile> list) {
-        Entity res = null;
-        Entity tileEntity = null;
+    private Point getNearestPrey(
+            Map<Point, ATile> tiles, Map<Point, Entity> entities, Point current) {
+        Point res = null;
         double distance = 10000;
         double newDistance = 0;
-        for (ATile tile : list) {
-            tileEntity = tile.getEntity();
-            if (tileEntity != null) {
-                // l'entité existe sur la case.
-                if (tileEntity.getClass().equals((typePrey))) {
-                    // l'entité est une proie.
-                    newDistance = entity.getDistance(tileEntity);
-                    if (newDistance < distance) {
-                        // l'entité est la plus proche actuellement
-                        res = tileEntity;
-                        distance = newDistance;
-                    }
+        for (Entry<Point, Entity> entry : entities.entrySet()) {
+
+            // l'entité existe sur la case.
+            if (entry.getValue().getClass().equals((typePrey))) {
+                // l'entité est une proie.
+                newDistance = current.distance(entry.getKey());
+                if (newDistance < distance) {
+                    // l'entité est la plus proche actuellement
+                    res = entry.getKey();
+                    distance = newDistance;
                 }
             }
+
         }
         return res;
     }
 
-    private ATile getRandomTile(List<ATile> list) {
-        ArrayList<ATile> tiles = this.getAdjacentCoords(list);
+    private Point getRandomTile(Collection<Point> list, Point current) {
+        ArrayList<Point> tiles = this.getAdjacentCoords(list, current);
         return tiles.get((int) (Math.random() * tiles.size()));
     }
 
-    public ArrayList<ATile> getAdjacentCoords(List<ATile> list) {
-        ArrayList<ATile> adj = new ArrayList<ATile>();
-        Vector2D self = new Vector2D(entity.getLaCase().getX(), entity
-                .getLaCase().getY());
-        for (ATile tile : list) {
-            Vector2D dest = new Vector2D(tile.getX(), tile.getY());
-            if (self.getDistance(dest) <= 1)
-                adj.add(tile);
+    public ArrayList<Point> getAdjacentCoords(
+            Collection<Point> list, Point current) {
+        ArrayList<Point> adj = new ArrayList<Point>();
+        Vector2D self = new Vector2D(current.x, current.y);
+        for (Point point : list) {
+            Vector2D dest = new Vector2D(point.x, point.y);
+            if (self.getDistance(dest) <= 1.5)
+                adj.add(point);
         }
-        adj.add(entity.getLaCase());
+        adj.add(current);
         return adj;
     }
 
@@ -80,36 +78,38 @@ public class Follow extends Behaviour {
      *            la liste des cases vues par l'entité entity
      * @return la case la plus sûre pour éviter enemy
      */
-    private ATile getClosestTile(Entity proie, List<ATile> list) {
-        ATile res = null;
-        Vector2D pPrey = new Vector2D(proie.getLaCase().getX(), proie
-                .getLaCase().getY());
-        Vector2D pSelf = new Vector2D(entity.getLaCase().getX(), entity
-                .getLaCase().getY());
+    private Point getClosestTile(
+            Point proie, Point current, Map<Point, ATile> tiles) {
+        Point res = null;
+        Vector2D pPrey = new Vector2D(proie.x, proie.y);
+        Vector2D pSelf = new Vector2D(current.x, current.y);
         Vector2D normalizedDir = new Vector2D(pPrey.getX() - pSelf.getX(),
                 pPrey.getY() - pSelf.getY()).normalize();
         Point arrive = pSelf.translate(normalizedDir).getIntPoint();
-        for (ATile tile : list) {
-            if (tile.getX() == arrive.getX() && tile.getY() == arrive.getY())
-                res = tile;
+        for (Point point : tiles.keySet()) {
+            if (point.x == arrive.x && point.y == arrive.y)
+                res = point;
         }
 
         return res;
     }
 
     @Override
-    public List<Action> behave(List<ATile> list) {
-        List<Action> listAct = new ArrayList<Action>();
-        Entity proie = getNearestPrey(list);
+    public Action behave(
+            Map<Point, ATile> tiles, Map<Point, Entity> entities, Point current) {
+        Action action = null;
+        Point proie = getNearestPrey(tiles, entities, current);
         if (proie != null) {
-            ATile safeTile = getClosestTile(proie, list);
+            Point safeTile = getClosestTile(proie, current, tiles);
             if (safeTile != null)
-                listAct.add(new Move(entity, safeTile, 3));
+                action = new Move(current, safeTile, 3);
             else
-                listAct.add(new Nothing(entity));
+                action = new Nothing(current);
 
         } else
-            listAct.add(new Move(entity, getRandomTile(list), 3));
-        return listAct;
+            action = new Move(current, getRandomTile(tiles.keySet(), current),
+                    3);
+        return action;
     }
+
 }

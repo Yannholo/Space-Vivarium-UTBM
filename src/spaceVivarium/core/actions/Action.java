@@ -1,23 +1,37 @@
 package spaceVivarium.core.actions;
 
+import java.awt.Point;
+import java.util.Map;
+
+import spaceVivarium.core.entities.Entity;
+import spaceVivarium.core.maps.tiles.ATile;
+
 public abstract class Action {
     private int priority;
-    private boolean isMade;
+    private boolean isDone;
+    private boolean willBeDone;
     private Action dependOn;
 
     public Action(int prio) {
         priority = prio;
-        isMade = true;
+        isDone = false;
+        willBeDone = true;
         dependOn = null;
     }
 
-    public final void doIt() {
-        if (isMade && (dependOn == null || dependOn.isMade)) {
-            doItImpl();
+    public final void doIt(Map<Point, Entity> entities, Map<Point, ATile> tiles) {
+        if (!isDone && willBeDone && (dependOn == null || dependOn.willBeDone)) {
+            isDone = true;
+            if (dependOn != null && !dependOn.isDone) {
+                dependOn.doIt(entities, tiles);
+            }
+            doItImpl(entities, tiles);
+
         }
     }
 
-    public abstract void doItImpl();
+    public abstract void doItImpl(
+            Map<Point, Entity> entities, Map<Point, ATile> tiles);
 
     /**
      * @param action
@@ -34,18 +48,21 @@ public abstract class Action {
     }
 
     /**
-     * @return true si l'action va être effectuee
+     * @return true if the action have been made
      */
-    public boolean isMade() {
-        return isMade;
+    public boolean isDone() {
+        return isDone;
     }
 
     /**
-     * @param isMade
-     *            false pour que l'action ne soit pas effectuee
+     * @return false if the action will never be done
      */
-    public void setIsMade(boolean isMade) {
-        this.isMade = isMade;
+    public boolean isWillBeDone() {
+        return willBeDone;
+    }
+
+    public void setWillBeDone(boolean willBeDone) {
+        this.willBeDone = willBeDone;
     }
 
     /**
@@ -59,7 +76,8 @@ public abstract class Action {
     }
 
     public void setDependOn(Action dependOn) {
-        this.dependOn = dependOn;
+        if (dependOn != this)
+            this.dependOn = dependOn;
     }
 
 }
