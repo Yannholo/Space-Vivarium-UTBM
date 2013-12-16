@@ -50,18 +50,6 @@ public class Fenetre2 extends JFrame {
      */
     private static final long serialVersionUID = 1L;
 
-    /*
-     * public Fenetre2() { // D閒init un titre pour notre fen阾re
-     * setTitle("créer small world"); // D閒init sa taille : 500 pixels de large
-     * et 500 pixels de haut setPreferredSize(new Dimension(520, 520));
-     * 
-     * // Nous demandons maintenant �notre objet de se positionner au centre
-     * setLocationRelativeTo(null); // Termine le processus lorsqu'on clique sur
-     * la croix rouge setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //
-     * Instanciation d'un objet JPanel // Et enfin, la rendre visible
-     * 
-     * setVisible(true); this.pack(); }
-     */
     public Fenetre2() {
         init();
         configParams();
@@ -78,10 +66,15 @@ public class Fenetre2 extends JFrame {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                addAnimalInfo(species.getSelectedItem().toString(),
-                        Integer.parseInt(number.getText()));
-                System.out.println(species.getSelectedItem().toString());
-
+                try {
+                    addAnimalInfo(species.getSelectedItem().toString(),
+                            Integer.parseInt(number.getText()));
+                    System.out.println(species.getSelectedItem().toString());
+                } catch (NumberFormatException e1) {
+                    JOptionPane.showMessageDialog(Fenetre2.this,
+                            "quantite n'est pas valide !", "Erreur",
+                            JOptionPane.WARNING_MESSAGE);
+                }
             }
         });
 
@@ -92,9 +85,15 @@ public class Fenetre2 extends JFrame {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                suppriAnimalInfo(species1.getSelectedItem().toString(),
-                        Integer.parseInt(number1.getText()));
-                System.out.println(species1.getSelectedItem().toString());
+                try {
+                    suppriAnimalInfo(species1.getSelectedItem().toString(),
+                            Integer.parseInt(number1.getText()));
+                    System.out.println(species1.getSelectedItem().toString());
+                } catch (NumberFormatException e1) {
+                    JOptionPane.showMessageDialog(Fenetre2.this,
+                            "quantite n'est pas valide !", "Erreur",
+                            JOptionPane.WARNING_MESSAGE);
+                }
 
             }
         });
@@ -133,9 +132,9 @@ public class Fenetre2 extends JFrame {
         typemap = new JLabel(path);
 
         species = new JComboBox();
-        number = new JTextField("");
+        number = new JTextField();
         species1 = new JComboBox();
-        number1 = new JTextField("");
+        number1 = new JTextField();
         model = new AnimalTableModel(animalsList);
         animalTable = new JTable(model);
         scrollPane = new JScrollPane(animalTable);
@@ -202,8 +201,7 @@ public class Fenetre2 extends JFrame {
                 estPresent = true;
                 animal.setNum(animal.getNum() - num);
                 if (animal.getNum() <= 0) {
-                    // name = null;
-                    // AnimalQuantite animal1 = new AnimalQuantite(name, num);
+
                     animals = animal;
                 }
                 scrollPane.updateUI();
