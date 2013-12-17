@@ -6,6 +6,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -177,9 +178,32 @@ public class Field {
     }
 
     public void applyUpdates(List<Action> actions) {
+        List<Point> entitiesToRemove = new LinkedList<>();
+        Map<Point, Entity> entitiesToAdd = new HashMap<>();
         for (Action action : actions) {
             System.out.println(action);
-            action.doIt(entities, tiles);
+            action.doIt(entities, entitiesToAdd, entitiesToRemove);
+        }
+
+        reCheckForConflict(entitiesToRemove, entitiesToAdd); // TODO remove
+                                                             // debug only
+
+        for (Point key : entitiesToRemove)
+            entities.remove(key);
+
+        entities.putAll(entitiesToAdd);
+
+    }
+
+    private void reCheckForConflict(
+            List<Point> entitiesToRemove, Map<Point, Entity> entitiesToAdd) {
+        for (Entry<Point, Entity> entry : entitiesToAdd.entrySet()) {
+            for (Entry<Point, Entity> entry2 : entitiesToAdd.entrySet()) {
+                if (entry.getKey().equals(entry2.getKey())
+                        && entry.getValue() != entry2.getValue()) {
+                    System.out.println("FAIL");
+                }
+            }
         }
 
     }

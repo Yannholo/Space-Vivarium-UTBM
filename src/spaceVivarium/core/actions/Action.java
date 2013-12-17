@@ -1,10 +1,10 @@
 package spaceVivarium.core.actions;
 
 import java.awt.Point;
+import java.util.List;
 import java.util.Map;
 
 import spaceVivarium.core.entities.Entity;
-import spaceVivarium.core.maps.tiles.ATile;
 
 public abstract class Action {
     private int priority;
@@ -19,19 +19,22 @@ public abstract class Action {
         dependOn = null;
     }
 
-    public final void doIt(Map<Point, Entity> entities, Map<Point, ATile> tiles) {
+    public final void doIt(
+            Map<Point, Entity> entities, Map<Point, Entity> entitiesToAdd,
+            List<Point> entitiesToRemove) {
         if (!isDone && willBeDone && (dependOn == null || dependOn.willBeDone)) {
             isDone = true;
             if (dependOn != null && !dependOn.isDone) {
-                dependOn.doIt(entities, tiles);
+                dependOn.doIt(entities, entitiesToAdd, entitiesToRemove);
             }
-            doItImpl(entities, tiles);
+            doItImpl(entities, entitiesToAdd, entitiesToRemove);
 
         }
     }
 
     public abstract void doItImpl(
-            Map<Point, Entity> entities, Map<Point, ATile> tiles);
+            Map<Point, Entity> entities, Map<Point, Entity> entitiesToAdd,
+            List<Point> entitiesToRemove);
 
     /**
      * @param action

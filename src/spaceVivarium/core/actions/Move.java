@@ -1,10 +1,10 @@
 package spaceVivarium.core.actions;
 
 import java.awt.Point;
+import java.util.List;
 import java.util.Map;
 
 import spaceVivarium.core.entities.Entity;
-import spaceVivarium.core.maps.tiles.ATile;
 
 public class Move extends Action {
 
@@ -21,10 +21,13 @@ public class Move extends Action {
     }
 
     @Override
-    public void doItImpl(Map<Point, Entity> entities, Map<Point, ATile> tiles) {
-        Entity toMove = entities.remove(depart);
-
-        entities.put(arrivee, toMove);
+    public void doItImpl(
+            Map<Point, Entity> entities, Map<Point, Entity> entitiesToAdd,
+            List<Point> entitiesToRemove) {
+        // if (!depart.equals(arrivee)) {
+        entitiesToRemove.add(depart);
+        entitiesToAdd.put(arrivee, entities.get(depart));
+        // }
     }
 
     @Override

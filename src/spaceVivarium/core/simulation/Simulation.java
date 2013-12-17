@@ -67,7 +67,6 @@ public class Simulation {
                     if ((tmp = action1.inConflict(action2)) != null) {
                         toRemove.add(tmp);
                         System.out.println("remove " + tmp);
-                        break;
                     }
                 }
             }

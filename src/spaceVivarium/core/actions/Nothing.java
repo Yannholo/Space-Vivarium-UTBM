@@ -1,10 +1,10 @@
 package spaceVivarium.core.actions;
 
 import java.awt.Point;
+import java.util.List;
 import java.util.Map;
 
 import spaceVivarium.core.entities.Entity;
-import spaceVivarium.core.maps.tiles.ATile;
 
 public class Nothing extends Action {
 
@@ -16,7 +16,9 @@ public class Nothing extends Action {
     }
 
     @Override
-    public void doItImpl(Map<Point, Entity> entities, Map<Point, ATile> tiles) {
+    public void doItImpl(
+            Map<Point, Entity> entities, Map<Point, Entity> entitiesToAdd,
+            List<Point> entitiesToRemove) {
         // nothing
     }
 
@@ -27,6 +29,11 @@ public class Nothing extends Action {
 
     public Object getCurrent() {
         return current;
+    }
+
+    @Override
+    public String toString() {
+        return "Nothing : " + current;
     }
 
 }
