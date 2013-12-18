@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import spaceVivarium.core.actions.Action;
+import spaceVivarium.core.actions.EatEntity;
 import spaceVivarium.core.actions.Kill;
 import spaceVivarium.core.actions.Nothing;
 import spaceVivarium.core.entities.Entity;
@@ -19,11 +20,8 @@ public class Feed extends Behaviour {
 
     // le type des entités à manger
     private ArrayList<Class<? extends Entity>> typeEnemy;
-    // La jauge de faim
-    private int hunger;
 
-    public Feed(ArrayList<Class<? extends Entity>> typeEnemy, int baseHunger) {
-        this.hunger = baseHunger;
+    public Feed(ArrayList<Class<? extends Entity>> typeEnemy) {
         this.typeEnemy = typeEnemy;
     }
 
@@ -40,13 +38,14 @@ public class Feed extends Behaviour {
         }
         if (res != null) {
             // TODO transférer this.hunger dans Entity et utiliser EatEntity ?
-            hunger++;
-            return new Kill(res, 4);
+            // hunger++;
+            return new EatEntity(4, current, res);
 
         }
-        hunger--;
+        entities.get(current).setHunger(entities.get(current).getHunger() - 1);
+        ;
 
-        if (hunger <= 0)
+        if (entities.get(current).getHunger() <= 0)
             return new Kill(current, 4);
         return new Nothing(current);
     }

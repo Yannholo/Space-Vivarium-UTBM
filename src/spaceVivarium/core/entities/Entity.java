@@ -13,7 +13,8 @@ import spaceVivarium.core.maps.tiles.ATile;
 public abstract class Entity {
 
     protected int vision;
-    protected boolean alive = true;
+    protected int hunger;
+    protected boolean alive;
     protected List<Behaviour> comportements;
 
     protected Entity(int vision) {
@@ -21,8 +22,22 @@ public abstract class Entity {
         comportements = new ArrayList<>();
     }
 
+    protected Entity(int vision, int hunger) {
+        this.vision = vision;
+        this.hunger = hunger;
+        comportements = new ArrayList<>();
+    }
+
     public int getVision() {
         return vision;
+    }
+
+    public int getHunger() {
+        return hunger;
+    }
+
+    public void setHunger(int hung) {
+        hunger = hung;
     }
 
     public boolean isAlive() {
