@@ -19,7 +19,7 @@ public class IHMThread implements Runnable {
     public IHMThread(Simulation sim) {
         this.sim = sim;
         simulationPanel = new SimulationPanel(sim);
-        interactionPanel = new InteractionPanel(550, 40, simulationPanel);
+        interactionPanel = new InteractionPanel(550, 40, simulationPanel, sim);
     }
 
     @Override

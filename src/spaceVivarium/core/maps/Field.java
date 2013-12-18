@@ -134,7 +134,8 @@ public class Field {
         for (Entity entity2 : entities.values()) {
             pointEntity2 = getEntityPoint(entity2);
             double distance = pointEntity.distance(pointEntity2);
-            if (distance <= 1.5) {
+            // if (distance <= 1.5) {
+            if (distance <= entity.getVision()) {
                 vues.put(pointEntity2, entity2);
             }
             // System.out.println("Distance : " + distance);

@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
-import spaceVivarium.core.behaviour.Escape;
+import spaceVivarium.core.behaviour.Craziness;
 
 /**
  * 
@@ -14,7 +14,7 @@ public class TestEntity extends Entity {
 
     public TestEntity() {
         super(1);
-        comportements.add(new Escape(TestSmartEntity.class));
+        comportements.add(new Craziness());
     }
 
     @Override

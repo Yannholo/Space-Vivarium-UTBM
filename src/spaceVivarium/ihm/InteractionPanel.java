@@ -10,17 +10,22 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+import spaceVivarium.core.simulation.Simulation;
+
 public class InteractionPanel extends JPanel {
 
-    private SimulationPanel simulation;
+    private SimulationPanel simulationP;
+    private Simulation sim;
 
     private ButtonGroup radioGroupe;
     private JRadioButton spiderButton;
     private JRadioButton antButton;
     private JRadioButton ctilhiButton;
 
-    public InteractionPanel(int width, int height, SimulationPanel simu) {
-        this.simulation = simu;
+    public InteractionPanel(int width, int height, SimulationPanel simuP,
+            Simulation simu) {
+        this.simulationP = simuP;
+        this.sim = simu;
         this.setPreferredSize(new Dimension(width, height));
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
@@ -38,9 +43,9 @@ public class InteractionPanel extends JPanel {
     }
 
     private void addActionListener() {
-        simulation.addMouseListener(new MouseAdapter() {
+        simulationP.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
-                JOptionPane.showMessageDialog(null, me.getX());
+                JOptionPane.showMessageDialog(null, " x : " + me.getX() / 10);
             }
 
         });

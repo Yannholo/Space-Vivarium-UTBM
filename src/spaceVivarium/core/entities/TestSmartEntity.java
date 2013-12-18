@@ -17,7 +17,7 @@ public class TestSmartEntity extends Entity {
      *            la tile de depart
      */
     public TestSmartEntity() {
-        super(3);
+        super(5);
         this.comportements = new ArrayList<Behaviour>();
         this.comportements.add(new Follow(TestEntity.class));
     }
