@@ -1,5 +1,7 @@
 package spaceVivarium.ihm;
 
+//import java.io.IOException;
+
 public class AnimalQuantite {
     private String name;
     private int num;

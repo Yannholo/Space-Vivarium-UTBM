@@ -1,8 +1,10 @@
 package spaceVivarium.core.behaviour;
 
-import java.util.List;
+import java.awt.Point;
+import java.util.Map;
 
 import spaceVivarium.core.actions.Action;
+import spaceVivarium.core.entities.Entity;
 import spaceVivarium.core.maps.tiles.ATile;
 
 /**
@@ -11,6 +13,7 @@ import spaceVivarium.core.maps.tiles.ATile;
  */
 public abstract class Behaviour {
 
-    public abstract List<Action> behave(List<ATile> list);
+    public abstract Action behave(
+            Map<Point, ATile> tiles, Map<Point, Entity> entities, Point current);
 
 }

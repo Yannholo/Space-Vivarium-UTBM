@@ -1,18 +1,24 @@
 package spaceVivarium.core.actions;
 
+import java.awt.Point;
+import java.util.List;
+import java.util.Map;
+
 import spaceVivarium.core.entities.Entity;
 
 public class Nothing extends Action {
 
-    private Entity entity;
+    private Point current;
 
-    public Nothing(Entity entity) {
+    public Nothing(Point current) {
         super(0);
-        this.entity = entity;
+        this.current = current;
     }
 
     @Override
-    public void doItImpl() {
+    public void doItImpl(
+            Map<Point, Entity> entities, Map<Point, Entity> entitiesToAdd,
+            List<Point> entitiesToRemove) {
         // nothing
     }
 
@@ -21,8 +27,13 @@ public class Nothing extends Action {
         return null;
     }
 
-    public Entity getEntity() {
-        return entity;
+    public Object getCurrent() {
+        return current;
+    }
+
+    @Override
+    public String toString() {
+        return "Nothing : " + current;
     }
 
 }

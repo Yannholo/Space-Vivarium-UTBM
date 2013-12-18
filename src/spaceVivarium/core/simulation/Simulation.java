@@ -27,7 +27,7 @@ public class Simulation {
 
     /* sim objects */
     private Field field;
-    private List<? extends Entity> entities;
+
     private int j = 0;
 
     public Simulation(Board map,
@@ -38,7 +38,6 @@ public class Simulation {
 
     public void init() {
         field = new Field(map, entityConf);
-        entities = field.getEntities();
     }
 
     public List<Action> prepareUpdate() {
@@ -55,10 +54,7 @@ public class Simulation {
     }
 
     private List<Action> askActions() {
-        List<Action> actions = new ArrayList<>(entities.size());
-        for (Entity entity : entities) {
-            actions.add(entity.update(field.getView(entity)));
-        }
+        List<Action> actions = field.askActions();
         return actions;
     }
 
@@ -71,7 +67,6 @@ public class Simulation {
                     if ((tmp = action1.inConflict(action2)) != null) {
                         toRemove.add(tmp);
                         System.out.println("remove " + tmp);
-                        break;
                     }
                 }
             }
@@ -82,10 +77,7 @@ public class Simulation {
     public void applyUpdate(List<Action> actions) {
         j++;
         System.out.println("applyUpdate " + j);
-        for (Action iAction : actions) {
-            System.out.println("Apply : " + iAction);
-            iAction.doIt();
-        }
+        field.applyUpdates(actions);
         System.out.println("applyUpdend " + j);
     }
 

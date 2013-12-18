@@ -8,21 +8,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
+import spaceVivarium.core.actions.Action;
 import spaceVivarium.core.entities.Entity;
 import spaceVivarium.core.maps.tiles.ATile;
 
 public class Field {
 
     private Board map;
-    private java.util.Map<Point, ATile> field;
-    private List<Entity> entities;
+    private Map<Point, ATile> tiles;
+    private Map<Point, Entity> entities;
 
-    public Field(Board map,
-            java.util.Map<Class<? extends Entity>, Integer> entityConf) {
+    public Field(Board map, Map<Class<? extends Entity>, Integer> entityConf) {
         this.map = map;
-        entities = new LinkedList<>();
+        entities = new HashMap<>();
         clearField();
         placeEntities(entityConf);
     }
@@ -31,8 +32,8 @@ public class Field {
      * remet le field à 0
      */
     private void clearField() {
-        if (field == null) {
-            field = new HashMap<Point, ATile>(map.getSizeX() * map.getSizeY());
+        if (tiles == null) {
+            tiles = new HashMap<Point, ATile>(map.getSizeX() * map.getSizeY());
         }
         Point p;
         Constructor<? extends ATile> constructor;
@@ -42,7 +43,7 @@ public class Field {
                 try {
                     constructor = map.getTileClass(x, y).getConstructor(
                             Point.class);
-                    field.put(p, (ATile) constructor.newInstance(p));
+                    tiles.put(p, (ATile) constructor.newInstance(p));
 
                 } catch (NoSuchMethodException | SecurityException
                         | InstantiationException | IllegalAccessException
@@ -55,8 +56,7 @@ public class Field {
 
     }
 
-    private void placeEntities(
-            java.util.Map<Class<? extends Entity>, Integer> entityConf) {
+    private void placeEntities(Map<Class<? extends Entity>, Integer> entityConf) {
         for (Entry<Class<? extends Entity>, Integer> entry : entityConf
                 .entrySet()) {
             placeEntities(entry.getValue(), entry.getKey());
@@ -72,20 +72,19 @@ public class Field {
      *            le type d'entitée voulues
      */
     private void placeEntities(int nb, Class<? extends Entity> type) {
-
-        Constructor<? extends Entity> constructor;
         try {
-            constructor = type.getConstructor(ATile.class);
+
             for (int i = 0; i < nb; i++) {
+
                 ATile tile = getTile(type);
-                Entity entity = constructor.newInstance(tile);
-                entities.add(entity);
-                tile.setEntity(entity);
+                Entity entity;
+                entity = type.newInstance();
+                entities.put(tile.getCoord(), entity);
+
             }
-        } catch (NoSuchMethodException | SecurityException
-                | InstantiationException | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException e) {
-            // TODO Auto-generated catch block
+        } catch (InstantiationException | IllegalAccessException
+                | IllegalArgumentException | SecurityException e) {
+
             e.printStackTrace();
         }
 
@@ -102,40 +101,110 @@ public class Field {
         // TODO gerer au moins les conflits
         int x = (int) (Math.random() * map.getSizeX());
         int y = (int) (Math.random() * map.getSizeY());
-        return field.get(new Point(x, y));
+        return tiles.get(new Point(x, y));
     }
 
-    public List<? extends Entity> getEntities() {
-        return entities;
-    }
-
-    public List<ATile> getView(Entity entity) {
-        ATile depart = entity.getLaCase();
+    private Map<Point, ATile> getTilesViewed(Entity entity) {
+        Point depart = getEntityPoint(entity);
         // on choppe toutes les cases vues par la bestiole
         int nbCasesVues = entity.getVision() * 4
                 + (int) Math.pow(4, entity.getVision());
-        List<ATile> vues = new ArrayList<>(nbCasesVues);
+        Map<Point, ATile> vues = new HashMap<>(nbCasesVues);
         // @formatter:off
-        for (int x = depart.getX() - entity.getVision(); 
+        for (int x = depart.x - entity.getVision(); 
                  x <= depart.getX() + entity.getVision(); 
                  x++) {
-            for (int y = depart.getY() - entity.getVision(); 
+            for (int y = depart.y - entity.getVision(); 
                      y <= depart.getY() + entity.getVision(); 
                      y++) {
         // @formatter:on
                 if (x >= 0 && x < map.getSizeX() && y >= 0
                         && y < map.getSizeY()) {
-                    vues.add(field.get(new Point(x, y)));
+                    vues.put(new Point(x, y), tiles.get(new Point(x, y)));
                 }
             }
         }
         return vues;
     }
 
+    private Map<Point, Entity> getEntitiesViewed(Entity entity) {
+        Point pointEntity = getEntityPoint(entity);
+        Point pointEntity2 = null;
+        Map<Point, Entity> vues = new HashMap<>();
+        for (Entity entity2 : entities.values()) {
+            pointEntity2 = getEntityPoint(entity2);
+            double distance = pointEntity.distance(pointEntity2);
+            if (distance <= 1.5) {
+                vues.put(pointEntity2, entity2);
+            }
+            // System.out.println("Distance : " + distance);
+        }
+        return vues;
+    }
+
+    /**
+     * @param entity
+     * @return Les coordonée de l'entity
+     */
+    public Point getEntityPoint(Entity entity) {
+        Point point = null;
+        for (Entry<Point, Entity> entry : entities.entrySet()) {
+            if (entity == entry.getValue()) {
+                point = entry.getKey();
+                break;
+            }
+        }
+        return point;
+    }
+
     public void print(Graphics2D g) {
-        for (ATile tile : field.values()) {
-            tile.print(g);
+        for (Entry<Point, ATile> entry : tiles.entrySet()) {
+            entry.getValue().print(g);
+            // TODO entry.getValue().print(g, entry.getKey());
+        }
+        for (Entry<Point, Entity> entry : entities.entrySet()) {
+            entry.getValue().print(g, entry.getKey());
         }
     }
 
+    public List<Action> askActions() {
+        List<Action> actions = new ArrayList<>(entities.size());
+        for (Entry<Point, Entity> entry : entities.entrySet()) {
+            actions.add(entry.getValue().update(
+                    getTilesViewed(entry.getValue()),
+                    getEntitiesViewed(entry.getValue()), entry.getKey()));
+        }
+        return actions;
+    }
+
+    public void applyUpdates(List<Action> actions) {
+        List<Point> entitiesToRemove = new LinkedList<>();
+        Map<Point, Entity> entitiesToAdd = new HashMap<>();
+        for (Action action : actions) {
+            System.out.println(action);
+            action.doIt(entities, entitiesToAdd, entitiesToRemove);
+        }
+
+        reCheckForConflict(entitiesToRemove, entitiesToAdd); // TODO remove
+                                                             // debug only
+
+        for (Point key : entitiesToRemove)
+            entities.remove(key);
+
+        entities.putAll(entitiesToAdd);
+
+    }
+
+    private void reCheckForConflict(
+            List<Point> entitiesToRemove, Map<Point, Entity> entitiesToAdd) {
+        for (Entry<Point, Entity> entry : entitiesToAdd.entrySet()) {
+            for (Entry<Point, Entity> entry2 : entitiesToAdd.entrySet()) {
+                if (entry.getKey().equals(entry2.getKey())
+                        && entry.getValue() != entry2.getValue()) {
+                    System.out.println("FAIL");
+                }
+            }
+        }
+
+    }
 }

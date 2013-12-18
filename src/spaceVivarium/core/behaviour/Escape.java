@@ -2,7 +2,9 @@ package spaceVivarium.core.behaviour;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import spaceVivarium.core.actions.Action;
 import spaceVivarium.core.actions.Move;
@@ -17,99 +19,94 @@ import spaceVivarium.utils.Vector2D;
  * 
  */
 public class Escape extends Behaviour {
-    // l'entité qui s'échappe
-    private Entity entity;
     // le type des entités à éviter
     private Class<? extends Entity> typeEnemy;
 
-    public Escape(Entity self, Class<? extends Entity> typeE) {
-        entity = self;
+    public Escape(Class<? extends Entity> typeE) {
         typeEnemy = typeE;
     }
 
     /**
-     * @param list
+     * @param current
      *            la liste des cases vues par l'entité entity
      * @return l'ennemi AEntity le plus proche de l'entité entity
      */
-    private Entity getNearestEnemy(List<ATile> list) {
-        Entity res = null;
-        Entity tileEntity = null;
+    private Point getNearestEnemy(Point current, Map<Point, Entity> entities) {
+        Point res = null;
         double distance = 10000;
         double newDistance = 0;
-        for (ATile tile : list) {
-            tileEntity = tile.getEntity();
-            if (tileEntity != null) {
-                // l'entité existe sur la case.
-                if (tileEntity.getClass().equals((typeEnemy))) {
-                    // l'entité est un ennemi.
-                    newDistance = entity.getDistance(tileEntity);
-                    if (newDistance < distance) {
-                        // l'entité est la plus proche actuellement
-                        res = tileEntity;
-                        distance = newDistance;
-                    }
+        for (Entry<Point, Entity> entry : entities.entrySet()) {
+            if (entry.getValue().getClass().equals((typeEnemy))) {
+                // l'entité est un ennemi.
+                newDistance = entry.getKey().distance(current);
+                if (newDistance < distance) {
+                    // l'entité est la plus proche actuellement
+                    res = entry.getKey();
+                    distance = newDistance;
                 }
             }
+
         }
         return res;
     }
 
     /**
-     * @param enemy
+     * @param enemyCoord
      *            l'ennemi à fuir par l'entité entity
-     * @param list
+     * @param tiles
      *            la liste des cases vues par l'entité entity
      * @return la case la plus sûre pour éviter enemy
      */
-    private ATile getSafestTile(Entity enemy, List<ATile> list) {
-        ATile res = null;
-        Vector2D pEnemy = new Vector2D(enemy.getLaCase().getX(), enemy
-                .getLaCase().getY());
-        Vector2D pSelf = new Vector2D(entity.getLaCase().getX(), entity
-                .getLaCase().getY());
+    private Point getSafestTile(
+            Point current, Point enemyCoord, Map<Point, ATile> tiles) {
+        Point res = null;
+        Vector2D pEnemy = new Vector2D(enemyCoord.x, enemyCoord.y);
+        Vector2D pSelf = new Vector2D(current.x, current.y);
         Vector2D normalizedDir = new Vector2D(pSelf.getX() - pEnemy.getX(),
                 pSelf.getY() - pEnemy.getY()).normalize();
         Point arrive = pSelf.translate(normalizedDir).getIntPoint();
-        for (ATile tile : list) {
-            if (tile.getX() == arrive.getX() && tile.getY() == arrive.getY())
-                res = tile;
+        for (Entry<Point, ATile> entry : tiles.entrySet()) {
+            if (entry.getKey().x == arrive.x && entry.getKey().y == arrive.y)
+                res = entry.getKey();
         }
 
         return res;
     }
 
-    private ATile getRandomTile(List<ATile> list) {
-        ArrayList<ATile> tiles = this.getAdjacentCoords(list);
+    private Point getRandomTile(Collection<Point> list, Point current) {
+        ArrayList<Point> tiles = this.getAdjacentCoords(list, current);
         return tiles.get((int) (Math.random() * tiles.size()));
     }
 
-    public ArrayList<ATile> getAdjacentCoords(List<ATile> list) {
-        ArrayList<ATile> adj = new ArrayList<ATile>();
-        Vector2D self = new Vector2D(entity.getLaCase().getX(), entity
-                .getLaCase().getY());
-        for (ATile tile : list) {
-            Vector2D dest = new Vector2D(tile.getX(), tile.getY());
+    public ArrayList<Point> getAdjacentCoords(
+            Collection<Point> list, Point current) {
+        ArrayList<Point> adj = new ArrayList<Point>();
+        Vector2D self = new Vector2D(current.x, current.y);
+        for (Point point : list) {
+            Vector2D dest = new Vector2D(point.x, point.y);
             if (self.getDistance(dest) <= 1)
-                adj.add(tile);
+                adj.add(point);
         }
-        adj.add(entity.getLaCase());
+        adj.add(current);
         return adj;
     }
 
     @Override
-    public List<Action> behave(List<ATile> list) {
-        List<Action> listAct = new ArrayList<Action>();
-        Entity enemy = getNearestEnemy(list);
-        if (enemy != null) {
-            ATile safeTile = getSafestTile(enemy, list);
+    public Action behave(
+            Map<Point, ATile> tiles, Map<Point, Entity> entities, Point current) {
+        Action action = null;
+        Point enemyCoord = getNearestEnemy(current, entities);
+        if (enemyCoord != null) {
+            Point safeTile = getSafestTile(current, enemyCoord, tiles);
             if (safeTile != null)
-                listAct.add(new Move(entity, safeTile, 3));
+                action = new Move(current, safeTile);
             else
-                listAct.add(new Nothing(entity));
+                action = new Nothing(current);
 
-        } else
-            listAct.add(new Move(entity, getRandomTile(list), 3));
-        return listAct;
+        } else {
+            action = new Move(current, getRandomTile(tiles.keySet(), current),
+                    3);
+        }
+        return action;
     }
 }

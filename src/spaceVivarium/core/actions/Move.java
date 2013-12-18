@@ -1,30 +1,33 @@
 package spaceVivarium.core.actions;
 
+import java.awt.Point;
+import java.util.List;
+import java.util.Map;
+
 import spaceVivarium.core.entities.Entity;
-import spaceVivarium.core.maps.tiles.ATile;
 
 public class Move extends Action {
 
-    private Entity entity;
-    private ATile destination;
+    Point depart, arrivee;
 
-    public Move(Entity entity, ATile aTile) {
-        this(entity, aTile, 0);
+    public Move(Point depart, Point arrivee) {
+        this(depart, arrivee, 0);
     }
 
-    public Move(Entity entity, ATile aTile, int prio) {
+    public Move(Point depart, Point arrivee, int prio) {
         super(prio);
-        this.entity = entity;
-        this.destination = aTile;
+        this.depart = depart;
+        this.arrivee = arrivee;
     }
 
     @Override
-    public void doItImpl() {
-        if (entity.getLaCase().getEntity() == entity) {
-            entity.getLaCase().setEntity(null);
-        }
-        entity.setLaCase(destination);
-        destination.setEntity(entity);
+    public void doItImpl(
+            Map<Point, Entity> entities, Map<Point, Entity> entitiesToAdd,
+            List<Point> entitiesToRemove) {
+        // if (!depart.equals(arrivee)) {
+        entitiesToRemove.add(depart);
+        entitiesToAdd.put(arrivee, entities.get(depart));
+        // }
     }
 
     @Override
@@ -34,12 +37,12 @@ public class Move extends Action {
             if (action.getClass() == Move.class) {
                 Move move = (Move) action;
                 // Les deux move ont la meme destination
-                if (move.destination.equals(destination)) {
+                if (move.arrivee.equals(arrivee)) {
                     toRemove = move;
                     // une destination = le current de l'autre -> dependance
-                } else if (move.destination.equals(entity.getLaCase())) {
+                } else if (move.arrivee.equals(depart)) {
                     // si l'entity change de case -> dependance
-                    if (entity.getLaCase() != destination) {
+                    if (depart != arrivee) {
                         move.setDependOn(this);
                         // si l'entity ne change pas de case -> conflit
                     } else {
@@ -49,22 +52,20 @@ public class Move extends Action {
 
             } else if (action.getClass() == Nothing.class) {
                 Nothing nothing = (Nothing) action;
-                if (nothing.getEntity().getLaCase().equals(destination)) {
+                if (nothing.getCurrent().equals(arrivee)) {
                     toRemove = this;
                 }
 
             }
         }
         if (toRemove != null) {
-            toRemove.setIsMade(false);
+            toRemove.setWillBeDone(false);
         }
         return toRemove;
     }
 
     @Override
     public String toString() {
-        return "Move : " + entity + " " + entity.getLaCase().getX() + ","
-                + entity.getLaCase().getY() + " -> " + destination.getX() + ","
-                + destination.getY();
+        return "Move : " + depart + " -> " + arrivee;
     }
 }

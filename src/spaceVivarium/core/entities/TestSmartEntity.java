@@ -1,12 +1,12 @@
 package spaceVivarium.core.entities;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Point;
 import java.util.ArrayList;
-import java.util.List;
 
-import spaceVivarium.core.actions.Action;
 import spaceVivarium.core.behaviour.Behaviour;
 import spaceVivarium.core.behaviour.Follow;
-import spaceVivarium.core.maps.tiles.ATile;
 
 public class TestSmartEntity extends Entity {
 
@@ -16,15 +16,16 @@ public class TestSmartEntity extends Entity {
      * @param depart
      *            la tile de depart
      */
-    public TestSmartEntity(ATile depart) {
-        super(depart);
+    public TestSmartEntity() {
+        super(3);
         this.comportements = new ArrayList<Behaviour>();
-        this.comportements.add(new Follow(this, TestEntity.class));
-        vision = 4;
+        this.comportements.add(new Follow(TestEntity.class));
     }
 
-    public Action update(List<ATile> vues) {
-        Action todo = chooseAction(vues);
-        return todo;
+    @Override
+    public void print(Graphics2D g, Point point) {
+        g.setColor(Color.GREEN);
+        g.fill3DRect(point.x * 10, point.y * 10, 10, 10, true);
     }
+
 }

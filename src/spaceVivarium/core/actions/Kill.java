@@ -1,30 +1,34 @@
 package spaceVivarium.core.actions;
 
+import java.awt.Point;
+import java.util.List;
+import java.util.Map;
+
 import spaceVivarium.core.entities.Entity;
 
 public class Kill extends Action {
-    private Entity selfEntity;
-    private Entity killedEntity;
+    private Point selfEntity;
+    private Point killedEntity;
 
-    public Kill(Entity self, Entity killed, int prio) {
+    public Kill(Point self, Point killed, int prio) {
         super(prio);
         selfEntity = self;
         killedEntity = killed;
     }
 
-    public Entity getSelfEntity() {
+    public Point getSelfEntity() {
         return selfEntity;
     }
 
-    public void setSelfEntity(Entity selfEntity) {
+    public void setSelfEntity(Point selfEntity) {
         this.selfEntity = selfEntity;
     }
 
-    public Entity getKilledEntity() {
+    public Point getKilledEntity() {
         return killedEntity;
     }
 
-    public void setKilledEntity(Entity killedEntity) {
+    public void setKilledEntity(Point killedEntity) {
         this.killedEntity = killedEntity;
     }
 
@@ -34,9 +38,13 @@ public class Kill extends Action {
     }
 
     @Override
-    public void doItImpl() {
-        killedEntity.getLaCase().setEntity(null);
-        killedEntity.setAlive(false);
+    public void doItImpl(
+            Map<Point, Entity> entities, Map<Point, Entity> entitiesToAdd,
+            List<Point> entitiesToRemove) {
+        entities.get(selfEntity).setAlive(false);
+        entitiesToRemove.add(selfEntity);
+        // killedEntity.getLaCase().setEntity(null);
+        // killedEntity.setAlive(false);
     }
 
 }
