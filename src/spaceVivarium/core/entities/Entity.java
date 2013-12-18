@@ -13,7 +13,7 @@ import spaceVivarium.core.maps.tiles.ATile;
 public abstract class Entity {
 
     protected int vision;
-    protected boolean alive;
+    protected boolean alive = true;
     protected List<Behaviour> comportements;
 
     protected Entity(int vision) {

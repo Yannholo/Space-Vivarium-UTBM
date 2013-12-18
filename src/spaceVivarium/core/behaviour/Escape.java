@@ -11,6 +11,7 @@ import spaceVivarium.core.actions.Move;
 import spaceVivarium.core.actions.Nothing;
 import spaceVivarium.core.entities.Entity;
 import spaceVivarium.core.maps.tiles.ATile;
+import spaceVivarium.utils.FieldUtils;
 import spaceVivarium.utils.Vector2D;
 
 /**
@@ -27,27 +28,19 @@ public class Escape extends Behaviour {
     }
 
     /**
+     * Give the position of the nearest entity of type typeEnemy.
+     * 
+     * @param tiles
+     *            map of seen tiles
+     * @param entities
+     *            map of seen entities
      * @param current
-     *            la liste des cases vues par l'entité entity
-     * @return l'ennemi AEntity le plus proche de l'entité entity
+     *            position of the behaving entity
+     * @return the position of the nearest enemy
      */
     private Point getNearestEnemy(Point current, Map<Point, Entity> entities) {
-        Point res = null;
-        double distance = 10000;
-        double newDistance = 0;
-        for (Entry<Point, Entity> entry : entities.entrySet()) {
-            if (entry.getValue().getClass().equals((typeEnemy))) {
-                // l'entité est un ennemi.
-                newDistance = entry.getKey().distance(current);
-                if (newDistance < distance) {
-                    // l'entité est la plus proche actuellement
-                    res = entry.getKey();
-                    distance = newDistance;
-                }
-            }
+        return FieldUtils.getNearestEntity(this.typeEnemy, entities, current);
 
-        }
-        return res;
     }
 
     /**

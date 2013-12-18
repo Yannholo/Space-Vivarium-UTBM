@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import spaceVivarium.core.behaviour.Behaviour;
+import spaceVivarium.core.behaviour.Feed;
 import spaceVivarium.core.behaviour.Follow;
 
 public class TestSmartEntity extends Entity {
@@ -17,9 +18,12 @@ public class TestSmartEntity extends Entity {
      *            la tile de depart
      */
     public TestSmartEntity() {
-        super(5);
+        super(4);
         this.comportements = new ArrayList<Behaviour>();
+        ArrayList eaten = new ArrayList();
+        eaten.add(TestEntity.class);
         this.comportements.add(new Follow(TestEntity.class));
+        this.comportements.add(new Feed(eaten, 100));
     }
 
     @Override

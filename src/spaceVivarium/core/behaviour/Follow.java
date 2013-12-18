@@ -4,17 +4,17 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import spaceVivarium.core.actions.Action;
 import spaceVivarium.core.actions.Move;
 import spaceVivarium.core.actions.Nothing;
 import spaceVivarium.core.entities.Entity;
 import spaceVivarium.core.maps.tiles.ATile;
+import spaceVivarium.utils.FieldUtils;
 import spaceVivarium.utils.Vector2D;
 
 /**
- * Follow behavior, indique à l'entité entity de suivre toutes les entités de
+ * Follow behaviour, indique à l'entité entity de suivre toutes les entités de
  * type typePrey .
  * 
  */
@@ -27,30 +27,19 @@ public class Follow extends Behaviour {
     }
 
     /**
-     * @param list
-     *            la liste des cases vues par l'entité entity
-     * @return la proie AEntity la plus proche de l'entité entity
+     * Give the position of the nearest entity of type typePrey.
+     * 
+     * @param tiles
+     *            map of seen tiles
+     * @param entities
+     *            map of seen entities
+     * @param current
+     *            position of the behaving entity
+     * @return the position of the nearest prey
      */
     private Point getNearestPrey(
             Map<Point, ATile> tiles, Map<Point, Entity> entities, Point current) {
-        Point res = null;
-        double distance = 10000;
-        double newDistance = 0;
-        for (Entry<Point, Entity> entry : entities.entrySet()) {
-
-            // l'entité existe sur la case.
-            if (entry.getValue().getClass().equals((typePrey))) {
-                // l'entité est une proie.
-                newDistance = current.distance(entry.getKey());
-                if (newDistance < distance) {
-                    // l'entité est la plus proche actuellement
-                    res = entry.getKey();
-                    distance = newDistance;
-                }
-            }
-
-        }
-        return res;
+        return FieldUtils.getNearestEntity(typePrey, entities, current);
     }
 
     private Point getRandomTile(Collection<Point> list, Point current) {

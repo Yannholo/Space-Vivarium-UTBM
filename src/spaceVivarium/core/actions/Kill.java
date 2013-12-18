@@ -7,21 +7,11 @@ import java.util.Map;
 import spaceVivarium.core.entities.Entity;
 
 public class Kill extends Action {
-    private Point selfEntity;
     private Point killedEntity;
 
-    public Kill(Point self, Point killed, int prio) {
+    public Kill(Point killed, int prio) {
         super(prio);
-        selfEntity = self;
         killedEntity = killed;
-    }
-
-    public Point getSelfEntity() {
-        return selfEntity;
-    }
-
-    public void setSelfEntity(Point selfEntity) {
-        this.selfEntity = selfEntity;
     }
 
     public Point getKilledEntity() {
@@ -41,8 +31,8 @@ public class Kill extends Action {
     public void doItImpl(
             Map<Point, Entity> entities, Map<Point, Entity> entitiesToAdd,
             List<Point> entitiesToRemove) {
-        entities.get(selfEntity).setAlive(false);
-        entitiesToRemove.add(selfEntity);
+        entities.get(killedEntity).setAlive(false);
+        entitiesToRemove.add(killedEntity);
         // killedEntity.getLaCase().setEntity(null);
         // killedEntity.setAlive(false);
     }
