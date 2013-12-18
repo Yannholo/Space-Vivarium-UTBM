@@ -24,7 +24,16 @@ public class Kill extends Action {
 
     @Override
     public Action inConflict(Action action) {
-        return null;
+        Action toRemove = null;
+        if (action instanceof Move) {
+            Move move = (Move) action;
+            if (move.getDepart().equals(killedEntity))
+                toRemove = action;
+            if (toRemove != null)
+                toRemove.setWillBeDone(false);
+        }
+
+        return toRemove;
     }
 
     @Override
@@ -35,6 +44,11 @@ public class Kill extends Action {
         entitiesToRemove.add(killedEntity);
         // killedEntity.getLaCase().setEntity(null);
         // killedEntity.setAlive(false);
+    }
+
+    @Override
+    public String toString() {
+        return "Kill : " + killedEntity;
     }
 
 }

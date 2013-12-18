@@ -39,7 +39,7 @@ public class Feed extends Behaviour {
                     res = tmp;
         }
         if (res != null) {
-            // TODO transférer this.hunger dans Entity ?
+            // TODO transférer this.hunger dans Entity et utiliser EatEntity ?
             hunger++;
             return new Kill(res, 4);
 
