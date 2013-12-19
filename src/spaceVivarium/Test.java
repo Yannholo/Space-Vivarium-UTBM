@@ -12,9 +12,9 @@ import spaceVivarium.core.maps.Board;
 import spaceVivarium.core.maps.xml.XmlReader;
 import spaceVivarium.core.simulation.Simulation;
 import spaceVivarium.exception.XmlFailureException;
-import spaceVivarium.utils.thread.IHMThread;
-import spaceVivarium.utils.thread.SimulationThread;
-import spaceVivarium.utils.thread.ThreadUtil;
+import spaceVivarium.thread.IHMThread;
+import spaceVivarium.thread.SimulationThread;
+import spaceVivarium.thread.ThreadUtil;
 
 public class Test {
 

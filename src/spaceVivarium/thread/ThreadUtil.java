@@ -1,4 +1,4 @@
-package spaceVivarium.utils.thread;
+package spaceVivarium.thread;
 
 //Imports
 import java.util.concurrent.ExecutorService;
