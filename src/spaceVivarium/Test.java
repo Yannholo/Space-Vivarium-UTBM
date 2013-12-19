@@ -14,7 +14,7 @@ import spaceVivarium.core.simulation.Simulation;
 import spaceVivarium.exception.XmlFailureException;
 import spaceVivarium.thread.IHMThread;
 import spaceVivarium.thread.SimulationThread;
-import spaceVivarium.thread.ThreadUtil;
+import spaceVivarium.utils.ThreadUtil;
 
 public class Test {
 
