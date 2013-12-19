@@ -2,12 +2,12 @@ package spaceVivarium.core.maps.tiles;
 
 import java.awt.Point;
 
-public class Tile extends ATile {
+public class Void extends ATile {
 
-    private static String[] chemins = { "espace1.png", "espace2.png",
-            "espace3.png", "espace2.png" };
+    private static String[] chemins = { "Void.png", "Void3.png", "Void2.png",
+            "Void4.png", "Void5.png", "Void6.png" };
 
-    public Tile(Point coord) {
+    public Void(Point coord) {
         super(coord, chemins[getInt()]);
 
     }

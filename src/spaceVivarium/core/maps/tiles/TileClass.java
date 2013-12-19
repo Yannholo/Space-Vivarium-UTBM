@@ -1,11 +1,11 @@
 package spaceVivarium.core.maps.tiles;
 
-
 public enum TileClass {
 
-    VOID(Tile.class, "void"), HOLE(Tile.class, "hole"), ASTEROID(Tile.class,
-            "asteroid"), DEBRIS(Tile.class, "debris"), PLANET(Tile.class,
-            "planet"), SUN(Tile.class, "sun"), AIRFLOW(Tile.class, "airflow");
+    VOID(Void.class, "void"), HOLE(Hole.class, "hole"), ASTEROID(
+            Asteroid.class, "asteroid"), DEBRIS(Debris.class, "debris"), PLANET(
+            Planet.class, "planet"), SUN(Sun.class, "sun"), AIRFLOW(
+            Airflow.class, "airflow");
 
     public final Class<? extends ATile> tileClass;
     public final String string;
