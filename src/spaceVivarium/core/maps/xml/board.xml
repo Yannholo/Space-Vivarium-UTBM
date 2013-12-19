@@ -3,67 +3,243 @@
 <!--<board xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="map_1.xsd"> -->
 <board sizex="55" sizey="55" basetype="void">
-<!--Hole -->
+<!--Void-->
 	<area>
-		<x>10</x>
-		<y>10</y>
-		<height>3</height>
-		<width>2</width>
-		<type>hole</type>
-	</area>
-	
-<!--Empty -->
-	<area>
-		<x>15</x>
-		<y>15</y>
-		<height>5</height>
-		<width>5</width>
+		<x>30</x>
+		<y>20</y>
+		<height>10</height>
+		<width>20</width>
 		<type>void</type>
 	</area>
 	
-<!-- Asteroid field -->
 	<area>
-		<x>20</x>
-		<y>20</y>
-		<height>3</height>
-		<width>2</width>
-		<type>asteroid</type>
+		<x>30</x>
+		<y>5</y>
+		<height>50</height>
+		<width>20</width>
+		<type>void</type>
 	</area>
+
+	
+	
+<!--Hole -->
+	<area>
+		<x>30</x>
+		<y>20</y>
+		<height>10</height>
+		<width>5</width>
+		<type>hole</type>
+	</area>
+	
+	<area>
+		<x>4</x>
+		<y>25</y>
+		<height>10</height>
+		<width>5</width>
+		<type>hole</type>
+	</area>
+
 
 <!-- Debris -->
 	<area>
-		<x>25</x>
-		<y>25</y>
-		<height>3</height>
-		<width>2</width>
+		<x>30</x>
+		<y>0</y>
+		<height>10</height>
+		<width>20</width>
 		<type>debris</type>
 	</area>
 	
+
+	
+<!-- Asteroid field -->
+	<area>
+		<x>28</x>
+		<y>6</y>
+		<height>1</height>
+		<width>1</width>
+		<type>asteroid</type>
+	</area>
+	
+	<area>
+		<x>40</x>
+		<y>4</y>
+		<height>1</height>
+		<width>1</width>
+		<type>asteroid</type>
+	</area>
+	
+	<area>
+		<x>5</x>
+		<y>6</y>
+		<height>1</height>
+		<width>1</width>
+		<type>asteroid</type>
+	</area>
+	
+	<area>
+		<x>3</x>
+		<y>44</y>
+		<height>1</height>
+		<width>1</width>
+		<type>asteroid</type>
+	</area>
+	
+	<area>
+		<x>10</x>
+		<y>35</y>
+		<height>1</height>
+		<width>1</width>
+		<type>asteroid</type>
+	</area>
+	
+	<area>
+		<x>42</x>
+		<y>40</y>
+		<height>1</height>
+		<width>1</width>
+		<type>asteroid</type>
+	</area>
+	
+	
+	<area>
+		<x>25</x>
+		<y>48</y>
+		<height>1</height>
+		<width>1</width>
+		<type>asteroid</type>
+	</area>
+
+	<area>
+		<x>31</x>
+		<y>37</y>
+		<height>1</height>
+		<width>1</width>
+		<type>asteroid</type>
+	</area>
+	
+	<area>
+		<x>20</x>
+		<y>2</y>
+		<height>1</height>
+		<width>1</width>
+		<type>asteroid</type>
+	</area>
+	
+	<area>
+		<x>42</x>
+		<y>13</y>
+		<height>1</height>
+		<width>1</width>
+		<type>asteroid</type>
+	</area>
+	
+	<area>
+		<x>0</x>
+		<y>1</y>
+		<height>1</height>
+		<width>1</width>
+		<type>asteroid</type>
+	</area>
+	
+	
 <!-- Sun -->
 	<area>
-		<x>30</x>
-		<y>30</y>
+		<x>15</x>
+		<y>17</y>
 		<height>5</height>
+		<width>9</width>
+		<type>sun</type> 
+		
+	</area>
+	
+	<area>
+		<x>17</x>
+		<y>15</y>
+		<height>9</height>
 		<width>5</width>
 		<type>sun</type> 
+		
 	</area>
+	
+		
+	
 	
 <!-- Planet -->
 	<area>
-		<x>35</x>
-		<y>35</y>
-		<height>10</height>
-		<width>6</width>
+		<x>8</x>
+		<y>10</y>
+		<height>1</height>
+		<width>1</width>
 		<type>planet</type>
 	</area>
 	
+	<area>
+		<x>3</x>
+		<y>20</y>
+		<height>1</height>
+		<width>1</width>
+		<type>planet</type>
+	</area>
+	
+	<area>
+		<x>12</x>
+		<y>30</y>
+		<height>1</height>
+		<width>1</width>
+		<type>planet</type>
+	</area>
+	
+	<area>
+		<x>24</x>
+		<y>30</y>
+		<height>1</height>
+		<width>1</width>
+		<type>planet</type>
+	</area>
+	
+	<area>
+		<x>32</x>
+		<y>20</y>
+		<height>1</height>
+		<width>1</width>
+		<type>planet</type>
+	</area>
+	
+	<area>
+		<x>26</x>
+		<y>10</y>
+		<height>1</height>
+		<width>1</width>
+		<type>planet</type>
+	</area>
+	
+	
 <!-- Airflow -->
 	<area>
-		<x>45</x>
-		<y>45</y>
-		<height>4</height>
-		<width>3</width>
+		<x>5</x>
+		<y>3</y>
+		<height>1</height>
+		<width>10</width>
 		<type>airflow</type>
+		
+	</area>
+	
+	<area>
+		<x>1</x>
+		<y>40</y>
+		<height>1</height>
+		<width>20</width>
+		<type>airflow</type>
+		
+	</area>
+	
+	<area>
+		<x>40</x>
+		<y>25</y>
+		<height>1</height>
+		<width>10</width>
+		<type>airflow</type>
+		
 	</area>
 </board>
 	

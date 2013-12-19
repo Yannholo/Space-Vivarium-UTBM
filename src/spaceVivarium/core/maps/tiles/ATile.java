@@ -2,16 +2,23 @@ package spaceVivarium.core.maps.tiles;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.net.URL;
 import java.util.ArrayList;
 
 import spaceVivarium.core.entities.Entity;
+import spaceVivarium.utils.ImagesUtils;
 
 public abstract class ATile {
-    Point coord;
-    protected Entity entity;
 
-    public ATile(Point coord) {
+    public static int size = 10;
+
+    protected Point coord;
+    protected Entity bestiole;
+    protected URL cheminImage;
+
+    public ATile(Point coord, String cheminImage) {
         this.coord = coord;
+        this.cheminImage = getClass().getResource(cheminImage);
     }
 
     public int getX() {
@@ -27,11 +34,11 @@ public abstract class ATile {
     }
 
     public Entity getEntity() {
-        return entity;
+        return bestiole;
     }
 
-    public void setEntity(Entity entity) {
-        this.entity = entity;
+    public void setBestiole(Entity bestiole) {
+        this.bestiole = bestiole;
     }
 
     public ArrayList<Point> getAdjacentCoords() {
@@ -46,16 +53,16 @@ public abstract class ATile {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
+    public boolean equals(Object arg0) {
+        if (arg0.getClass().equals(this.getClass())) {
             return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Tile tile = (Tile) obj;
-        return coord.equals(tile.coord);
+        }
+        Tile autre = (Tile) arg0;
+        return coord == autre.coord;
     }
 
-    public abstract void print(Graphics2D g2d);
+    public void print(Graphics2D g2d) {
+        g2d.drawImage(ImagesUtils.getImage(cheminImage), getX() * size, getY()
+                * size, size, size, null);
+    }
 }

@@ -2,12 +2,12 @@ package spaceVivarium.core.maps.tiles;
 
 import java.awt.Point;
 
-public class Tile extends ATile {
+public class Debris extends ATile {
 
-    private static String[] chemins = { "espace1.png", "espace2.png",
-            "espace3.png", "espace2.png" };
+    private static String[] chemins = { "Debris.png", "Debris2.png",
+            "Debris3.png", "Debris4.png", "Debris5.png", "Debris6.png" };
 
-    public Tile(Point coord) {
+    public Debris(Point coord) {
         super(coord, chemins[getInt()]);
 
     }
@@ -16,4 +16,5 @@ public class Tile extends ATile {
         int retour = (int) (Math.random() * chemins.length);
         return retour;
     }
+
 }
