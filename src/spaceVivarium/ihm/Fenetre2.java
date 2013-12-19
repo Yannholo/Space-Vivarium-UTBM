@@ -72,7 +72,7 @@ public class Fenetre2 extends JFrame {
                     System.out.println(species.getSelectedItem().toString());
                 } catch (NumberFormatException e1) {
                     JOptionPane.showMessageDialog(Fenetre2.this,
-                            "quantite n'est pas valide !", "Erreur",
+                            "La quantitée n'est pas valide", "Erreur",
                             JOptionPane.WARNING_MESSAGE);
                 }
             }
@@ -91,7 +91,7 @@ public class Fenetre2 extends JFrame {
                     System.out.println(species1.getSelectedItem().toString());
                 } catch (NumberFormatException e1) {
                     JOptionPane.showMessageDialog(Fenetre2.this,
-                            "quantite n'est pas valide !", "Erreur",
+                            "La quantitée n'est pas valide", "Erreur",
                             JOptionPane.WARNING_MESSAGE);
                 }
 
@@ -121,11 +121,11 @@ public class Fenetre2 extends JFrame {
     }
 
     private void init() {
-        setTitle("creer small world");
-        charge = new JButton("charge");
-        ok = new JButton("OK");
-        supprimer = new JButton("supprimer");
-        simuler = new JButton("simuler");
+        setTitle("configuration Space Vivarium");
+        charge = new JButton("Importer XML");
+        ok = new JButton("Ajouter");
+        supprimer = new JButton("Supprimer");
+        simuler = new JButton("Simuler");
 
         // TODO
         vide = new JPanel();
@@ -214,14 +214,14 @@ public class Fenetre2 extends JFrame {
 
     private void addJComboBoxItem() {
         species.addItem("Cthuli");
-        species.addItem("Petite araignee veneneuse");
-        species.addItem("Fourmi geantes");
-        species.addItem("Humains");
+        species.addItem("Araignée de l'espace");
+        species.addItem("Fourmi géante");
+        species.addItem("Humain");
 
         species1.addItem("Cthuli");
-        species1.addItem("Petite araignee veneneuse");
-        species1.addItem("Fourmi geantes");
-        species1.addItem("Humains");
+        species1.addItem("Araignée de l'espace");
+        species1.addItem("Fourmi géante");
+        species1.addItem("Humain");
     }
 
     private void Mdialog() {

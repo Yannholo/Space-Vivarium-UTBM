@@ -44,7 +44,7 @@ public class Feed extends Behaviour {
         }
         entities.get(current).setHunger(entities.get(current).getHunger() - 1);
         ;
-
+        // l'entité meurt de faim si hunger<=0
         if (entities.get(current).getHunger() <= 0)
             return new Kill(current, 4);
         return new Nothing(current);
