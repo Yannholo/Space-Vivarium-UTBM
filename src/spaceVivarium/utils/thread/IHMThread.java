@@ -24,7 +24,7 @@ public class IHMThread implements Runnable {
 
     @Override
     public void run() {
-        JFrame frame = new JFrame("Simulation");
+        JFrame frame = new JFrame("Simulation Space Vivarium");
         // Nous demandons maintenant à notre objet de se positionner au centre
         frame.setLocationRelativeTo(null);
         // Définit sa taille

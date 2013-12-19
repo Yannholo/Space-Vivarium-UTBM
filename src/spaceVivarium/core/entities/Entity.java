@@ -14,7 +14,7 @@ public abstract class Entity {
 
     protected int vision;
     protected int hunger;
-    protected boolean alive;
+    // protected boolean alive;
     protected List<Behaviour> comportements;
 
     protected Entity(int vision) {
@@ -38,14 +38,6 @@ public abstract class Entity {
 
     public void setHunger(int hung) {
         hunger = hung;
-    }
-
-    public boolean isAlive() {
-        return alive;
-    }
-
-    public void setAlive(boolean b) {
-        alive = b;
     }
 
     /*

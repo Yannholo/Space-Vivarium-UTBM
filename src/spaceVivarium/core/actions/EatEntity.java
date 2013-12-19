@@ -20,7 +20,7 @@ public class EatEntity extends Action {
     public void doItImpl(
             Map<Point, Entity> entities, Map<Point, Entity> entitiesToAdd,
             List<Point> entitiesToRemove) {
-        entities.get(eatenEntity).setAlive(false);
+        // entities.get(eatenEntity).setAlive(false);
         entitiesToRemove.add(eatenEntity);
         entities.get(selfEntity).setHunger(
                 entities.get(selfEntity).getHunger() + 20);

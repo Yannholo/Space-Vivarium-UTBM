@@ -40,7 +40,7 @@ public class Kill extends Action {
     public void doItImpl(
             Map<Point, Entity> entities, Map<Point, Entity> entitiesToAdd,
             List<Point> entitiesToRemove) {
-        entities.get(killedEntity).setAlive(false);
+        // entities.get(killedEntity).setAlive(false);
         entitiesToRemove.add(killedEntity);
         // killedEntity.getLaCase().setEntity(null);
         // killedEntity.setAlive(false);

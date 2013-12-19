@@ -28,10 +28,10 @@ public class AnimalTableModel extends AbstractTableModel {
         String name = null;
         switch (columnIndex) {
         case 0:
-            name = "animal";
+            name = "Espèce";
             break;
         case 1:
-            name = "quantite";
+            name = "Quantité";
             break;
         default:
             break;

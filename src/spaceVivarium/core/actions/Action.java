@@ -32,7 +32,7 @@ public abstract class Action {
         }
     }
 
-    public abstract void doItImpl(
+    protected abstract void doItImpl(
             Map<Point, Entity> entities, Map<Point, Entity> entitiesToAdd,
             List<Point> entitiesToRemove);
 
