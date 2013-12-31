@@ -1,8 +1,6 @@
 package spaceVivarium.core.behaviour;
 
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Map;
 
 import spaceVivarium.core.actions.Action;
@@ -14,8 +12,8 @@ import spaceVivarium.utils.FieldUtils;
 import spaceVivarium.utils.Vector2D;
 
 /**
- * Follow behaviour, indique à l'entité entity de suivre toutes les entités de
- * type typePrey .
+ * Follow behaviour, indique à l'entité de suivre toutes les entités de type
+ * typePrey .
  * 
  */
 public class Follow extends Behaviour {
@@ -42,30 +40,12 @@ public class Follow extends Behaviour {
         return FieldUtils.getNearestEntity(typePrey, entities, current);
     }
 
-    private Point getRandomTile(Collection<Point> list, Point current) {
-        ArrayList<Point> tiles = this.getAdjacentCoords(list, current);
-        return tiles.get((int) (Math.random() * tiles.size()));
-    }
-
-    public ArrayList<Point> getAdjacentCoords(
-            Collection<Point> list, Point current) {
-        ArrayList<Point> adj = new ArrayList<Point>();
-        Vector2D self = new Vector2D(current.x, current.y);
-        for (Point point : list) {
-            Vector2D dest = new Vector2D(point.x, point.y);
-            if (self.getDistance(dest) <= 1.5)
-                adj.add(point);
-        }
-        adj.add(current);
-        return adj;
-    }
-
     /**
      * @param proie
      *            la proie à suivre pour l'entité entity
      * @param list
      *            la liste des cases vues par l'entité entity
-     * @return la case la plus sûre pour éviter enemy
+     * @return la meilleur case pour suivre la proie
      */
     private Point getClosestTile(
             Point proie, Point current, Map<Point, ATile> tiles) {
@@ -96,8 +76,8 @@ public class Follow extends Behaviour {
                 action = new Nothing(current);
 
         } else
-            action = new Move(current, getRandomTile(tiles.keySet(), current),
-                    3);
+            action = new Move(current, FieldUtils.getRandomTile(tiles.keySet(),
+                    current), 1);
         return action;
     }
 }

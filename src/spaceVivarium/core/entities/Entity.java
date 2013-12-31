@@ -14,7 +14,7 @@ public abstract class Entity {
 
     protected int vision;
     protected int hunger;
-    // protected boolean alive;
+    protected int reprodTimer;
     protected List<Behaviour> comportements;
 
     protected Entity(int vision) {
@@ -22,9 +22,10 @@ public abstract class Entity {
         comportements = new ArrayList<>();
     }
 
-    protected Entity(int vision, int hunger) {
+    protected Entity(int vision, int hunger, int reprodTimer) {
         this.vision = vision;
         this.hunger = hunger;
+        this.reprodTimer = reprodTimer;
         comportements = new ArrayList<>();
     }
 
@@ -38,6 +39,14 @@ public abstract class Entity {
 
     public void setHunger(int hung) {
         hunger = hung;
+    }
+
+    public int getReproductionTimer() {
+        return reprodTimer;
+    }
+
+    public void setReproductionTimer(int reprod) {
+        reprodTimer = reprod;
     }
 
     /*

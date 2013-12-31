@@ -67,21 +67,8 @@ public class Escape extends Behaviour {
     }
 
     private Point getRandomTile(Collection<Point> list, Point current) {
-        ArrayList<Point> tiles = this.getAdjacentCoords(list, current);
+        ArrayList<Point> tiles = FieldUtils.getAdjacentCoords(list, current);
         return tiles.get((int) (Math.random() * tiles.size()));
-    }
-
-    public ArrayList<Point> getAdjacentCoords(
-            Collection<Point> list, Point current) {
-        ArrayList<Point> adj = new ArrayList<Point>();
-        Vector2D self = new Vector2D(current.x, current.y);
-        for (Point point : list) {
-            Vector2D dest = new Vector2D(point.x, point.y);
-            if (self.getDistance(dest) <= 1)
-                adj.add(point);
-        }
-        adj.add(current);
-        return adj;
     }
 
     @Override

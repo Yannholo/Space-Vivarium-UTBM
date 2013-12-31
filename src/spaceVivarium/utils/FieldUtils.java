@@ -1,6 +1,8 @@
 package spaceVivarium.utils;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -44,4 +46,32 @@ public class FieldUtils {
         return res;
     }
 
+    public static ArrayList<Point> getAdjacentCoords(
+            Collection<Point> list, Point current) {
+        ArrayList<Point> adj = new ArrayList<Point>();
+        Point self = new Point(current.x, current.y);
+        for (Point point : list) {
+            Point dest = new Point(point.x, point.y);
+            if (self.distance(dest) <= 1.5)
+                adj.add(point);
+        }
+        adj.add(current);
+        return adj;
+    }
+
+    public static ArrayList<Point> getFreeAdjacentCoords(
+            Point current, Map<Point, Entity> entities, Collection<Point> list) {
+        ArrayList<Point> freeAdj = new ArrayList<Point>();
+        ArrayList<Point> adj = getAdjacentCoords(entities.keySet(), current);
+        for (Point coord : adj) {
+            if (!entities.containsKey(coord))
+                freeAdj.add(coord);
+        }
+        return freeAdj;
+    }
+
+    public static Point getRandomTile(Collection<Point> list, Point current) {
+        ArrayList<Point> tiles = FieldUtils.getAdjacentCoords(list, current);
+        return tiles.get((int) (Math.random() * tiles.size()));
+    }
 }

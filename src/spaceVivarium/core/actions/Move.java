@@ -14,6 +14,10 @@ public class Move extends Action {
         return depart;
     }
 
+    public Point getArrivee() {
+        return arrivee;
+    }
+
     public Move(Point depart, Point arrivee) {
         this(depart, arrivee, 0);
     }
