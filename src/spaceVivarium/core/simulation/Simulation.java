@@ -22,6 +22,7 @@ public class Simulation {
     /* Configurations */
     private Board map;
     private java.util.Map<Class<? extends Entity>, Integer> entityConf;
+    private List<Action> userActions;
 
     int i = 0;
 
@@ -34,10 +35,15 @@ public class Simulation {
             Map<Class<? extends Entity>, Integer> entityConf) {
         this.map = map;
         this.entityConf = entityConf;
+        this.userActions = new ArrayList<Action>();
     }
 
     public void init() {
         field = new Field(map, entityConf);
+    }
+
+    public Field getField() {
+        return field;
     }
 
     public List<Action> prepareUpdate() {
@@ -55,7 +61,15 @@ public class Simulation {
 
     private List<Action> askActions() {
         List<Action> actions = field.askActions();
+        if (this.userActions != null) {
+            actions.addAll(this.userActions);
+            this.userActions.removeAll(this.userActions);
+        }
         return actions;
+    }
+
+    public void addActions(List<Action> uActions) {
+        this.userActions.addAll(uActions);
     }
 
     private List<Action> handleConflict(List<Action> actions) {

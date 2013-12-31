@@ -1,16 +1,22 @@
 package spaceVivarium.ihm;
 
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+import spaceVivarium.core.actions.Action;
+import spaceVivarium.core.actions.Create;
+import spaceVivarium.core.actions.Kill;
+import spaceVivarium.core.entities.TestSmartEntity;
 import spaceVivarium.core.simulation.Simulation;
 
 public class InteractionPanel extends JPanel {
@@ -25,6 +31,7 @@ public class InteractionPanel extends JPanel {
     private JRadioButton humanButton;
     private JButton pauseButton;
     private String buttonText;
+    private List<Action> listeA;
 
     public InteractionPanel(int width, int height, SimulationPanel simuP,
             Simulation simu) {
@@ -55,7 +62,18 @@ public class InteractionPanel extends JPanel {
     private void addActionListener() {
         simulationP.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
-                JOptionPane.showMessageDialog(null, " x : " + me.getX() / 10);
+                listeA = new ArrayList<Action>();
+                Point pos = new Point(me.getX() / 10, me.getY() / 10);
+                // JOptionPane.showMessageDialog(null, " x : " + me.getX() /
+                // 10);
+                if (me.isMetaDown())
+                    listeA.add(new Kill(pos, 10));
+                // sim.getField().deleteEntity(
+                // new Point(me.getX() / 10, me.getY() / 10));
+                else
+                    listeA.add(new Create(10, pos, TestSmartEntity.class));
+                sim.addActions(listeA);
+
             }
 
         });

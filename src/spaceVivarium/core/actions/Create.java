@@ -8,15 +8,12 @@ import spaceVivarium.core.entities.Entity;
 
 public class Create extends Action {
 
-    private Point parentPosition;
     private Point position;
     private Class<? extends Entity> type;
 
-    public Create(int prio, Point pos, Point parentPos,
-            Class<? extends Entity> typeE) {
+    public Create(int prio, Point pos, Class<? extends Entity> typeE) {
         super(prio);
         position = pos;
-        parentPosition = parentPos;
         type = typeE;
     }
 
@@ -48,7 +45,6 @@ public class Create extends Action {
         try {
 
             entitiesToAdd.put(position, type.newInstance());
-            entities.get(parentPosition).setReproductionTimer(101);
         } catch (InstantiationException | IllegalAccessException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

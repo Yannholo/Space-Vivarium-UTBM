@@ -67,6 +67,7 @@ public class Reproduce extends Behaviour {
         entities.get(current).setReproductionTimer(
                 entities.get(current).getReproductionTimer() - 1);
         Action res = null;
+        // L'entité voit d'autres entitées qu'elle même
         if (entities.size() > 1) {
             // Determine si l'entité peut se reproduire
             boolean reproduction = false;
@@ -84,14 +85,16 @@ public class Reproduce extends Behaviour {
             if (reproduction) {
                 reproduction = false;
                 // l'entité peut à nouveau se reproduire
-                if (entities.get(current).getReproductionTimer() <= 0) {
+                if (entities.get(current).getReproductionTimer() <= 0
+                        && Math.random() > 0.5) {
+                    entities.get(current).setReproductionTimer(101);
                     return new Create(2, this.getBirthCoord(current, entities,
-                            tiles.keySet()), current, typeEntity);
+                            tiles.keySet()), typeEntity);
                 }
             }
 
-            return new Move(this.getNearestMate(tiles, entities, current),
-                    current, 1);
+            // return new Move(this.getNearestMate(tiles, entities, current),
+            // current, 1);
 
         }
 
