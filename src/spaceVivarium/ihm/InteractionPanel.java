@@ -16,7 +16,10 @@ import javax.swing.JRadioButton;
 import spaceVivarium.core.actions.Action;
 import spaceVivarium.core.actions.Create;
 import spaceVivarium.core.actions.Kill;
-import spaceVivarium.core.entities.TestSmartEntity;
+import spaceVivarium.core.entities.Ant;
+import spaceVivarium.core.entities.Cthuli;
+import spaceVivarium.core.entities.Human;
+import spaceVivarium.core.entities.Spider;
 import spaceVivarium.core.simulation.Simulation;
 
 public class InteractionPanel extends JPanel {
@@ -70,8 +73,16 @@ public class InteractionPanel extends JPanel {
                     listeA.add(new Kill(pos, 10));
                 // sim.getField().deleteEntity(
                 // new Point(me.getX() / 10, me.getY() / 10));
-                else
-                    listeA.add(new Create(10, pos, TestSmartEntity.class));
+                else {
+                    if (spiderButton.isSelected())
+                        listeA.add(new Create(10, pos, Spider.class));
+                    else if (humanButton.isSelected())
+                        listeA.add(new Create(10, pos, Human.class));
+                    else if (antButton.isSelected())
+                        listeA.add(new Create(10, pos, Ant.class));
+                    else if (ctulhiButton.isSelected())
+                        listeA.add(new Create(10, pos, Cthuli.class));
+                }
                 sim.addActions(listeA);
 
             }
