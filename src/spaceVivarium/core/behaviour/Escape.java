@@ -79,13 +79,13 @@ public class Escape extends Behaviour {
         if (enemyCoord != null) {
             Point safeTile = getSafestTile(current, enemyCoord, tiles);
             if (safeTile != null)
-                action = new Move(current, safeTile);
+                action = new Move(current, safeTile, 3);
             else
                 action = new Nothing(current);
 
         } else {
             action = new Move(current, getRandomTile(tiles.keySet(), current),
-                    3);
+                    2);
         }
         return action;
     }

@@ -5,9 +5,11 @@ import java.util.concurrent.ExecutionException;
 
 import javax.swing.SwingUtilities;
 
+import spaceVivarium.core.entities.Ant;
+import spaceVivarium.core.entities.Cthuli;
 import spaceVivarium.core.entities.Entity;
-import spaceVivarium.core.entities.TestEntity;
-import spaceVivarium.core.entities.TestSmartEntity;
+import spaceVivarium.core.entities.Human;
+import spaceVivarium.core.entities.Spider;
 import spaceVivarium.core.maps.Board;
 import spaceVivarium.core.maps.xml.XmlReader;
 import spaceVivarium.core.simulation.Simulation;
@@ -50,8 +52,10 @@ public class Test {
 
         java.util.Map<Class<? extends Entity>, Integer> entityConf = new Hashtable<>();
 
-        entityConf.put(TestEntity.class, 20);
-        entityConf.put(TestSmartEntity.class, 20);
+        entityConf.put(Human.class, 30);
+        entityConf.put(Spider.class, 50);
+        entityConf.put(Ant.class, 35);
+        entityConf.put(Cthuli.class, 5);
 
         return new Simulation(testmap, entityConf);
 

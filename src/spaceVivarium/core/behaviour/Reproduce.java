@@ -88,7 +88,7 @@ public class Reproduce extends Behaviour {
                 if (entities.get(current).getReproductionTimer() <= 0
                         && Math.random() > 0.5) {
                     entities.get(current).setReproductionTimer(101);
-                    return new Create(2, this.getBirthCoord(current, entities,
+                    return new Create(4, this.getBirthCoord(current, entities,
                             tiles.keySet()), typeEntity);
                 }
             }

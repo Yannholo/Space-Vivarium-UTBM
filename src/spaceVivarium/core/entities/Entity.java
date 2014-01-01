@@ -22,6 +22,12 @@ public abstract class Entity {
         comportements = new ArrayList<>();
     }
 
+    protected Entity(int vision, int hunger) {
+        this.vision = vision;
+        this.hunger = hunger;
+        comportements = new ArrayList<>();
+    }
+
     protected Entity(int vision, int hunger, int reprodTimer) {
         this.vision = vision;
         this.hunger = hunger;
