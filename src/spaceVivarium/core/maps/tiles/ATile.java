@@ -15,9 +15,10 @@ public abstract class ATile {
     protected URL cheminImage;
 
     public ATile(String[] cheminImages) {
+        String chemin = cheminImages[((int) Math.random() * cheminImages.length)];
 
-        this.cheminImage = getClass().getResource(
-                cheminImages[((int) Math.random() * cheminImages.length)]);
+        this.cheminImage = getClass().getResource(chemin);
+
     }
 
     public void print(Graphics2D g2d, Point point) {

@@ -9,7 +9,7 @@ import spaceVivarium.core.maps.Board;
 
 public class Hole extends ATile {
 
-    private static String[] chemins = { "void3.png" };
+    private static String[] chemins = { "Void3.png" };
 
     public Hole() {
         super(chemins);
