@@ -9,7 +9,7 @@ import spaceVivarium.core.behaviour.Follow;
 public class Cthuli extends Entity {
 
     public Cthuli() {
-        super(8, 1000000000, "cthuli.png");
+        super(8, 1000000000, 0, "cthuli.png");
         this.comportements = new ArrayList<Behaviour>();
         ArrayList eaten = new ArrayList();
         eaten.add(Spider.class);

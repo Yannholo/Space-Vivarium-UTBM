@@ -14,6 +14,7 @@ public abstract class SlowingTile extends ATile {
     @Override
     public final Action affect(Entity entity, Point point) {
         System.out.println("Slowing : " + entity);
+        entity.decreaseActionCounter(1);
         return null;
     }
 

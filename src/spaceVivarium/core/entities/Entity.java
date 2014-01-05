@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import spaceVivarium.core.actions.Action;
+import spaceVivarium.core.actions.Nothing;
 import spaceVivarium.core.behaviour.Behaviour;
 import spaceVivarium.core.maps.tiles.ATile;
 import spaceVivarium.utils.ImagesUtils;
@@ -17,6 +18,7 @@ public abstract class Entity {
     protected int vision;
     protected int hunger;
     protected int reprodTimer;
+    protected int actionCounter;
     protected List<Behaviour> comportements;
     protected URL cheminImage;
 
@@ -25,18 +27,12 @@ public abstract class Entity {
         comportements = new ArrayList<>();
     }
 
-    protected Entity(int vision, int hunger, String cheminImages) {
-        this.vision = vision;
-        this.hunger = hunger;
-        this.cheminImage = getClass().getResource(cheminImages);
-        this.comportements = new ArrayList<>();
-    }
-
     protected Entity(int vision, int hunger, int reprodTimer,
             String cheminImages) {
         this.vision = vision;
         this.hunger = hunger;
         this.reprodTimer = reprodTimer;
+        actionCounter = 0;
         this.cheminImage = getClass().getResource(cheminImages);
         this.comportements = new ArrayList<>();
     }
@@ -78,15 +74,24 @@ public abstract class Entity {
      */
     public final Action update(
             Map<Point, ATile> tiles, Map<Point, Entity> entities, Point current) {
-        Action action = null;
-        Action tmp = null;
-        for (Behaviour comp : comportements) {
-            tmp = comp.behave(tiles, entities, current);
-            if (action == null || action.getPriority() < tmp.getPriority()) {
-                action = tmp;
+        actionCounter++;
+        Action action = new Nothing(current);
+        if (actionCounter > 0) {
+            actionCounter--;
+            Action tmp = null;
+            for (Behaviour comp : comportements) {
+                tmp = comp.behave(tiles, entities, current);
+                if (action == null || action.getPriority() < tmp.getPriority()) {
+                    action = tmp;
+                }
             }
         }
+
         return action;
+    }
+
+    public void decreaseActionCounter(int decrease) {
+        actionCounter -= decrease;
     }
 
     public void print(Graphics2D g, Point point) {
