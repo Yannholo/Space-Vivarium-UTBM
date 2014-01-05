@@ -24,6 +24,8 @@ public class Simulation {
     private java.util.Map<Class<? extends Entity>, Integer> entityConf;
     private List<Action> userActions;
     private List<Action> environmentalActions;
+    private boolean pause;
+    private boolean end;
 
     int i = 0;
 
@@ -37,14 +39,33 @@ public class Simulation {
         this.map = map;
         this.entityConf = entityConf;
         this.userActions = new ArrayList<Action>();
+        end = false;
+        pause = false;
     }
 
     public void init() {
         field = new Field(map, entityConf);
+
     }
 
     public Field getField() {
         return field;
+    }
+
+    public boolean isPaused() {
+        return pause;
+    }
+
+    public boolean isEnded() {
+        return end;
+    }
+
+    public void setPause(boolean p) {
+        this.pause = p;
+    }
+
+    public void setEnd(boolean e) {
+        this.end = e;
     }
 
     public List<Action> prepareUpdate() {

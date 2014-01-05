@@ -21,7 +21,7 @@ public class SimulationThread implements Runnable {
         List<Action> actions;
         long startTime = System.currentTimeMillis(), estimatedTime, timeToWait = 100;
 
-        while (true) {
+        while (true && !sim.isEnded()) {
 
             actions = sim.prepareUpdate();
 
@@ -38,6 +38,15 @@ public class SimulationThread implements Runnable {
             synchronized (sim) {
                 sim.applyUpdate(actions);
                 simPanel.repaint();
+            }
+
+            while (sim.isPaused()) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
 
         }

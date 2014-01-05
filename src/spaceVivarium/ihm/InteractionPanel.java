@@ -2,6 +2,8 @@ package spaceVivarium.ihm;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -87,6 +89,13 @@ public class InteractionPanel extends JPanel {
 
             }
 
+        });
+
+        pauseButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                sim.setPause(!sim.isPaused());
+            }
         });
     }
 }

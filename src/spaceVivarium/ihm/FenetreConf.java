@@ -107,6 +107,7 @@ public class FenetreConf extends JFrame {
                     IHMThread ihmThread = new IHMThread(simulation);
                     SimulationThread simulationThread = new SimulationThread(
                             simulation, ihmThread.getSimulationPanel());
+                    // ihmThread.setSimulationThread(simulationThread);
 
                     SwingUtilities.invokeLater(ihmThread);
 
@@ -115,6 +116,7 @@ public class FenetreConf extends JFrame {
                 }
             }
         });
+
     }
 
     private static Map<Class<? extends Entity>, Integer> getEntitiesConf(

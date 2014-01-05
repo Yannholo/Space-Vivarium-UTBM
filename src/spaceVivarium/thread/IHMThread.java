@@ -1,6 +1,8 @@
 package spaceVivarium.thread;
 
 import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -9,12 +11,14 @@ import spaceVivarium.core.simulation.Simulation;
 import spaceVivarium.ihm.InteractionPanel;
 import spaceVivarium.ihm.SimulationPanel;
 
-public class IHMThread implements Runnable {
+public class IHMThread extends Thread {
 
     private Simulation sim;
 
     private SimulationPanel simulationPanel;
     private InteractionPanel interactionPanel;
+
+    // private SimulationThread simThread;
 
     public IHMThread(Simulation sim) {
         this.sim = sim;
@@ -22,9 +26,13 @@ public class IHMThread implements Runnable {
         interactionPanel = new InteractionPanel(550, 30, simulationPanel, sim);
     }
 
+    // public void setSimulationThread(SimulationThread simThr) {
+    // simThread = simThr;
+    // }
+
     @Override
     public void run() {
-        JFrame frame = new JFrame("Simulation Space Vivarium");
+        final JFrame frame = new JFrame("Simulation Space Vivarium");
         // Nous demandons maintenant à notre objet de se positionner au centre
         frame.setLocationRelativeTo(null);
         // Définit sa taille
@@ -39,7 +47,11 @@ public class IHMThread implements Runnable {
         frame.getContentPane().add(interactionPanel);
         // frame.add(globalPanel);
         frame.pack();
-
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent ev) {
+                sim.setEnd(true);
+            }
+        });
         // Instanciation d'un objet JPanel
         // frame.setContentPane(simulationPanel);
         // Et enfin, la rendre visible
