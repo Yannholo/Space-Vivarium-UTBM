@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 import spaceVivarium.core.actions.Action;
 import spaceVivarium.core.entities.Entity;
 import spaceVivarium.core.maps.tiles.ATile;
+import spaceVivarium.core.maps.tiles.BlockingTile;
 
 public class Field {
 
@@ -116,7 +117,9 @@ public class Field {
         // @formatter:on
                 if (x >= 0 && x < map.getSizeX() && y >= 0
                         && y < map.getSizeY()) {
-                    vues.put(new Point(x, y), tiles.get(new Point(x, y)));
+                    ATile tile = tiles.get(new Point(x, y));
+                    if (!(tile instanceof BlockingTile))
+                        vues.put(new Point(x, y), tile);
                 }
             }
         }
