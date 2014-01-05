@@ -71,7 +71,6 @@ public class Reproduce extends Behaviour {
         if (entities.size() > 1) {
             // Determine si l'entité peut se reproduire
             boolean reproduction = false;
-            Point tmp = null;
 
             for (Entry<Point, Entity> typeE : entities.entrySet()) {
                 if (typeE.getValue().getClass().equals(typeEntity)) {

@@ -17,7 +17,7 @@ public class Craziness extends Behaviour {
     public Action behave(
             Map<Point, ATile> tiles, Map<Point, Entity> entities, Point current) {
         Action todo = null;
-        List<Point> destinations = new ArrayList(tiles.keySet());
+        List<Point> destinations = new ArrayList<>(tiles.keySet());
         do {
             if (destinations.size() <= 0) {
                 // si l'entité ne vois rien, elle ne fait rien

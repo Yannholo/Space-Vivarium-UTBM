@@ -44,7 +44,6 @@ public class Test {
             testmap = XmlReader
                     .xmlToBoard("src\\spaceVivarium\\core\\maps\\xml\\board.xml");
         } catch (XmlFailureException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

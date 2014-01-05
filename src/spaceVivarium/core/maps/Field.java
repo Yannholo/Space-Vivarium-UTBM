@@ -45,7 +45,6 @@ public class Field {
 
                 } catch (SecurityException | InstantiationException
                         | IllegalAccessException | IllegalArgumentException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
@@ -160,7 +159,6 @@ public class Field {
     public void print(Graphics2D g) {
         for (Entry<Point, ATile> entry : tiles.entrySet()) {
             entry.getValue().print(g, entry.getKey());
-            // TODO entry.getValue().print(g, entry.getKey());
         }
         for (Entry<Point, Entity> entry : entities.entrySet()) {
             entry.getValue().print(g, entry.getKey());
@@ -186,9 +184,6 @@ public class Field {
             action.doIt(entities, entitiesToAdd, entitiesToRemove);
         }
 
-        // reCheckForConflict(entitiesToRemove, entitiesToAdd); // TODO remove
-        // debug only
-
         for (Point key : entitiesToRemove)
             entities.remove(key);
 
@@ -203,16 +198,4 @@ public class Field {
         return environementalActions;
     }
 
-    private void reCheckForConflict(
-            List<Point> entitiesToRemove, Map<Point, Entity> entitiesToAdd) {
-        for (Entry<Point, Entity> entry : entitiesToAdd.entrySet()) {
-            for (Entry<Point, Entity> entry2 : entitiesToAdd.entrySet()) {
-                if (entry.getKey().equals(entry2.getKey())
-                        && entry.getValue() != entry2.getValue()) {
-                    System.out.println("FAIL");
-                }
-            }
-        }
-
-    }
 }

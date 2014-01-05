@@ -24,7 +24,6 @@ public class EatEntity extends Action {
         entitiesToRemove.add(eatenEntity);
         entities.get(selfEntity).setHunger(
                 entities.get(selfEntity).getHunger() + 20);
-        // TODO augmenter niveau de faim de selfEntity.
     }
 
     @Override

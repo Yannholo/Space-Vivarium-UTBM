@@ -14,7 +14,6 @@ public class Board {
 
     private int sizeX;
     private int sizeY;
-    private Class<? extends ATile> baseType;
 
     public Board(int sizeX, int sizeY) {
         this(sizeX, sizeY, DEFAULT_TILE_CLASS);
@@ -23,7 +22,7 @@ public class Board {
     public Board(int sizeX, int sizeY, Class<? extends ATile> baseType) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
-        this.baseType = baseType;
+
         map = new HashMap<>(sizeX * sizeY);
         fillRect(0, 0, sizeX, sizeY, baseType);
     }

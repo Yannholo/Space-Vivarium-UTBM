@@ -13,7 +13,7 @@ public class Spider extends Entity {
     public Spider() {
         super(5, 100, 25, "spider.png");
         this.comportements = new ArrayList<Behaviour>();
-        ArrayList eaten = new ArrayList();
+        ArrayList<Class<? extends Entity>> eaten = new ArrayList<>();
         eaten.add(Human.class);
 
         this.comportements.add(new Follow(Human.class));

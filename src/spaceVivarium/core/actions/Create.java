@@ -46,7 +46,6 @@ public class Create extends Action {
 
             entitiesToAdd.put(position, type.newInstance());
         } catch (InstantiationException | IllegalAccessException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

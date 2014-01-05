@@ -50,7 +50,7 @@ public class FenetreConf extends JFrame {
     private static final String HUMAN = "Humain";
 
     private JButton charge, ok, supprimer, simuler;
-    private JComboBox species, species1;
+    private JComboBox<String> species, species1;
     private JTextField number, number1;
     private JLabel typemap;
 
@@ -202,9 +202,9 @@ public class FenetreConf extends JFrame {
         vide = new JPanel();
         typemap = new JLabel(path);
 
-        species = new JComboBox();
+        species = new JComboBox<String>();
         number = new JTextField();
-        species1 = new JComboBox();
+        species1 = new JComboBox<String>();
         number1 = new JTextField();
         model = new AnimalTableModel(animalsList);
         animalTable = new JTable(model);

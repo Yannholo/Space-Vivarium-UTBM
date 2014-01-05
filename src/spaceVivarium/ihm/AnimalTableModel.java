@@ -19,7 +19,6 @@ public class AnimalTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        // TODO Auto-generated method stub
         return 2;
     }
 

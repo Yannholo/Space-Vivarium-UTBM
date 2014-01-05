@@ -18,7 +18,7 @@ public class TestSmartEntity extends Entity {
     public TestSmartEntity() {
         super(5, 100, 25, "human.png");
         this.comportements = new ArrayList<Behaviour>();
-        ArrayList eaten = new ArrayList();
+        ArrayList<Class<? extends Entity>> eaten = new ArrayList<>();
         eaten.add(TestEntity.class);
         this.comportements.add(new Follow(TestEntity.class));
         this.comportements.add(new Feed(eaten));

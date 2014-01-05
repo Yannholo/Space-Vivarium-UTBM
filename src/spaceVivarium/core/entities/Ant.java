@@ -13,7 +13,7 @@ public class Ant extends Entity {
     public Ant() {
         super(5, 100, 25, "ant.png");
         this.comportements = new ArrayList<Behaviour>();
-        ArrayList eaten = new ArrayList();
+        ArrayList<Class<? extends Entity>> eaten = new ArrayList<>();
         eaten.add(Spider.class);
         eaten.add(Human.class);
 
