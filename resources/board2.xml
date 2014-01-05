@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE map SYSTEM "board.dtd">
+<!--<board xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="map_1.xsd"> -->
+<board sizex="20" sizey="60" basetype="void">
+
+<!--Hole -->
+
+
+<!-- Debris -->
+	<area>
+		<x>0</x>
+		<y>0</y>
+		<height>10</height>
+		<width>20</width>
+		<type>debris</type>
+	</area>
+	
+
+	
+<!-- Asteroid field -->
+	<area>
+		<x>0</x>
+		<y>15</y>
+		<height>5</height>
+		<width>20</width>
+		<type>asteroid</type>
+	</area>
+	
+<!-- Sun -->
+	<area>
+		<x>5</x>
+		<y>40</y>
+		<height>5</height>
+		<width>5</width>
+		<type>sun</type> 
+	</area>
+
+	
+<!-- Planet -->
+	<area>
+		<x>7</x>
+		<y>48</y>
+		<height>1</height>
+		<width>1</width>
+		<type>planet</type>
+	</area>
+	
+	<area>
+		<x>10</x>
+		<y>35</y>
+		<height>1</height>
+		<width>1</width>
+		<type>planet</type>
+	</area>
+	
+
+	
+	<area>
+		<x>24</x>
+		<y>30</y>
+		<height>1</height>
+		<width>1</width>
+		<type>planet</type>
+	</area>
+	
+	
+<!-- Airflow -->
+	
+</board>
+	

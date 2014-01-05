@@ -9,8 +9,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -41,7 +42,12 @@ import spaceVivarium.utils.ThreadUtil;
 
 //import java.awt.event.*;
 
-public class Fenetre2 extends JFrame {
+public class FenetreConf extends JFrame {
+
+    private static final String CTHULI = "Cthuli";
+    private static final String SPIDER = "Araignée de l'espace";
+    private static final String ANT = "Fourmi géante";
+    private static final String HUMAN = "Humain";
 
     private JButton charge, ok, supprimer, simuler;
     private JComboBox species, species1;
@@ -61,7 +67,7 @@ public class Fenetre2 extends JFrame {
      */
     private static final long serialVersionUID = 1L;
 
-    public Fenetre2() {
+    public FenetreConf() {
         init();
         configParams();
         setLayout();
@@ -82,7 +88,7 @@ public class Fenetre2 extends JFrame {
                             Integer.parseInt(number.getText()));
                     System.out.println(species.getSelectedItem().toString());
                 } catch (NumberFormatException e1) {
-                    JOptionPane.showMessageDialog(Fenetre2.this,
+                    JOptionPane.showMessageDialog(FenetreConf.this,
                             "La quantitée n'est pas valide", "Erreur",
                             JOptionPane.WARNING_MESSAGE);
                 }
@@ -93,42 +99,51 @@ public class Fenetre2 extends JFrame {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                Simulation simulation = getSimulation();
-                simulation.init();
+                if (terrain != null) {
+                    Simulation simulation = getSimulation(terrain,
+                            getEntitiesConf(animalsList));
+                    simulation.init();
 
-                IHMThread ihmThread = new IHMThread(simulation);
+                    IHMThread ihmThread = new IHMThread(simulation);
 
-                SwingUtilities.invokeLater(ihmThread);
+                    SwingUtilities.invokeLater(ihmThread);
 
-                ThreadUtil.execute(new SimulationThread(simulation, ihmThread
-                        .getSimulationPanel()));
+                    ThreadUtil.execute(new SimulationThread(simulation,
+                            ihmThread.getSimulationPanel()));
+                }
             }
         });
     }
 
-    private static Simulation getSimulation() {
+    private static Map<Class<? extends Entity>, Integer> getEntitiesConf(
+            List<AnimalQuantite> animalsList2) {
+        Map<Class<? extends Entity>, Integer> entitiesConf = new HashMap<>();
+        for (AnimalQuantite animalQuantite : animalsList2) {
+            Class<? extends Entity> entityClass = null;
+            switch (animalQuantite.getName()) {
+            case CTHULI:
+                entityClass = Cthuli.class;
+                break;
+            case SPIDER:
+                entityClass = Spider.class;
+                break;
+            case ANT:
+                entityClass = Ant.class;
+                break;
+            case HUMAN:
+                entityClass = Human.class;
+                break;
 
-        /* test xml reader */
-
-        Board testmap = null;
-        try {
-            testmap = XmlReader
-                    .xmlToBoard("src\\spaceVivarium\\core\\maps\\xml\\board.xml");
-        } catch (XmlFailureException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            }
+            entitiesConf.put(entityClass, animalQuantite.getNum());
         }
+        return entitiesConf;
+    }
 
-        // Board map = new Board(50, 50, Tile.class);
+    private static Simulation getSimulation(
+            Board board, Map<Class<? extends Entity>, Integer> entityConf) {
 
-        java.util.Map<Class<? extends Entity>, Integer> entityConf = new Hashtable<>();
-
-        entityConf.put(Human.class, 30);
-        entityConf.put(Spider.class, 50);
-        entityConf.put(Ant.class, 35);
-        entityConf.put(Cthuli.class, 5);
-
-        return new Simulation(testmap, entityConf);
+        return new Simulation(board, entityConf);
 
     }
 
@@ -142,7 +157,7 @@ public class Fenetre2 extends JFrame {
                             Integer.parseInt(number1.getText()));
                     System.out.println(species1.getSelectedItem().toString());
                 } catch (NumberFormatException e1) {
-                    JOptionPane.showMessageDialog(Fenetre2.this,
+                    JOptionPane.showMessageDialog(FenetreConf.this,
                             "La quantitée n'est pas valide", "Erreur",
                             JOptionPane.WARNING_MESSAGE);
                 }
@@ -265,15 +280,15 @@ public class Fenetre2 extends JFrame {
     }
 
     private void addJComboBoxItem() {
-        species.addItem("Cthuli");
-        species.addItem("Araignée de l'espace");
-        species.addItem("Fourmi géante");
-        species.addItem("Humain");
+        species.addItem(CTHULI);
+        species.addItem(SPIDER);
+        species.addItem(ANT);
+        species.addItem(HUMAN);
 
-        species1.addItem("Cthuli");
-        species1.addItem("Araignée de l'espace");
-        species1.addItem("Fourmi géante");
-        species1.addItem("Humain");
+        species1.addItem(CTHULI);
+        species1.addItem(SPIDER);
+        species1.addItem(ANT);
+        species1.addItem(HUMAN);
     }
 
     private void Mdialog() {
@@ -291,7 +306,7 @@ public class Fenetre2 extends JFrame {
                 // fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                 // }
                 fc.setDialogTitle("choisir un map");
-                int result = fc.showOpenDialog(Fenetre2.this);
+                int result = fc.showOpenDialog(FenetreConf.this);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     path = fc.getSelectedFile().getAbsolutePath();
                     typemap.setText(path);
@@ -301,7 +316,7 @@ public class Fenetre2 extends JFrame {
 
                     } catch (XmlFailureException e1) {
                         // TODO Auto-generated catch block
-                        JOptionPane.showMessageDialog(Fenetre2.this,
+                        JOptionPane.showMessageDialog(FenetreConf.this,
                                 "Ficher Xml non conforme", "Erreur",
                                 JOptionPane.WARNING_MESSAGE);
 
