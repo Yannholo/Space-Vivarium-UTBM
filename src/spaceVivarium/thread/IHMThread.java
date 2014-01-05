@@ -30,7 +30,7 @@ public class IHMThread implements Runnable {
         // Définit sa taille
         // frame.setSize(550, 580);
         // Termine le processus lorsqu'on clique sur la croix rouge
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.getContentPane().setPreferredSize(new Dimension(550, 600));
         frame.getContentPane().setLayout(
