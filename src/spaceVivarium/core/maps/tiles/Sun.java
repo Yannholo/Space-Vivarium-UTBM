@@ -2,9 +2,7 @@ package spaceVivarium.core.maps.tiles;
 
 import java.awt.Point;
 
-import spaceVivarium.core.entities.Entity;
-
-public class Sun extends ATile {
+public class Sun extends KillingTile {
 
     private static String[] chemins = { "Sun.png" };
 
@@ -13,9 +11,4 @@ public class Sun extends ATile {
 
     }
 
-    @Override
-    public void affect(Entity entity) {
-        // death
-
-    }
 }

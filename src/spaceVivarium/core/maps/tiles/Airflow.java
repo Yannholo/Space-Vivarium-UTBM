@@ -2,9 +2,7 @@ package spaceVivarium.core.maps.tiles;
 
 import java.awt.Point;
 
-import spaceVivarium.core.entities.Entity;
-
-public class Airflow extends ATile {
+public class Airflow extends BlockingTile {
 
     private static String[] chemins = { "Airflow.png" };
 
@@ -13,9 +11,4 @@ public class Airflow extends ATile {
 
     }
 
-    @Override
-    public void affect(Entity entity) {
-        // bloqued
-
-    }
 }
