@@ -8,12 +8,8 @@ public class Void extends ATile {
             "Void4.png", "Void5.png", "Void6.png" };
 
     public Void(Point coord) {
-        super(coord, chemins[getInt()]);
+        super(coord, chemins);
 
     }
 
-    public static int getInt() {
-        int retour = (int) (Math.random() * chemins.length);
-        return retour;
-    }
 }

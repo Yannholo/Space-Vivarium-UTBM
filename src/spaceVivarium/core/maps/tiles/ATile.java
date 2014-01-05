@@ -16,9 +16,10 @@ public abstract class ATile {
     protected Entity bestiole;
     protected URL cheminImage;
 
-    public ATile(Point coord, String cheminImage) {
+    public ATile(Point coord, String[] cheminImages) {
         this.coord = coord;
-        this.cheminImage = getClass().getResource(cheminImage);
+        this.cheminImage = getClass().getResource(
+                cheminImages[((int) Math.random() * cheminImages.length)]);
     }
 
     public int getX() {
@@ -57,7 +58,7 @@ public abstract class ATile {
         if (arg0.getClass().equals(this.getClass())) {
             return false;
         }
-        Tile autre = (Tile) arg0;
+        ATile autre = (ATile) arg0;
         return coord == autre.coord;
     }
 

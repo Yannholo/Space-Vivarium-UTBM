@@ -4,11 +4,11 @@ import java.awt.Point;
 import java.util.HashMap;
 
 import spaceVivarium.core.maps.tiles.ATile;
-import spaceVivarium.core.maps.tiles.Tile;
+import spaceVivarium.core.maps.tiles.Void;
 
 public class Board {
 
-    public static final Class<? extends ATile> DEFAULT_TILE_CLASS = Tile.class;
+    public static final Class<? extends ATile> DEFAULT_TILE_CLASS = Void.class;
 
     private java.util.Map<Point, Class<? extends ATile>> map;
 

@@ -8,13 +8,8 @@ public class Debris extends ATile {
             "Debris3.png", "Debris4.png", "Debris5.png", "Debris6.png" };
 
     public Debris(Point coord) {
-        super(coord, chemins[getInt()]);
+        super(coord, chemins);
 
-    }
-
-    public static int getInt() {
-        int retour = (int) (Math.random() * chemins.length);
-        return retour;
     }
 
 }

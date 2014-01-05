@@ -7,12 +7,7 @@ public class Airflow extends ATile {
     private static String[] chemins = { "Airflow.png" };
 
     public Airflow(Point coord) {
-        super(coord, chemins[getInt()]);
+        super(coord, chemins);
 
-    }
-
-    public static int getInt() {
-        int retour = (int) (Math.random() * chemins.length);
-        return retour;
     }
 }
