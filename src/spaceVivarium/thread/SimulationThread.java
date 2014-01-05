@@ -19,18 +19,22 @@ public class SimulationThread implements Runnable {
     @Override
     public void run() {
         List<Action> actions;
+        long startTime = System.currentTimeMillis(), estimatedTime, timeToWait = 100;
 
         while (true) {
 
             actions = sim.prepareUpdate();
 
+            estimatedTime = System.currentTimeMillis() - startTime;
+            System.out.println("### time = " + estimatedTime + " ms");
             try {
-                Thread.sleep(100);
+                timeToWait = 100 - estimatedTime;
+                Thread.sleep(timeToWait < 0 ? 0 : timeToWait);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-
+            startTime = System.currentTimeMillis();
             synchronized (sim) {
                 sim.applyUpdate(actions);
                 simPanel.repaint();
