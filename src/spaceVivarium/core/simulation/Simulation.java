@@ -70,10 +70,10 @@ public class Simulation {
 
     public List<Action> prepareUpdate() {
         i++;
-        System.out.println("prepareUpdate " + i);
+        // System.out.println("prepareUpdate " + i);
         List<Action> actions = askActions();
         actions.removeAll(handleConflict(actions));
-        System.out.println("prepareUpdend " + i);
+        // System.out.println("prepareUpdend " + i);
         return actions;
     }
 
@@ -106,7 +106,7 @@ public class Simulation {
                 if (!toRemove.contains(action2)) {
                     if ((tmp = action1.inConflict(action2)) != null) {
                         toRemove.add(tmp);
-                        System.out.println("remove " + tmp);
+                        // System.out.println("remove " + tmp);
                     }
                 }
             }
@@ -116,9 +116,9 @@ public class Simulation {
 
     public void applyUpdate(List<Action> actions) {
         j++;
-        System.out.println("applyUpdate " + j);
+        // System.out.println("applyUpdate " + j);
         environmentalActions = field.applyUpdates(actions);
-        System.out.println("applyUpdend " + j);
+        // System.out.println("applyUpdend " + j);
     }
 
 }

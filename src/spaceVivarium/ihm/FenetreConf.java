@@ -86,7 +86,7 @@ public class FenetreConf extends JFrame {
                 try {
                     addAnimalInfo(species.getSelectedItem().toString(),
                             Integer.parseInt(number.getText()));
-                    System.out.println(species.getSelectedItem().toString());
+                    // System.out.println(species.getSelectedItem().toString());
                 } catch (NumberFormatException e1) {
                     JOptionPane.showMessageDialog(FenetreConf.this,
                             "La quantitée n'est pas valide", "Erreur",
@@ -159,7 +159,7 @@ public class FenetreConf extends JFrame {
                 try {
                     suppriAnimalInfo(species1.getSelectedItem().toString(),
                             Integer.parseInt(number1.getText()));
-                    System.out.println(species1.getSelectedItem().toString());
+                    // System.out.println(species1.getSelectedItem().toString());
                 } catch (NumberFormatException e1) {
                     JOptionPane.showMessageDialog(FenetreConf.this,
                             "La quantitée n'est pas valide", "Erreur",

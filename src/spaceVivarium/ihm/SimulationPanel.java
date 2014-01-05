@@ -20,10 +20,10 @@ public class SimulationPanel extends JPanel {
 
     public void paintComponent(Graphics g) {
         synchronized (sim) {
-            i++;
-            System.out.println("paintComponent " + i);
+            // i++;
+            // System.out.println("paintComponent " + i);
             sim.print(g);
-            System.out.println("paintComponend " + i);
+            // System.out.println("paintComponend " + i);
         }
     }
 }

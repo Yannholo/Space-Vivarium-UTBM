@@ -14,7 +14,7 @@ public abstract class BlockingTile extends ATile {
 
     @Override
     public final Action affect(Entity entity, Point point, Board map) {
-        System.out.println("Bloque : " + entity);
+        // System.out.println("Bloque : " + entity);
         return null;
     }
 

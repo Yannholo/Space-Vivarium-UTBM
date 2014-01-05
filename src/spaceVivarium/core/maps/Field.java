@@ -180,7 +180,7 @@ public class Field {
         List<Point> entitiesToRemove = new LinkedList<>();
         Map<Point, Entity> entitiesToAdd = new HashMap<>();
         for (Action action : actions) {
-            System.out.println(action);
+            // System.out.println(action);
             action.doIt(entities, entitiesToAdd, entitiesToRemove);
         }
 

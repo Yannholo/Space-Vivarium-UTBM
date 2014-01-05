@@ -15,7 +15,7 @@ public abstract class KillingTile extends ATile {
 
     @Override
     public final Action affect(Entity entity, Point point, Board map) {
-        System.out.println("Killing : " + entity);
+        // System.out.println("Killing : " + entity);
         return new Kill(point, 10);
 
     }

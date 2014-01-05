@@ -23,7 +23,7 @@ public class TestSmartEntity extends Entity {
         this.comportements.add(new Follow(TestEntity.class));
         this.comportements.add(new Feed(eaten));
         this.comportements.add(new Reproduce(TestSmartEntity.class));
-        System.out.println("new SmartEntity");
+        // System.out.println("new SmartEntity");
     }
 
     /*
