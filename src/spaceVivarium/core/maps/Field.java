@@ -2,8 +2,6 @@ package spaceVivarium.core.maps;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -36,18 +34,16 @@ public class Field {
             tiles = new HashMap<Point, ATile>(map.getSizeX() * map.getSizeY());
         }
         Point p;
-        Constructor<? extends ATile> constructor;
+
         for (int x = 0; x < map.getSizeX(); x++) {
             for (int y = 0; y < map.getSizeY(); y++) {
                 p = new Point(x, y);
                 try {
-                    constructor = map.getTileClass(x, y).getConstructor(
-                            Point.class);
-                    tiles.put(p, (ATile) constructor.newInstance(p));
 
-                } catch (NoSuchMethodException | SecurityException
-                        | InstantiationException | IllegalAccessException
-                        | IllegalArgumentException | InvocationTargetException e) {
+                    tiles.put(p, map.getTileClass(x, y).newInstance());
+
+                } catch (SecurityException | InstantiationException
+                        | IllegalAccessException | IllegalArgumentException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
@@ -76,10 +72,10 @@ public class Field {
 
             for (int i = 0; i < nb; i++) {
 
-                ATile tile = getTile(type);
+                Point point = getTile(type);
                 Entity entity;
                 entity = type.newInstance();
-                entities.put(tile.getCoord(), entity);
+                entities.put(point, entity);
 
             }
         } catch (InstantiationException | IllegalAccessException
@@ -96,12 +92,12 @@ public class Field {
      * @param type
      *            le type de l'entitée voulue
      */
-    private ATile getTile(Class<? extends Entity> type) {
+    private Point getTile(Class<? extends Entity> type) {
         // Pour l'instant simple random sur la map
         // TODO gerer au moins les conflits
         int x = (int) (Math.random() * map.getSizeX());
         int y = (int) (Math.random() * map.getSizeY());
-        return tiles.get(new Point(x, y));
+        return new Point(x, y);
     }
 
     private Map<Point, ATile> getTilesViewed(Entity entity) {
@@ -160,7 +156,7 @@ public class Field {
 
     public void print(Graphics2D g) {
         for (Entry<Point, ATile> entry : tiles.entrySet()) {
-            entry.getValue().print(g);
+            entry.getValue().print(g, entry.getKey());
             // TODO entry.getValue().print(g, entry.getKey());
         }
         for (Entry<Point, Entity> entry : entities.entrySet()) {
