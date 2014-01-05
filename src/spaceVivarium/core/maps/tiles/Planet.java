@@ -2,6 +2,8 @@ package spaceVivarium.core.maps.tiles;
 
 import java.awt.Point;
 
+import spaceVivarium.core.entities.Entity;
+
 public class Planet extends ATile {
 
     private static String[] chemins = { "Planet1.png", "Planet2.png",
@@ -9,6 +11,12 @@ public class Planet extends ATile {
 
     public Planet(Point coord) {
         super(coord, chemins);
+
+    }
+
+    @Override
+    public void affect(Entity entity) {
+        // feed
 
     }
 

@@ -13,7 +13,6 @@ public abstract class ATile {
     public static int size = 10;
 
     protected Point coord;
-    protected Entity bestiole;
     protected URL cheminImage;
 
     public ATile(Point coord, String[] cheminImages) {
@@ -32,14 +31,6 @@ public abstract class ATile {
 
     public Point getCoord() {
         return coord;
-    }
-
-    public Entity getEntity() {
-        return bestiole;
-    }
-
-    public void setBestiole(Entity bestiole) {
-        this.bestiole = bestiole;
     }
 
     public ArrayList<Point> getAdjacentCoords() {
@@ -66,4 +57,6 @@ public abstract class ATile {
         g2d.drawImage(ImagesUtils.getImage(cheminImage), getX() * size, getY()
                 * size, size, size, null);
     }
+
+    public abstract void affect(Entity entity);
 }

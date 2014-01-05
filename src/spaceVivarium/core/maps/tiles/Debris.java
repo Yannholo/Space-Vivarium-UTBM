@@ -2,6 +2,8 @@ package spaceVivarium.core.maps.tiles;
 
 import java.awt.Point;
 
+import spaceVivarium.core.entities.Entity;
+
 public class Debris extends ATile {
 
     private static String[] chemins = { "Debris.png", "Debris2.png",
@@ -9,6 +11,12 @@ public class Debris extends ATile {
 
     public Debris(Point coord) {
         super(coord, chemins);
+
+    }
+
+    @Override
+    public void affect(Entity entity) {
+        // slowdown
 
     }
 
