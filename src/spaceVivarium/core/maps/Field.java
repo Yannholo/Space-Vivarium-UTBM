@@ -174,7 +174,8 @@ public class Field {
         return actions;
     }
 
-    public void applyUpdates(List<Action> actions) {
+    public List<Action> applyUpdates(List<Action> actions) {
+        List<Action> environementalActions = new LinkedList<>();
         List<Point> entitiesToRemove = new LinkedList<>();
         Map<Point, Entity> entitiesToAdd = new HashMap<>();
         for (Action action : actions) {
@@ -182,14 +183,21 @@ public class Field {
             action.doIt(entities, entitiesToAdd, entitiesToRemove);
         }
 
-        reCheckForConflict(entitiesToRemove, entitiesToAdd); // TODO remove
-                                                             // debug only
+        // reCheckForConflict(entitiesToRemove, entitiesToAdd); // TODO remove
+        // debug only
 
         for (Point key : entitiesToRemove)
             entities.remove(key);
 
-        entities.putAll(entitiesToAdd);
-
+        for (Entry<Point, Entity> entry : entitiesToAdd.entrySet()) {
+            entities.put(entry.getKey(), entry.getValue());
+            Action environmentalAction = tiles.get(entry.getKey()).affect(
+                    entry.getValue(), entry.getKey());
+            if (environmentalAction != null) {
+                environementalActions.add(environmentalAction);
+            }
+        }
+        return environementalActions;
     }
 
     private void reCheckForConflict(

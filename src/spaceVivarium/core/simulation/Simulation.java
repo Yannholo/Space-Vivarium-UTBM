@@ -23,6 +23,7 @@ public class Simulation {
     private Board map;
     private java.util.Map<Class<? extends Entity>, Integer> entityConf;
     private List<Action> userActions;
+    private List<Action> environmentalActions;
 
     int i = 0;
 
@@ -63,7 +64,11 @@ public class Simulation {
         List<Action> actions = field.askActions();
         if (this.userActions != null) {
             actions.addAll(this.userActions);
-            this.userActions.removeAll(this.userActions);
+            this.userActions.clear();
+        }
+        if (this.environmentalActions != null) {
+            actions.addAll(environmentalActions);
+            this.environmentalActions.clear();
         }
         return actions;
     }
@@ -91,7 +96,7 @@ public class Simulation {
     public void applyUpdate(List<Action> actions) {
         j++;
         System.out.println("applyUpdate " + j);
-        field.applyUpdates(actions);
+        environmentalActions = field.applyUpdates(actions);
         System.out.println("applyUpdend " + j);
     }
 
