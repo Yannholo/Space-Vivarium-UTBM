@@ -105,6 +105,8 @@ public class FenetreConf extends JFrame {
                     simulation.init();
 
                     IHMThread ihmThread = new IHMThread(simulation);
+                    SimulationThread simulationThread = new SimulationThread(
+                            simulation, ihmThread.getSimulationPanel());
 
                     SwingUtilities.invokeLater(ihmThread);
 

@@ -2,17 +2,19 @@ package spaceVivarium.core.maps.tiles;
 
 import java.awt.Point;
 
+import spaceVivarium.core.actions.Action;
 import spaceVivarium.core.entities.Entity;
 
 public abstract class SlowingTile extends ATile {
 
-    public SlowingTile(Point coord, String[] cheminImages) {
-        super(coord, cheminImages);
+    public SlowingTile(String[] cheminImages) {
+        super(cheminImages);
     }
 
     @Override
-    public final void affect(Entity entity) {
+    public final Action affect(Entity entity, Point point) {
         System.out.println("Slowing : " + entity);
+        return null;
     }
 
 }
