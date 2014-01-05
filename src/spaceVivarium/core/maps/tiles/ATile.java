@@ -6,6 +6,7 @@ import java.net.URL;
 
 import spaceVivarium.core.actions.Action;
 import spaceVivarium.core.entities.Entity;
+import spaceVivarium.core.maps.Board;
 import spaceVivarium.utils.ImagesUtils;
 
 public abstract class ATile {
@@ -24,5 +25,5 @@ public abstract class ATile {
                 point.y * size, size, size, null);
     }
 
-    public abstract Action affect(Entity entity, Point point);
+    public abstract Action affect(Entity entity, Point point, Board map);
 }

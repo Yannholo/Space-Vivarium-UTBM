@@ -56,6 +56,10 @@ public class Move extends Action {
                     } else {
                         toRemove = move;
                     }
+                    // deux move pour une même entitée (trou noir)
+                } else if (move.depart.equals(depart)) {
+                    toRemove = move.getPriority() < getPriority() ? move : this;
+
                 }
 
             } else if (action.getClass() == Nothing.class) {

@@ -195,7 +195,7 @@ public class Field {
         for (Entry<Point, Entity> entry : entitiesToAdd.entrySet()) {
             entities.put(entry.getKey(), entry.getValue());
             Action environmentalAction = tiles.get(entry.getKey()).affect(
-                    entry.getValue(), entry.getKey());
+                    entry.getValue(), entry.getKey(), map);
             if (environmentalAction != null) {
                 environementalActions.add(environmentalAction);
             }

@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import spaceVivarium.core.actions.Action;
 import spaceVivarium.core.entities.Entity;
+import spaceVivarium.core.maps.Board;
 
 public class Planet extends ATile {
 
@@ -16,10 +17,9 @@ public class Planet extends ATile {
     }
 
     @Override
-    public Action affect(Entity entity, Point point) {
+    public Action affect(Entity entity, Point point, Board map) {
+        entity.setHunger(entity.getHunger() + 10);
         return null;
-        // feed
-
     }
 
 }
