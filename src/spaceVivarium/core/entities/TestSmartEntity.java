@@ -1,8 +1,5 @@
 package spaceVivarium.core.entities;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Point;
 import java.util.ArrayList;
 
 import spaceVivarium.core.behaviour.Behaviour;
@@ -19,7 +16,7 @@ public class TestSmartEntity extends Entity {
      *            la tile de depart
      */
     public TestSmartEntity() {
-        super(5, 100, 25);
+        super(5, 100, 25, "human.png");
         this.comportements = new ArrayList<Behaviour>();
         ArrayList eaten = new ArrayList();
         eaten.add(TestEntity.class);
@@ -29,10 +26,10 @@ public class TestSmartEntity extends Entity {
         System.out.println("new SmartEntity");
     }
 
-    @Override
-    public void print(Graphics2D g, Point point) {
-        g.setColor(Color.GREEN);
-        g.fill3DRect(point.x * 10, point.y * 10, 10, 10, true);
-    }
+    /*
+     * @Override public void print(Graphics2D g, Point point) {
+     * g.setColor(Color.GREEN); g.fill3DRect(point.x * 10, point.y * 10, 10, 10,
+     * true); }
+     */
 
 }

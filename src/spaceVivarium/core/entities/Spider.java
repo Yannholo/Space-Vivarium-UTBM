@@ -1,8 +1,5 @@
 package spaceVivarium.core.entities;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Point;
 import java.util.ArrayList;
 
 import spaceVivarium.core.behaviour.Behaviour;
@@ -14,7 +11,7 @@ import spaceVivarium.core.behaviour.Reproduce;
 public class Spider extends Entity {
 
     public Spider() {
-        super(5, 100, 25);
+        super(5, 100, 25, "spider.png");
         this.comportements = new ArrayList<Behaviour>();
         ArrayList eaten = new ArrayList();
         eaten.add(Human.class);
@@ -26,10 +23,10 @@ public class Spider extends Entity {
         this.comportements.add(new Reproduce(Spider.class));
     }
 
-    @Override
-    public void print(Graphics2D g, Point point) {
-        g.setColor(Color.YELLOW);
-        g.fill3DRect(point.x * 10, point.y * 10, 10, 10, true);
-    }
+    /*
+     * @Override public void print(Graphics2D g, Point point) {
+     * g.setColor(Color.YELLOW); g.fill3DRect(point.x * 10, point.y * 10, 10,
+     * 10, true); }
+     */
 
 }

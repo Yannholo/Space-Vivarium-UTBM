@@ -2,6 +2,7 @@ package spaceVivarium.core.entities;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.Map;
 import spaceVivarium.core.actions.Action;
 import spaceVivarium.core.behaviour.Behaviour;
 import spaceVivarium.core.maps.tiles.ATile;
+import spaceVivarium.utils.ImagesUtils;
 
 public abstract class Entity {
 
@@ -16,23 +18,27 @@ public abstract class Entity {
     protected int hunger;
     protected int reprodTimer;
     protected List<Behaviour> comportements;
+    protected URL cheminImage;
 
     protected Entity(int vision) {
         this.vision = vision;
         comportements = new ArrayList<>();
     }
 
-    protected Entity(int vision, int hunger) {
+    protected Entity(int vision, int hunger, String cheminImages) {
         this.vision = vision;
         this.hunger = hunger;
-        comportements = new ArrayList<>();
+        this.cheminImage = getClass().getResource(cheminImages);
+        this.comportements = new ArrayList<>();
     }
 
-    protected Entity(int vision, int hunger, int reprodTimer) {
+    protected Entity(int vision, int hunger, int reprodTimer,
+            String cheminImages) {
         this.vision = vision;
         this.hunger = hunger;
         this.reprodTimer = reprodTimer;
-        comportements = new ArrayList<>();
+        this.cheminImage = getClass().getResource(cheminImages);
+        this.comportements = new ArrayList<>();
     }
 
     public int getVision() {
@@ -83,5 +89,8 @@ public abstract class Entity {
         return action;
     }
 
-    public abstract void print(Graphics2D g, Point point);
+    public void print(Graphics2D g, Point point) {
+        g.drawImage(ImagesUtils.getImage(cheminImage), point.x * 10,
+                point.y * 10, 10, 10, null);
+    }
 }
